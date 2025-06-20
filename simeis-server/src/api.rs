@@ -865,6 +865,7 @@ async fn resources_info() -> impl web::Responder {
             data.insert(format!("{res:?}"), json!({
                 "base-price": res.base_price(),
                 "volume": res.volume(),
+                "solid": res.mineable(u8::MAX),
             }));
         }
     }

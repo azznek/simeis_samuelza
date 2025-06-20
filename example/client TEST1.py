@@ -289,12 +289,17 @@ class Game:
             print(f"[*] The upgrade was too expensive for us")
 
 
-    def get_best_planet(self):
-        planets = self.get(f"/station/{self.sta}/scan")["planets"]
-        market = self.get("/market/prices")["prices"]
-        station = self.get(f"/station/{self.sta}")
-        return planets
-    
+    def upgrade_single_operator_if_possible(self):
+        actual_crew_augment = self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}")
+        print(f"Available crew augments : {actual_crew_augment}")
+        operator_key = next(key for key, value in actual_crew_augment.items() if value.get('member-type') == 'Operator')
+        if (actual_crew_augment[operator_key]["price"]+300)< (self.get(f"/player/{self.pid}")["money"]):
+            self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{operator_key}")
+            print(f"[*] Upgrade for Operator bought")
+        else :
+            print(f"[*] The upgrade was too expensive for us")
+
+        
 
     # - Go back to the station
     # - Unload all the cargo
@@ -333,8 +338,9 @@ if __name__ == "__main__":
         game.go_mine()
         game.disp_status()
         game.disp_market()
-        game.upgrade_trader_if_enough_money()
         game.go_sell()
-        
+        game.disp_status()
+        game.upgrade_single_operator_if_possible()
 
+        #game.upgrade_trader_if_enough_money()
 

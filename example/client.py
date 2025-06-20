@@ -62,7 +62,10 @@ class Game:
 
     def disp_market(self):
         market = game.get('/market/prices')
-        print("[*] Current market: " + str(market))
+        prices = market['prices']
+        print("[*] Current market: ")
+        for key, value in prices.items():
+            print(f" - {key}: {value}")
 
     # If we have a file containing the player ID and key, use it
     # If not, let's create a new player

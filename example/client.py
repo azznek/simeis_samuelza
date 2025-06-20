@@ -101,17 +101,51 @@ class Game:
 
         # self.previous_market_values = market
 
-    def can_skip_repairs(self):
+    def should_do_repairs(self):
         ship = self.get(f"/ship/{self.sid}")
         market = game.get('/market/prices')
         prices = market['prices']
         current_hullplates_value = prices["HullPlate"]
-        
-        buy_score = 0
 
+        current_hull_decay = ship["hull_decay"]
+        hull_decay_capacity = ship["hull_decay_capacity"]
+
+        print(f"[*] Current hull decay level: {current_hull_decay}/{hull_decay_capacity}")
+        
+        # if hull decay is above three quarters of decay capacity, repair anyway
+        if current_hull_decay >= hull_decay_capacity/4*3: 
+            self.last_hullplate_values.append(current_hullplates_value)
+            print('[*] REPAIRS REQUIRED - Hull decay at more than three quarters of capacity')
+            return True
+
+
+        # safeguarding condition
+        if self.last_hullplate_values == []:
+            self.last_hullplate_values.append(current_hullplates_value)
+            print('[*] REPAIRS SKIPPED - No prices monitoring can be done yet')
+            return False
+
+
+        # give a buy score to the current hull plate value 
+        buy_score = hull_decay_capacity
         for index, value in enumerate(self.last_hullplate_values):
+            if index >= 20:
+                break
             if current_hullplates_value < value:
-                buy_score += 1
+                buy_score -= hull_decay_capacity/10
+
+        # compare buy score to current hull decay
+        # if buy score is smaller than hull decay then repair
+        if current_hull_decay > buy_score:
+            self.last_hullplate_values.append(current_hullplates_value)
+            print(f'[*] REPAIRS REQUIRED - The hull plate price is optimal (score: {buy_score})')
+            return True
+        else:
+            print(f"[*] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: {buy_score})")
+            return False
+
+
+
 
 
     # If we have a file containing the player ID and key, use it
@@ -340,7 +374,8 @@ class Game:
                 unloaded["unloaded"], res, sold["added_money"]
             ))
 
-        self.ship_repair(self.sid)
+        if self.should_do_repairs():
+            self.ship_repair(self.sid)
         self.ship_refuel(self.sid)
 
 if __name__ == "__main__":

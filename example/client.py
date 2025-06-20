@@ -130,7 +130,7 @@ class Game:
     def travel(self, sid, pos):
         costs = self.get(f"/ship/{sid}/navigate/{pos[0]}/{pos[1]}/{pos[2]}")
         print("[*] Traveling to {}, will take {}".format(pos, costs["duration"]))
-        self.wait_idle(costs["duration"], ts=1)
+        self.wait_idle(sid, ts=costs["duration"])
 
     def wait_idle(self, sid, ts=2):
         ship = self.get(f"/ship/{sid}")

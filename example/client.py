@@ -33,6 +33,9 @@ class Game:
         self.sid = None    # ID of our ship
         self.sta = None    # ID of our station
 
+        self.previous_market_values = None
+
+
     def get(self, path, **qry):
         if hasattr(self, "player"):
             qry["key"] = self.player["key"]
@@ -60,12 +63,43 @@ class Game:
             round(status["money"], 2), round(status["costs"], 2), int(status["money"] / status["costs"]),
         ))
 
+    def percentage_dif(self, val1, val2):
+        return (val1-val2) / ((val1+val2) / 2)
+
     def disp_market(self):
         market = game.get('/market/prices')
         prices = market['prices']
+
+        """ previous_market_prices = None
+
+        if self.previous_market_values is None:
+            self.previous_market_values = market
+            previous_market_prices = prices
+        else:
+            previous_market_prices = self.previous_market_values['prices'] """
+
         print("[*] Current market: ")
         for key, value in prices.items():
             print(f" - {key}: {value}")
+        
+        hull_plates_value = prices['HullPlate']
+        fuel_value = prices['Fuel']
+
+        # fuel_percentage = self.percentage_dif(previous_market_prices['Fuel'], fuel_value)
+        # hull_plates_percentage = self.percentage_dif(previous_market_prices['HullPlate'], hull_plates_value)
+
+        del prices['Fuel']
+        del prices['HullPlate']
+
+        cheapest_material = min(prices, key=prices.get)
+        priciest_material = max(prices, key=prices.get)
+
+        print(f"\nFUEL: {str(fuel_value)}")
+        print(f"HULL PLATES: {str(hull_plates_value)}")
+        print(f"\nCHEAPEST MATERIAL: {cheapest_material} ({prices[cheapest_material]})")
+        print(f"PRICIEST MATERIAL: {priciest_material} ({prices[priciest_material]})")
+
+        # self.previous_market_values = market
 
     # If we have a file containing the player ID and key, use it
     # If not, let's create a new player

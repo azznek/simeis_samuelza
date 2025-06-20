@@ -1,5 +1,5 @@
 PORT=8080
-URL=f"http://0.0.0.0:{PORT}"
+URL=f"http://127.0.0.1:{PORT}"
 
 import os
 import sys
@@ -33,6 +33,9 @@ class Game:
         self.sid = None    # ID of our ship
         self.sta = None    # ID of our station
 
+        self.last_hullplate_values = []
+
+
     def get(self, path, **qry):
         if hasattr(self, "player"):
             qry["key"] = self.player["key"]
@@ -60,9 +63,91 @@ class Game:
             round(status["money"], 2), round(status["costs"], 2), int(status["money"] / status["costs"]),
         ))
 
+    def percentage_dif(self, val1, val2):
+        return (val1-val2) / ((val1+val2) / 2)
+
     def disp_market(self):
         market = game.get('/market/prices')
-        print("[*] Current market: " + str(market))
+        prices = market['prices']
+
+        """ previous_market_prices = None
+
+        if self.previous_market_values is None:
+            self.previous_market_values = market
+            previous_market_prices = prices
+        else:
+            previous_market_prices = self.previous_market_values['prices'] """
+
+        print("[*] Current market: ")
+        for key, value in prices.items():
+            print(f" - {key}: {value}")
+        
+        hull_plates_value = prices['HullPlate']
+        fuel_value = prices['Fuel']
+
+        # fuel_percentage = self.percentage_dif(previous_market_prices['Fuel'], fuel_value)
+        # hull_plates_percentage = self.percentage_dif(previous_market_prices['HullPlate'], hull_plates_value)
+
+        del prices['Fuel']
+        del prices['HullPlate']
+
+        cheapest_material = min(prices, key=prices.get)
+        priciest_material = max(prices, key=prices.get)
+
+        print(f"\nFUEL: {str(fuel_value)}")
+        print(f"HULL PLATES: {str(hull_plates_value)}")
+        print(f"\nCHEAPEST MATERIAL: {cheapest_material} ({prices[cheapest_material]})")
+        print(f"PRICIEST MATERIAL: {priciest_material} ({prices[priciest_material]})")
+
+        # self.previous_market_values = market
+
+    def should_do_repairs(self):
+        ship = self.get(f"/ship/{self.sid}")
+        market = game.get('/market/prices')
+        prices = market['prices']
+        current_hullplates_value = prices["HullPlate"]
+
+        current_hull_decay = ship["hull_decay"]
+        hull_decay_capacity = ship["hull_decay_capacity"]
+
+        print(f"[*] Current hull decay level: {current_hull_decay}/{hull_decay_capacity}")
+        
+        # if hull decay is above three quarters of decay capacity, repair anyway
+        if current_hull_decay >= hull_decay_capacity/4*3: 
+            self.last_hullplate_values.append(current_hullplates_value)
+            print('[*] REPAIRS REQUIRED - Hull decay at more than three quarters of capacity')
+            return True
+
+
+        # safeguarding condition
+        if self.last_hullplate_values == []:
+            self.last_hullplate_values.append(current_hullplates_value)
+            print('[*] REPAIRS SKIPPED - No prices monitoring can be done yet')
+            return False
+
+
+        # give a buy score to the current hull plate value 
+        buy_score = hull_decay_capacity
+        for index, value in enumerate(self.last_hullplate_values):
+            if index >= 20:
+                break
+            if current_hullplates_value < value:
+                buy_score -= hull_decay_capacity/10
+
+        # compare buy score to current hull decay
+        # if buy score is smaller than hull decay then repair
+        if current_hull_decay > buy_score:
+            self.last_hullplate_values.append(current_hullplates_value)
+            print(f'[*] REPAIRS REQUIRED - The hull plate price is optimal (score: {buy_score})')
+            return True
+        else:
+            self.last_hullplate_values.append(current_hullplates_value)
+            print(f"[*] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: {buy_score})")
+            return False
+
+
+
+
 
     # If we have a file containing the player ID and key, use it
     # If not, let's create a new player
@@ -252,7 +337,6 @@ class Game:
         print("[*] Targeting planet at", nearest["position"])
 
         self.wait_idle(self.sid) # If we are currently occupied, wait
-
         # If we are not current at the position of the target planet, travel there
         if ship["position"] != nearest["position"]:
             self.travel(ship["id"], nearest["position"])
@@ -290,7 +374,8 @@ class Game:
                 unloaded["unloaded"], res, sold["added_money"]
             ))
 
-        self.ship_repair(self.sid)
+        if self.should_do_repairs():
+            self.ship_repair(self.sid)
         self.ship_refuel(self.sid)
 
 if __name__ == "__main__":
@@ -300,10 +385,10 @@ if __name__ == "__main__":
 
     while True:
         print("")
+        # game.can_skip_repairs()
         game.disp_status()
         game.go_mine()
         game.disp_status()
-        game.disp_market()
+        # game.disp_market()
         game.go_sell()
-
 

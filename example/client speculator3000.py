@@ -193,6 +193,14 @@ class Game:
                 bought["removed_money"],
             ))
 
+    def estimate_price_increase(base_price,cost_of_buy):
+        min_increase_percentage = 10*cost_of_buy/8000
+        max_increase_percentage = 25*cost_of_buy/8000
+        min_increased_price = base_price + base_price*min_increase_percentage
+        max_increased_price = base_price + base_price*max_increase_percentage
+        return min_increased_price,max_increased_price
+
+    
     # Initializes the game:
     #     - Ensure our player exists
     #     - Ensure our station has a Trader hired
@@ -216,11 +224,7 @@ class Game:
             status = self.get(f"/player/{self.pid}") # Update our status
         ship = status["ships"][0]
         self.sid = ship["id"]
-
-        # Ensure our ship has a crew, hire one if we don't
-        if not check_has(ship["crew"], "member_type", "Pilot"):
-            self.hire_first_pilot(self.sta, self.sid)
-            print("[*] Hired a pilot, assigned it on ship", self.sid)
+        
 
         print("[*] Game initialisation finished successfully")
 

@@ -32,6 +32,7 @@ class Game:
         self.pid = self.player["playerId"] # ID of our player
         self.sid = None    # ID of our ship
         self.sta = None    # ID of our station
+        self.number_of_trader_upgrades = 0
 
     def get(self, path, **qry):
         if hasattr(self, "player"):
@@ -266,6 +267,34 @@ class Game:
         # Wait until the cargo is full
         self.wait_idle(self.sid) # The ship will have the state "Idle" once the cargo is full
         print("[*] The cargo is full, stopping mining process")
+    
+    def upgrade_trader_if_enough_money(self):
+
+        print(f"Level of the trader : {self.number_of_trader_upgrades}")
+        trader_upgrade_price = self.get(f"/station/{self.sta}/upgrades")["trader-upgrade"]
+
+        print(f"[*] The upgrade of the trader costs : {trader_upgrade_price}")
+
+        if ( trader_upgrade_price < (self.get(f"/player/{self.pid}")["money"]) ) and self.number_of_trader_upgrades == 0:
+            self.get(f"/station/{self.sta}/crew/upgrade/trader")
+            print(f"[*] The first trader upgrade was bought")
+            self.number_of_trader_upgrades+=1
+
+        elif ( trader_upgrade_price+10000 < (self.get(f"/player/{self.pid}")["money"]) ) and self.number_of_trader_upgrades == 1:
+            self.get(f"/station/{self.sta}/crew/upgrade/trader")
+            print(f"[*] The first trader upgrade was bought")
+            self.number_of_trader_upgrades+=1
+            
+        else :
+            print(f"[*] The upgrade was too expensive for us")
+
+
+    def get_best_planet(self):
+        planets = self.get(f"/station/{self.sta}/scan")["planets"]
+        market = self.get("/market/prices")["prices"]
+        station = self.get(f"/station/{self.sta}")
+        return planets
+    
 
     # - Go back to the station
     # - Unload all the cargo
@@ -304,6 +333,8 @@ if __name__ == "__main__":
         game.go_mine()
         game.disp_status()
         game.disp_market()
+        game.upgrade_trader_if_enough_money()
         game.go_sell()
+        
 
 

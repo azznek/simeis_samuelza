@@ -146,7 +146,15 @@ class Game:
             return False
 
 
-
+    def upgrade_single_operator_if_possible(self):
+        actual_crew_augment = self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}")
+        print(f"Available crew augments : {actual_crew_augment}")
+        operator_key = next(key for key, value in actual_crew_augment.items() if value.get('member-type') == 'Operator')
+        if (actual_crew_augment[operator_key]["price"]+300)< (self.get(f"/player/{self.pid}")["money"]):
+            self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{operator_key}")
+            print(f"[] Upgrade for Operator bought")
+        else :
+            print(f"[] The upgrade was too expensive for us")
 
 
     # If we have a file containing the player ID and key, use it
@@ -385,11 +393,11 @@ if __name__ == "__main__":
 
     while True:
         print("")
-        # game.can_skip_repairs()
         game.disp_status()
         game.go_mine()
         game.disp_status()
-        # game.disp_market()
+        game.disp_market()
         game.go_sell()
+        game.upgrade_single_operator_if_possible()
 
 

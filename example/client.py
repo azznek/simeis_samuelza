@@ -141,6 +141,7 @@ class Game:
             print(f'[*] REPAIRS REQUIRED - The hull plate price is optimal (score: {buy_score})')
             return True
         else:
+            self.last_hullplate_values.append(current_hullplates_value)
             print(f"[*] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: {buy_score})")
             return False
 
@@ -389,7 +390,7 @@ if __name__ == "__main__":
         game.disp_status()
         game.go_mine()
         game.disp_status()
-        game.disp_market()
+        # game.disp_market()
         game.go_sell()
 
 

@@ -60,6 +60,10 @@ class Game:
             round(status["money"], 2), round(status["costs"], 2), int(status["money"] / status["costs"]),
         ))
 
+    def disp_market(self):
+        market = game.get('/market/prices')
+        print("[*] Current market: " + str(market))
+
     # If we have a file containing the player ID and key, use it
     # If not, let's create a new player
     # If the player has lost, print an error message
@@ -299,4 +303,7 @@ if __name__ == "__main__":
         game.disp_status()
         game.go_mine()
         game.disp_status()
+        game.disp_market()
         game.go_sell()
+
+

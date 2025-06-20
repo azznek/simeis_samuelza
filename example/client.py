@@ -33,7 +33,7 @@ class Game:
         self.sid = None    # ID of our ship
         self.sta = None    # ID of our station
 
-        self.previous_market_values = None
+        self.last_hullplate_values = []
 
 
     def get(self, path, **qry):
@@ -100,6 +100,19 @@ class Game:
         print(f"PRICIEST MATERIAL: {priciest_material} ({prices[priciest_material]})")
 
         # self.previous_market_values = market
+
+    def can_skip_repairs(self):
+        ship = self.get(f"/ship/{self.sid}")
+        market = game.get('/market/prices')
+        prices = market['prices']
+        current_hullplates_value = prices["HullPlate"]
+        
+        buy_score = 0
+
+        for index, value in enumerate(self.last_hullplate_values):
+            if current_hullplates_value < value:
+                buy_score += 1
+
 
     # If we have a file containing the player ID and key, use it
     # If not, let's create a new player
@@ -337,6 +350,7 @@ if __name__ == "__main__":
 
     while True:
         print("")
+        # game.can_skip_repairs()
         game.disp_status()
         game.go_mine()
         game.disp_status()

@@ -145,10 +145,6 @@ class Game:
             print(f"[*] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: {buy_score})")
             return False
 
-
-
-
-
     # If we have a file containing the player ID and key, use it
     # If not, let's create a new player
     # If the player has lost, print an error message

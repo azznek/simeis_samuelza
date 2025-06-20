@@ -132,7 +132,7 @@ class Game:
             if index >= 20:
                 break
             if current_hullplates_value < value:
-                buy_score -= hull_decay_capacity/10
+                buy_score -= hull_decay_capacity/20
 
         # compare buy score to current hull decay
         # if buy score is smaller than hull decay then repair
@@ -337,7 +337,6 @@ class Game:
         print("[*] Targeting planet at", nearest["position"])
 
         self.wait_idle(self.sid) # If we are currently occupied, wait
-
         # If we are not current at the position of the target planet, travel there
         if ship["position"] != nearest["position"]:
             self.travel(ship["id"], nearest["position"])

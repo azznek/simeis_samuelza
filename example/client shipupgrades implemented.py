@@ -34,6 +34,7 @@ class Game:
         self.sta = None    # ID of our station
         self.number_of_trader_upgrades = 0
         self.last_hullplate_values = []
+        self.flip = 0
 
     def get(self, path, **qry):
         if hasattr(self, "player"):
@@ -47,7 +48,7 @@ class Game:
             ])
 
         qry = f"{URL}{path}{tail}"
-        reply = urllib.request.urlopen(qry, timeout=1)
+        reply = urllib.request.urlopen(qry, timeout=10)
 
         data = json.loads(reply.read().decode())
         err = data.pop("error")
@@ -376,8 +377,9 @@ class Game:
 
         if actual_crew_augment[pilot_key]["rank"] <3 and actual_crew_augment[operator_key]["rank"] >2:
             print("[*] Must RankUp Pilot before further operator upgrades")
+            print("")
             return
-        
+        print("")
         
         if (actual_crew_augment[operator_key]["price"]+800)< (self.get(f"/player/{self.pid}")["money"]) and actual_crew_augment[operator_key]["rank"] == 2:
             self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{operator_key}")
@@ -393,6 +395,7 @@ class Game:
             print(f"[*] Upgrade for Operator bought")
         else :
             print(f"[*] The operator upgrade was too expensive for us (or rank already too high)")
+        print("")
 
     
     def upgrade_single_pilot_if_possible(self):
@@ -408,34 +411,47 @@ class Game:
         
         else :
             print(f"[*] The pilot upgrade was too expensive for us (or rank already too high)")
+        print("")
 
     def upgrade_ship(self):
         print("[*] Checking for ship upgrades")
         upgrades_available = self.get(f'/station/{self.sta}/shipyard/upgrade')
-        list_ship_module_upgrade = self.get(f"/station/{self.sta}/shop/modules/{self.sid}/upgrade")
         actual_crew = self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}")
+        ship = self.get(f'/ship/{self.sid}')
         pilot_key = next(key for key, value in actual_crew.items() if value.get('member-type') == 'Pilot')
         operator_key = next(key for key, value in actual_crew.items() if value.get('member-type') == 'Operator')
+        print(f"[*] Current ship cargo capacity : {ship["cargo"]["capacity"]}")
+        print(f"[*] Current ship reactor power  : {ship["reactor_power"]}")
+        print(f'[LOGS] flip value = {self.flip}')
+        print(f'[*] Upgrades available : {upgrades_available}')
 
-        print(f'upgrades available : {upgrades_available}')
-        print(f'upgrades already installed {list_ship_module_upgrade}')
-
-        if len(list_ship_module_upgrade)%2 == 0 :
+        if self.flip == 0 :
             print("[*] Considering cargo expansion upgrade..")
-            if (actual_crew[operator_key]["rank"] > 3) and (actual_crew[pilot_key]["rank"] >3) and ((self.get(f"/player/{self.pid}")["money"]) > 1500 + upgrades_available['CargoExpansion']['price']):
-                self.get(f'/station/{self.sta}/shop/modules/{self.sid}/upgrade/CargoExpansion')
+            if (ship["cargo"]["capacity"]<=400 and ((self.get(f"/player/{self.pid}")["money"]) > 600 + upgrades_available['CargoExpansion']['price'])) or ((actual_crew[operator_key]["rank"] >= 3) and (actual_crew[pilot_key]["rank"] >=3) and ((self.get(f"/player/{self.pid}")["money"]) > 1500 + upgrades_available['CargoExpansion']['price'])):
+                self.get(f'/station/{self.sta}/shipyard/upgrade/{self.sid}/cargoexpansion')
+                self.flip = 1
+                print("[*] Cargo expansion upgrade bought")
+                print(f'[LOGS] flip value = {self.flip}')
+
             else :
                 print("[*] Cargo expansion upgrade too expensive or not in priority list")
         else:
             print("[*] Considering reactor upgrade..")
-            if (actual_crew[operator_key]["rank"] > 3) and (actual_crew[pilot_key]["rank"] >3) and ((self.get(f"/player/{self.pid}")["money"]) > 1500 + upgrades_available['ReactorUpgrade']['price']):
-                self.get(f'/station/{self.sta}/shop/modules/{self.sid}/upgrade/ReactorUpgrade')
+            if (ship["reactor_power"]<2  and ((self.get(f"/player/{self.pid}")["money"]) > 800 + upgrades_available['ReactorUpgrade']['price'])) or ( (actual_crew[operator_key]["rank"] >= 3) and (actual_crew[pilot_key]["rank"] >=3) and ((self.get(f"/player/{self.pid}")["money"]) > 1500 + upgrades_available['ReactorUpgrade']['price'])):
+                self.get(f'/station/{self.sta}/shipyard/upgrade/{self.sid}/reactorupgrade')
+                self.flip = 0
+                print(f'[LOGS] flip value = {self.flip}')
+
+                print("[*] Reactor upgrade bought")
+
             else :
-                print("[*] Cargo expansion upgrade too expensive or not in priority list")
+                print("[*] Reactor upgrade too expensive or not in priority list")
+
+        print("")
 
 
 
-
+   
 
     # - Go back to the station
     # - Unload all the cargo
@@ -465,7 +481,17 @@ class Game:
         self.ship_refuel(self.sid)
     
     def seeThings(self):
-        print(self.get(f"/station/{self.sta}/shipyard/list"))
+        
+        try :
+            self.get(f'/station/{self.sta}/shipyard/upgrade/{self.sid}/reactorupgrade')
+        
+            print("[LOGS] Reactor upgrade bought")
+        
+        except: 
+            print('[LOGS] cant buy reactorupgrade yet')
+        
+        ship = self.get(f'/ship/{self.sid}')
+        print(f'[LOGS] {ship}')
 
 if __name__ == "__main__":
     name = sys.argv[1]
@@ -480,9 +506,9 @@ if __name__ == "__main__":
         game.go_sell()
         game.disp_status()
         game.upgrade_ship()
+        #game.seeThings()
         #game.upgrade_trader_if_enough_money()
         game.upgrade_single_pilot_if_possible()
         game.upgrade_single_operator_if_possible()
-        game.upgrade_ship()
         
 

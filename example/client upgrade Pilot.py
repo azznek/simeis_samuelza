@@ -295,7 +295,14 @@ class Game:
     def upgrade_single_operator_if_possible(self):
         actual_crew_augment = self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}")
         print(f"Available crew augments : {actual_crew_augment}")
+        pilot_key = next(key for key, value in actual_crew_augment.items() if value.get('member-type') == 'Pilot')
         operator_key = next(key for key, value in actual_crew_augment.items() if value.get('member-type') == 'Operator')
+
+        if actual_crew_augment[pilot_key]["rank"] <3 and actual_crew_augment[operator_key]["rank"] >2:
+            print("[*] Must RankUp Pilot before further operator upgrades")
+            return
+        
+        
         if (actual_crew_augment[operator_key]["price"]+800)< (self.get(f"/player/{self.pid}")["money"]) and actual_crew_augment[operator_key]["rank"] == 2:
             self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{operator_key}")
             print(f"[*] Upgrade for Operator bought")
@@ -305,13 +312,26 @@ class Game:
         elif (actual_crew_augment[operator_key]["price"]+1500)< (self.get(f"/player/{self.pid}")["money"]) and actual_crew_augment[operator_key]["rank"] == 4:
             self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{operator_key}")
             print(f"[*] Upgrade for Operator bought")
-        elif (actual_crew_augment[operator_key]["price"]+4000)< (self.get(f"/player/{self.pid}")["money"]) and actual_crew_augment[operator_key]["rank"] > 4:
+        elif (actual_crew_augment[operator_key]["price"]+2000)< (self.get(f"/player/{self.pid}")["money"]) and actual_crew_augment[operator_key]["rank"] > 4:
             self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{operator_key}")
             print(f"[*] Upgrade for Operator bought")
         else :
             print(f"[*] The operator upgrade was too expensive for us (or rank already too high)")
 
+    
+    def upgrade_single_pilot_if_possible(self):
+        actual_crew_augment = self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}")
+        print(f"Available crew augments : {actual_crew_augment}")
+        pilot_key = next(key for key, value in actual_crew_augment.items() if value.get('member-type') == 'Pilot')
+        if (actual_crew_augment[pilot_key]["price"]+1000)< (self.get(f"/player/{self.pid}")["money"]) and actual_crew_augment[pilot_key]["rank"] == 2:
+            self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{pilot_key}")
+            print(f"[*] Upgrade for pilot bought")
+        elif (actual_crew_augment[pilot_key]["price"]+4000)< (self.get(f"/player/{self.pid}")["money"]) and actual_crew_augment[pilot_key]["rank"] == 3:
+            self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{pilot_key}")
+            print(f"[*] Upgrade for pilot bought")
         
+        else :
+            print(f"[*] The pilot upgrade was too expensive for us (or rank already too high)")
 
     # - Go back to the station
     # - Unload all the cargo
@@ -348,11 +368,10 @@ if __name__ == "__main__":
         print("")
         game.disp_status()
         game.go_mine()
-        game.disp_status()
         game.disp_market()
         game.go_sell()
         game.disp_status()
-        game.upgrade_trader_if_enough_money()
+        #game.upgrade_trader_if_enough_money()
+        game.upgrade_single_pilot_if_possible()
         game.upgrade_single_operator_if_possible()
-        
 

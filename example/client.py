@@ -48,7 +48,7 @@ class Game:
             ])
 
         qry = f"{URL}{path}{tail}"
-        reply = urllib.request.urlopen(qry, timeout=1)
+        reply = urllib.request.urlopen(qry, timeout=10)
 
         data = json.loads(reply.read().decode())
         err = data.pop("error")
@@ -102,7 +102,7 @@ class Game:
         # self.previous_market_values = market
 
     def should_do_repairs(self):
-        ship = self.get(f"/ship/{self.sid}")
+        ship = game.get(f"/ship/{self.sid}")
         market = game.get('/market/prices')
         prices = market['prices']
         current_hullplates_value = prices["HullPlate"]
@@ -110,7 +110,15 @@ class Game:
         current_hull_decay = ship["hull_decay"]
         hull_decay_capacity = ship["hull_decay_capacity"]
 
+        expected_price = current_hullplates_value * current_hull_decay
+        current_money = get(f"/player/{self.pid}")["money"]
+
         print(f"[*] Current hull decay level: {current_hull_decay}/{hull_decay_capacity}")
+
+        if expected_price > current_money + 500:
+            self.last_hullplate_values.append(current_hullplates_value)
+            print('[*] REPAIRS SKIPPED - Not enough money to buy the required plates')
+            return False
         
         # if hull decay is above three quarters of decay capacity, repair anyway
         if current_hull_decay >= hull_decay_capacity/4*3: 

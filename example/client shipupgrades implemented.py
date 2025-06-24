@@ -350,7 +350,7 @@ class Game:
         return self.get(f"/player/{self.pid}")["money"]
 
     def upgrade_trader_if_enough_money(self):
-        if self.check_for_next_step == True:
+        if self.ready_for_next_step:
             print('[*] No upgrading, stacking money for next step')
             return
         
@@ -373,7 +373,9 @@ class Game:
 
 
     def upgrade_single_operator_if_possible(self):
-        if self.check_for_next_step == True:
+        print(f'[LOGS] ready? operator: {self.ready_for_next_step}')
+
+        if self.ready_for_next_step:
             print('[*] No upgrading, stacking money for next step')
             return
         
@@ -422,7 +424,9 @@ class Game:
 
 
     def upgrade_single_pilot_if_possible(self):
-        if self.check_for_next_step == True:
+        print(f'[LOGS] ready? pilot: {self.ready_for_next_step}')
+
+        if self.ready_for_next_step:
             print('[*] No upgrading, stacking money for next step')
             return
 
@@ -455,7 +459,9 @@ class Game:
 
 
     def upgrade_ship(self):
-        if self.check_for_next_step == True:
+        print(f'[LOGS] ready? ship : {self.ready_for_next_step}')
+
+        if self.ready_for_next_step:
             print('[*] No upgrading, stacking money for next step')
             return
 
@@ -532,6 +538,7 @@ class Game:
         if all(currentStats.get(k, 0) >= v for k, v in statsDesired.items()):
             print("[*] Ready for next step, stacking money")
             self.ready_for_next_step = True
+            print(f'[LOGS] ready? : {self.ready_for_next_step}')
         else : 
             print('[*] Gotta keep improving before stacking')
         
@@ -587,12 +594,13 @@ if __name__ == "__main__":
         game.go_mine()
         game.disp_market()
         game.go_sell()
+        game.check_for_next_step()
+
         game.disp_status()
         game.upgrade_ship()
         #game.seeThings()
         #game.upgrade_trader_if_enough_money()
         game.upgrade_single_pilot_if_possible()
         game.upgrade_single_operator_if_possible()
-        game.check_for_next_step()
         
 

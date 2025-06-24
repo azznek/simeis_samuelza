@@ -414,6 +414,10 @@ class Game:
         else :
             print(f"[*] The pilot upgrade was too expensive for us (or rank already too high)")
 
+    def seeThings(self):
+        ship_list = self.get(f'/station/{self.sta}/shipyard/list')
+        print(f'[*] ship list : {ship_list}')
+
     # - Go back to the station
     # - Unload all the cargo
     # - Sell it on the market
@@ -454,6 +458,7 @@ if __name__ == "__main__":
         game.buyRessource("Gold",10)
         game.sellRessource("Gold",10)
         game.disp_status()
+        game.seeThings()
         
         
 

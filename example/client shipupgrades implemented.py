@@ -35,6 +35,7 @@ class Game:
         self.number_of_trader_upgrades = 0
         self.last_hullplate_values = []
         self.flip = 0
+        self.ready_for_next_step = False
 
     def get(self, path, **qry):
         if hasattr(self, "player"):
@@ -345,113 +346,195 @@ class Game:
         self.wait_idle(self.sid) # The ship will have the state "Idle" once the cargo is full
         print("[*] The cargo is full, stopping mining process")
     
+    def get_player_money(self):
+        return self.get(f"/player/{self.pid}")["money"]
+
     def upgrade_trader_if_enough_money(self):
+        if self.check_for_next_step == True:
+            print('[*] No upgrading, stacking money for next step')
+            return
+        
+        print(f"[*] Level of the trader: {self.number_of_trader_upgrades}")
 
-        print(f"Level of the trader : {self.number_of_trader_upgrades}")
         trader_upgrade_price = self.get(f"/station/{self.sta}/upgrades")["trader-upgrade"]
+        player_money = self.get_player_money()
+        required_money = [trader_upgrade_price + 600, trader_upgrade_price + 2500, trader_upgrade_price + 4000]
 
-        print(f"[*] The upgrade of the trader costs : {trader_upgrade_price}")
-
-        if ( trader_upgrade_price + 600 < (self.get(f"/player/{self.pid}")["money"]) ) and self.number_of_trader_upgrades == 0:
+        if self.number_of_trader_upgrades>=1 :
+            print('[*] Trader already at desired level -- No upgrades bought')
+            return
+        
+        if self.number_of_trader_upgrades < len(required_money) and player_money > required_money[self.number_of_trader_upgrades]:
             self.get(f"/station/{self.sta}/crew/upgrade/trader")
-            print(f"[*] The first trader upgrade was bought")
-            self.number_of_trader_upgrades+=1
-
-        elif ( trader_upgrade_price+2500 < (self.get(f"/player/{self.pid}")["money"]) ) and self.number_of_trader_upgrades == 1:
-            self.get(f"/station/{self.sta}/crew/upgrade/trader")
-            print(f"[*] The first trader upgrade was bought")
-            self.number_of_trader_upgrades+=1
-        elif ( trader_upgrade_price+4000 < (self.get(f"/player/{self.pid}")["money"]) ) and self.number_of_trader_upgrades == 2:
-            self.get(f"/station/{self.sta}/crew/upgrade/trader")
-            print(f"[*] The first trader upgrade was bought")
-            self.number_of_trader_upgrades+=1 
-        else :
-            print(f"[*] The trader upgrade was too expensive for us")
+            print(f"[*] Trader upgrade level {self.number_of_trader_upgrades + 1} bought")
+            self.number_of_trader_upgrades += 1
+        else:
+            print("[*] The trader upgrade was too expensive for us")
 
 
     def upgrade_single_operator_if_possible(self):
-        actual_crew_augment = self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}")
-        print(f"Available crew augments : {actual_crew_augment}")
-        pilot_key = next(key for key, value in actual_crew_augment.items() if value.get('member-type') == 'Pilot')
-        operator_key = next(key for key, value in actual_crew_augment.items() if value.get('member-type') == 'Operator')
-
-        if actual_crew_augment[pilot_key]["rank"] <3 and actual_crew_augment[operator_key]["rank"] >2:
-            print("[*] Must RankUp Pilot before further operator upgrades")
-            print("")
+        if self.check_for_next_step == True:
+            print('[*] No upgrading, stacking money for next step')
             return
-        print("")
         
-        if (actual_crew_augment[operator_key]["price"]+800)< (self.get(f"/player/{self.pid}")["money"]) and actual_crew_augment[operator_key]["rank"] == 2:
-            self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{operator_key}")
-            print(f"[*] Upgrade for Operator bought")
-        elif (actual_crew_augment[operator_key]["price"]+1000)< (self.get(f"/player/{self.pid}")["money"]) and actual_crew_augment[operator_key]["rank"] == 3:
-            self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{operator_key}")
-            print(f"[*] Upgrade for Operator bought")
-        elif (actual_crew_augment[operator_key]["price"]+1500)< (self.get(f"/player/{self.pid}")["money"]) and actual_crew_augment[operator_key]["rank"] == 4:
-            self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{operator_key}")
-            print(f"[*] Upgrade for Operator bought")
-        elif (actual_crew_augment[operator_key]["price"]+2000)< (self.get(f"/player/{self.pid}")["money"]) and actual_crew_augment[operator_key]["rank"] > 4:
-            self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{operator_key}")
-            print(f"[*] Upgrade for Operator bought")
-        else :
-            print(f"[*] The operator upgrade was too expensive for us (or rank already too high)")
-        print("")
-
-    
-    def upgrade_single_pilot_if_possible(self):
         actual_crew_augment = self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}")
-        print(f"Available crew augments : {actual_crew_augment}")
-        pilot_key = next(key for key, value in actual_crew_augment.items() if value.get('member-type') == 'Pilot')
-        if (actual_crew_augment[pilot_key]["price"]+1000)< (self.get(f"/player/{self.pid}")["money"]) and actual_crew_augment[pilot_key]["rank"] == 2:
-            self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{pilot_key}")
-            print(f"[*] Upgrade for pilot bought")
-        elif (actual_crew_augment[pilot_key]["price"]+4000)< (self.get(f"/player/{self.pid}")["money"]) and actual_crew_augment[pilot_key]["rank"] == 3:
-            self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{pilot_key}")
-            print(f"[*] Upgrade for pilot bought")
+        print(f"[*] Available crew augments: {actual_crew_augment}")
+
+        pilot = next((v for v in actual_crew_augment.values() if v.get('member-type') == 'Pilot'), None)
+        operator_key, operator = next(((k, v) for k, v in actual_crew_augment.items() if v.get('member-type') == 'Operator'), (None, None))
+
+        if not pilot or not operator:
+            print("[!] Could not find Pilot or Operator")
+            return
+
+        if pilot["rank"] < 3 and operator["rank"] > 2:
+            print("[*] Must rank up Pilot before further operator upgrades\n")
+            return
+
+        operator_price = operator["price"]
+        rank_thresholds = {
+            2: 800,
+            3: 1000,
+            4: 1500,
+            5: 2000
+        }
+
+        player_money = self.get_player_money()
+        rank = operator["rank"]
+        print(f'[LOGS] rank : {rank}')
+
+        print(f'[LOGS] operator price : {operator_price}')
         
-        else :
-            print(f"[*] The pilot upgrade was too expensive for us (or rank already too high)")
-        print("")
+
+        if rank >= 5 :
+            threshold = 2000
+        else:
+            threshold = rank_thresholds.get(rank)
+
+        print(f'[LOGS] threshold : {threshold}')
+
+
+        if (operator_price + threshold) < player_money:
+            self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{operator_key}")
+            print("[*] Upgrade for Operator bought\n")
+        else:
+            print("[*] The operator upgrade was too expensive for us (or rank already too high)\n")
+
+
+    def upgrade_single_pilot_if_possible(self):
+        if self.check_for_next_step == True:
+            print('[*] No upgrading, stacking money for next step')
+            return
+
+
+        
+        actual_crew_augment = self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}")
+        print(f"[*] Available crew augments: {actual_crew_augment}")
+
+        pilot_key, pilot = next(((k, v) for k, v in actual_crew_augment.items() if v.get('member-type') == 'Pilot'), (None, None))
+        if not pilot:
+            print("[!] Could not find Pilot\n")
+            return
+        
+        
+        
+        player_money = self.get_player_money()
+        upgrade_thresholds = {
+            2: 1000,
+            3: 4000,
+        }
+
+        rank = pilot["rank"]
+        threshold = upgrade_thresholds.get(rank)
+
+        if threshold and (pilot["price"] + threshold) < player_money:
+            self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}/{pilot_key}")
+            print("[*] Upgrade for Pilot bought\n")
+        else:
+            print("[*] The pilot upgrade was too expensive for us (or rank already too high)\n")
+
 
     def upgrade_ship(self):
+        if self.check_for_next_step == True:
+            print('[*] No upgrading, stacking money for next step')
+            return
+
+
         print("[*] Checking for ship upgrades")
+
+        player_money = self.get_player_money()
         upgrades_available = self.get(f'/station/{self.sta}/shipyard/upgrade')
         actual_crew = self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}")
         ship = self.get(f'/ship/{self.sid}')
-        pilot_key = next(key for key, value in actual_crew.items() if value.get('member-type') == 'Pilot')
-        operator_key = next(key for key, value in actual_crew.items() if value.get('member-type') == 'Operator')
-        print(f"[*] Current ship cargo capacity : {ship["cargo"]["capacity"]}")
-        print(f"[*] Current ship reactor power  : {ship["reactor_power"]}")
-        print(f'[LOGS] flip value = {self.flip}')
-        print(f'[*] Upgrades available : {upgrades_available}')
 
-        if self.flip == 0 :
-            print("[*] Considering cargo expansion upgrade..")
-            if (ship["cargo"]["capacity"]<=400 and ((self.get(f"/player/{self.pid}")["money"]) > 600 + upgrades_available['CargoExpansion']['price'])) or ((actual_crew[operator_key]["rank"] >= 3) and (actual_crew[pilot_key]["rank"] >=3) and ((self.get(f"/player/{self.pid}")["money"]) > 1500 + upgrades_available['CargoExpansion']['price'])):
+        pilot = next((v for v in actual_crew.values() if v.get('member-type') == 'Pilot'), {})
+        operator = next((v for v in actual_crew.values() if v.get('member-type') == 'Operator'), {})
+
+        print(f"[*] Current ship cargo capacity: {ship['cargo']['capacity']}")
+        print(f"[*] Current ship reactor power: {ship['reactor_power']}")
+        print(f"[LOGS] flip value = {self.flip}")
+        print(f"[*] Upgrades available: {upgrades_available}")
+
+
+        
+        if self.flip == 0:
+            print("[*] Considering cargo expansion upgrade...")
+            price = upgrades_available['CargoExpansion']['price']
+            if (ship["cargo"]["capacity"] <= 400 and player_money > 600 + price) or (pilot.get("rank", 0) >= 3 and operator.get("rank", 0) >= 3 and player_money > 1500 + price):
                 self.get(f'/station/{self.sta}/shipyard/upgrade/{self.sid}/cargoexpansion')
                 self.flip = 1
                 print("[*] Cargo expansion upgrade bought")
-                print(f'[LOGS] flip value = {self.flip}')
-
-            else :
+                print(f"[LOGS] flip value = {self.flip}")
+            else:
                 print("[*] Cargo expansion upgrade too expensive or not in priority list")
-        else:
-            print("[*] Considering reactor upgrade..")
-            if (ship["reactor_power"]<2  and ((self.get(f"/player/{self.pid}")["money"]) > 800 + upgrades_available['ReactorUpgrade']['price'])) or ( (actual_crew[operator_key]["rank"] >= 3) and (actual_crew[pilot_key]["rank"] >=3) and ((self.get(f"/player/{self.pid}")["money"]) > 1500 + upgrades_available['ReactorUpgrade']['price'])):
+        elif self.flip == 1:
+            print("[*] Considering reactor upgrade...")
+            price = upgrades_available['ReactorUpgrade']['price']
+            if (ship["reactor_power"] < 2 and player_money > 800 + price) or (pilot.get("rank", 0) >= 3 and operator.get("rank", 0) >= 3 and player_money > 1500 + price):
                 self.get(f'/station/{self.sta}/shipyard/upgrade/{self.sid}/reactorupgrade')
                 self.flip = 0
-                print(f'[LOGS] flip value = {self.flip}')
-
                 print("[*] Reactor upgrade bought")
-
-            else :
+                print(f"[LOGS] flip value = {self.flip}")
+            else:
                 print("[*] Reactor upgrade too expensive or not in priority list")
-
+        else :
+            print(f"[*] No ship upgrades considered, stacking money for further improvements")
         print("")
 
 
+    def check_for_next_step(self):
+        statsDesired = {'cargo capacity': 1500,
+                        'Reactor power' : 10,
+                        'Operator rank' :  15,
+                        'Pilot rank'    : 4,
+                        #'Trader rank'   : 1
+                        }
+        
+        ship = self.get(f'/ship/{self.sid}')
+        actual_crew_augment = self.get(f"/station/{self.sta}/crew/upgrade/ship/{self.sid}")
+        print(f"[*] Available crew augments: {actual_crew_augment}")
 
-   
+        pilot = next((v for v in actual_crew_augment.values() if v.get('member-type') == 'Pilot'), None)
+        operator_key, operator = next(((k, v) for k, v in actual_crew_augment.items() if v.get('member-type') == 'Operator'), (None, None))
+        
+
+        currentStats ={'cargo capacity': ship["cargo"]["capacity"],
+                        'Reactor power' : ship["reactor_power"],
+                        'Operator rank' :  operator['rank'],
+                        'Pilot rank'    : pilot['rank'],
+                        #'Trader rank'   : self.number_of_trader_upgrades
+                        }
+        
+        print(f'[*] Desired stats to keep on with expansion plan:{statsDesired}')
+        print(f'[*] CurrentStats : {currentStats}')
+        
+
+        if all(currentStats.get(k, 0) >= v for k, v in statsDesired.items()):
+            print("[*] Ready for next step, stacking money")
+            self.ready_for_next_step = True
+        else : 
+            print('[*] Gotta keep improving before stacking')
+        
 
     # - Go back to the station
     # - Unload all the cargo
@@ -510,5 +593,6 @@ if __name__ == "__main__":
         #game.upgrade_trader_if_enough_money()
         game.upgrade_single_pilot_if_possible()
         game.upgrade_single_operator_if_possible()
+        game.check_for_next_step()
         
 

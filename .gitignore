@@ -4,3 +4,4 @@ result
 *.zip
 .~lock.*.ods#
 *.json
+*.log

@@ -1,0 +1,948 @@
+2025-06-26 13:40:35,656 INFO: [*] Ship {'cargo': {'capacity': 875.3242332115249, 'resources': {}, 'usage': 0.0}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 1}}, 'fuel_tank': 3623.0, 'fuel_tank_capacity': 3623.0, 'hull_decay': 0.0, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 2, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 1.96, 'hull_usage_rate': 0.05, 'speed': 100.0}} cycle began
+2025-06-26 13:40:35,698 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:40:36,165 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:40:36,274 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 4.997789511374004
+2025-06-26 13:40:46,490 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:40:46,490 INFO: 	- Extraction of Helium: 49.99999999999999/sec
+2025-06-26 13:41:12,890 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:41:13,121 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 4.997789511374004
+2025-06-26 13:41:23,449 INFO: [*408362001349414703] Unloaded and sold 1167.0989776153665 of Helium, for 4203.189233131104 credits
+2025-06-26 13:41:24,515 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 4203.189233131104 credits
+2025-06-26 13:41:24,598 INFO: [*408362001349414703] Current hull decay level: 49.97789511374047/22976.0
+2025-06-26 13:41:24,624 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 12636.800000000007)
+2025-06-26 13:41:24,769 INFO: [*408362001349414703] Bought 19.0 of fuel for 40.51243992367919
+2025-06-26 13:41:24,852 INFO: [*408362001349414703] Refilled 19.0 fuel on the ship for 40.51243992367919 credits
+2025-06-26 13:41:24,853 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:41:25,051 INFO: [*408362001349414703] Current ship cargo capacity: 875.3242332115249
+2025-06-26 13:41:25,052 INFO: [*408362001349414703] Current ship reactor power: 2
+2025-06-26 13:41:25,052 INFO: [LOGS] flip value = 0
+2025-06-26 13:41:25,052 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:41:25,053 INFO: [*408362001349414703] Considering cargo expansion upgrade...
+2025-06-26 13:41:25,053 INFO: [*408362001349414703] Cargo expansion upgrade too expensive or not in priority list
+2025-06-26 13:41:25,053 INFO: 
+2025-06-26 13:41:25,098 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 10450.0, 'rank': 2}, '4258770341': {'member-type': 'Operator', 'price': 1710.0, 'rank': 2}}
+2025-06-26 13:41:25,204 INFO: [*408362001349414703] Upgrade for Pilot bought
+
+2025-06-26 13:41:25,269 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 1710.0, 'rank': 2}}
+2025-06-26 13:41:25,309 INFO: [LOGS] rank : 2
+2025-06-26 13:41:25,309 INFO: [LOGS] operator price : 1710.0
+2025-06-26 13:41:25,309 INFO: [LOGS] threshold : 800
+2025-06-26 13:41:25,350 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:41:25,350 INFO: Completed a cycle
+2025-06-26 13:41:25,918 INFO: [*] Ship {'cargo': {'capacity': 875.3242332115249, 'resources': {'Helium': 0.0}, 'usage': 0.0}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 2}}, 'fuel_tank': 3622.408665115332, 'fuel_tank_capacity': 3623.0, 'hull_decay': 49.97789511374047, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 2, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 1.92, 'hull_usage_rate': 0.05, 'speed': 200.0}} cycle began
+2025-06-26 13:41:25,963 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:41:26,146 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:41:26,260 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 2.498894755687002
+2025-06-26 13:41:31,426 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:41:31,428 INFO: 	- Extraction of Helium: 75.7858283255199/sec
+2025-06-26 13:41:48,238 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:41:48,527 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 2.498894755687002
+2025-06-26 13:41:53,780 INFO: [*408362001349414703] Unloaded and sold 1167.098977615378 of Helium, for 4461.021275863235 credits
+2025-06-26 13:41:54,833 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 4461.021275863235 credits
+2025-06-26 13:41:54,944 INFO: [*408362001349414703] Current hull decay level: 99.95579022748122/22976.0
+2025-06-26 13:41:54,944 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 19529.600000000002)
+2025-06-26 13:41:55,098 INFO: [*408362001349414703] Bought 10.0 of fuel for 24.919214012827204
+2025-06-26 13:41:55,193 INFO: [*408362001349414703] Refilled 10.0 fuel on the ship for 24.919214012827204 credits
+2025-06-26 13:41:55,194 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:41:55,375 INFO: [*408362001349414703] Current ship cargo capacity: 875.3242332115249
+2025-06-26 13:41:55,377 INFO: [*408362001349414703] Current ship reactor power: 2
+2025-06-26 13:41:55,377 INFO: [LOGS] flip value = 0
+2025-06-26 13:41:55,377 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:41:55,377 INFO: [*408362001349414703] Considering cargo expansion upgrade...
+2025-06-26 13:41:55,432 INFO: [*408362001349414703] Cargo expansion upgrade bought
+2025-06-26 13:41:55,433 INFO: [LOGS] flip value = 1
+2025-06-26 13:41:55,433 INFO: 
+2025-06-26 13:41:55,480 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 3082.2765821290395, 'rank': 3}}
+2025-06-26 13:41:55,480 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:41:55,536 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 3082.2765821290395, 'rank': 3}}
+2025-06-26 13:41:55,581 INFO: [LOGS] rank : 3
+2025-06-26 13:41:55,581 INFO: [LOGS] operator price : 3082.2765821290395
+2025-06-26 13:41:55,581 INFO: [LOGS] threshold : 1000
+2025-06-26 13:41:55,641 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:41:55,641 INFO: Completed a cycle
+2025-06-26 13:41:56,188 INFO: [*] Ship {'cargo': {'capacity': 975.3242332115249, 'resources': {'Helium': 0.0}, 'usage': 0.0}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 3}}, 'fuel_tank': 3622.8129092535164, 'fuel_tank_capacity': 3623.0, 'hull_decay': 99.95579022748122, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 2, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 1.92, 'hull_usage_rate': 0.05, 'speed': 200.0}} cycle began
+2025-06-26 13:41:56,243 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:41:56,410 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:41:56,515 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 2.498894755687002
+2025-06-26 13:42:01,731 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:42:01,732 INFO: 	- Extraction of Helium: 96.65910224658812/sec
+2025-06-26 13:42:01,732 INFO: 	- Extraction of Ozone: 10.671684011914229/sec
+2025-06-26 13:42:13,301 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:42:14,551 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 2.498894755687002
+2025-06-26 13:42:21,835 INFO: [*408362001349414703] Unloaded and sold 951.1125209587019 of Helium, for 3168.2525307612736 credits
+2025-06-26 13:42:21,933 INFO: [*408362001349414703] Unloaded and sold 104.79593699699691 of Ozone, for 2077.8129035520483 credits
+2025-06-26 13:42:22,978 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 5246.065434313322 credits
+2025-06-26 13:42:23,083 INFO: [*408362001349414703] Current hull decay level: 149.9336853412204/22976.0
+2025-06-26 13:42:23,083 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 11488.000000000007)
+2025-06-26 13:42:23,234 INFO: [*408362001349414703] Bought 9.0 of fuel for 21.881814744678714
+2025-06-26 13:42:23,325 INFO: [*408362001349414703] Refilled 9.0 fuel on the ship for 21.881814744678714 credits
+2025-06-26 13:42:23,325 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:42:23,512 INFO: [*408362001349414703] Current ship cargo capacity: 975.3242332115249
+2025-06-26 13:42:23,512 INFO: [*408362001349414703] Current ship reactor power: 2
+2025-06-26 13:42:23,512 INFO: [LOGS] flip value = 1
+2025-06-26 13:42:23,512 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:42:23,512 INFO: [*408362001349414703] Considering reactor upgrade...
+2025-06-26 13:42:24,578 INFO: [*408362001349414703] Reactor upgrade bought
+2025-06-26 13:42:24,612 INFO: [LOGS] flip value = 0
+2025-06-26 13:42:24,612 INFO: 
+2025-06-26 13:42:24,659 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 4350.600214306197, 'rank': 4}}
+2025-06-26 13:42:24,659 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:42:24,706 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 4350.600214306197, 'rank': 4}}
+2025-06-26 13:42:24,777 INFO: [LOGS] rank : 4
+2025-06-26 13:42:24,777 INFO: [LOGS] operator price : 4350.600214306197
+2025-06-26 13:42:24,778 INFO: [LOGS] threshold : 1500
+2025-06-26 13:42:24,819 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:42:24,820 INFO: Completed a cycle
+2025-06-26 13:42:25,363 INFO: [*] Ship {'cargo': {'capacity': 975.3242332115249, 'resources': {'Helium': 0.0, 'Ozone': 0.0}, 'usage': 0.0}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 4}}, 'fuel_tank': 3622.217153391701, 'fuel_tank_capacity': 3623.0, 'hull_decay': 149.9336853412204, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 3, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 2.88, 'hull_usage_rate': 0.05, 'speed': 300.0}} cycle began
+2025-06-26 13:42:25,414 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:42:25,578 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:42:25,676 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 1.6659298371246678
+2025-06-26 13:42:27,493 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:42:27,493 INFO: 	- Extraction of Helium: 114.86983549970348/sec
+2025-06-26 13:42:27,493 INFO: 	- Extraction of Ozone: 16.175248249422545/sec
+2025-06-26 13:42:35,980 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:42:36,255 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 1.6659298371246678
+2025-06-26 13:42:39,874 INFO: [*408362001349414703] Unloaded and sold 885.2676058801826 of Helium, for 3834.2265482728735 credits
+2025-06-26 13:42:39,968 INFO: [*408362001349414703] Unloaded and sold 124.54941152055251 of Ozone, for 1401.1728614902756 credits
+2025-06-26 13:42:41,034 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 5235.399409763149 credits
+2025-06-26 13:42:41,119 INFO: [*408362001349414703] Current hull decay level: 199.91158045496232/22976.0
+2025-06-26 13:42:41,119 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 11488.000000000007)
+2025-06-26 13:42:41,262 INFO: [*408362001349414703] Bought 10.0 of fuel for 22.5569058900282
+2025-06-26 13:42:41,389 INFO: [*408362001349414703] Refilled 10.0 fuel on the ship for 22.5569058900282 credits
+2025-06-26 13:42:41,389 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:42:41,570 INFO: [*408362001349414703] Current ship cargo capacity: 975.3242332115249
+2025-06-26 13:42:41,571 INFO: [*408362001349414703] Current ship reactor power: 3
+2025-06-26 13:42:41,571 INFO: [LOGS] flip value = 0
+2025-06-26 13:42:41,571 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:42:41,571 INFO: [*408362001349414703] Considering cargo expansion upgrade...
+2025-06-26 13:42:41,633 INFO: [*408362001349414703] Cargo expansion upgrade bought
+2025-06-26 13:42:41,633 INFO: [LOGS] flip value = 1
+2025-06-26 13:42:41,633 INFO: 
+2025-06-26 13:42:41,675 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 5555.8063910766505, 'rank': 5}}
+2025-06-26 13:42:41,676 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:42:41,719 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 5555.8063910766505, 'rank': 5}}
+2025-06-26 13:42:41,764 INFO: [LOGS] rank : 5
+2025-06-26 13:42:41,765 INFO: [LOGS] operator price : 5555.8063910766505
+2025-06-26 13:42:41,765 INFO: [LOGS] threshold : 2000
+2025-06-26 13:42:41,808 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:42:41,810 INFO: Completed a cycle
+2025-06-26 13:42:42,378 INFO: [*] Ship {'cargo': {'capacity': 1075.3242332115249, 'resources': {'Helium': 0.0, 'Ozone': 0.0}, 'usage': 0.0}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 5}}, 'fuel_tank': 3622.621397529847, 'fuel_tank_capacity': 3623.0, 'hull_decay': 199.91158045496232, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 3, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 2.88, 'hull_usage_rate': 0.05, 'speed': 300.0}} cycle began
+2025-06-26 13:42:42,437 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:42:42,575 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:42:42,659 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 1.6659298371246678
+2025-06-26 13:42:46,190 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:42:46,190 INFO: 	- Extraction of Helium: 131.32639022018836/sec
+2025-06-26 13:42:46,190 INFO: 	- Extraction of Ozone: 20.63030792101795/sec
+2025-06-26 13:42:54,627 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:42:54,872 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 1.6659298371246678
+2025-06-26 13:42:56,798 INFO: [*408362001349414703] Unloaded and sold 941.3889619004194 of Helium, for 3953.93688514088 credits
+2025-06-26 13:42:56,884 INFO: [*408362001349414703] Unloaded and sold 147.71300471448808 of Ozone, for 2580.5179528550293 credits
+2025-06-26 13:42:57,926 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 6534.454837995909 credits
+2025-06-26 13:42:58,024 INFO: [*408362001349414703] Current hull decay level: 249.88947556870423/22976.0
+2025-06-26 13:42:58,026 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 17232.000000000004)
+2025-06-26 13:42:58,196 INFO: [*408362001349414703] Bought 9.0 of fuel for 24.31528415117823
+2025-06-26 13:42:58,318 INFO: [*408362001349414703] Refilled 9.0 fuel on the ship for 24.31528415117823 credits
+2025-06-26 13:42:58,318 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:42:58,529 INFO: [*408362001349414703] Current ship cargo capacity: 1075.3242332115249
+2025-06-26 13:42:58,529 INFO: [*408362001349414703] Current ship reactor power: 3
+2025-06-26 13:42:58,529 INFO: [LOGS] flip value = 1
+2025-06-26 13:42:58,529 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:42:58,529 INFO: [*408362001349414703] Considering reactor upgrade...
+2025-06-26 13:42:58,572 INFO: [*408362001349414703] Reactor upgrade bought
+2025-06-26 13:42:58,573 INFO: [LOGS] flip value = 0
+2025-06-26 13:42:58,573 INFO: 
+2025-06-26 13:42:58,639 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 6716.153508481585, 'rank': 6}}
+2025-06-26 13:42:58,639 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:42:58,701 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 6716.153508481585, 'rank': 6}}
+2025-06-26 13:42:58,742 INFO: [LOGS] rank : 6
+2025-06-26 13:42:58,743 INFO: [LOGS] operator price : 6716.153508481585
+2025-06-26 13:42:58,743 INFO: [LOGS] threshold : 2000
+2025-06-26 13:42:58,785 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:42:58,785 INFO: Completed a cycle
+2025-06-26 13:42:59,332 INFO: [*] Ship {'cargo': {'capacity': 1075.3242332115249, 'resources': {'Helium': 0.0, 'Ozone': 0.0}, 'usage': 0.0}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 6}}, 'fuel_tank': 3622.025641667993, 'fuel_tank_capacity': 3623.0, 'hull_decay': 249.88947556870423, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 4, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 3.84, 'hull_usage_rate': 0.05, 'speed': 400.0}} cycle began
+2025-06-26 13:42:59,398 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:42:59,547 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:42:59,632 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 1.249447377843501
+2025-06-26 13:43:01,046 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:43:01,046 INFO: 	- Extraction of Freon: 2.3864350332566175/sec
+2025-06-26 13:43:01,047 INFO: 	- Extraction of Helium: 146.50780257917606/sec
+2025-06-26 13:43:01,047 INFO: 	- Extraction of Ozone: 24.517091739068068/sec
+2025-06-26 13:43:08,409 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:43:08,646 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 1.249447377843501
+2025-06-26 13:43:10,115 INFO: [*408362001349414703] Unloaded and sold 14.366338900204838 of Freon, for 789.0891647728612 credits
+2025-06-26 13:43:10,276 INFO: [*408362001349414703] Unloaded and sold 884.3239811172247 of Helium, for 2918.043982770968 credits
+2025-06-26 13:43:10,359 INFO: [*408362001349414703] Unloaded and sold 147.59289226918978 of Ozone, for 1946.2813010254085 credits
+2025-06-26 13:43:11,400 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 5653.414448569238 credits
+2025-06-26 13:43:11,519 INFO: [*408362001349414703] Current hull decay level: 299.86737068244184/22976.0
+2025-06-26 13:43:11,519 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 17232.000000000004)
+2025-06-26 13:43:11,670 INFO: [*408362001349414703] Bought 10.0 of fuel for 23.837179517815063
+2025-06-26 13:43:11,757 INFO: [*408362001349414703] Refilled 10.0 fuel on the ship for 23.837179517815063 credits
+2025-06-26 13:43:11,757 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:43:11,944 INFO: [*408362001349414703] Current ship cargo capacity: 1075.3242332115249
+2025-06-26 13:43:11,946 INFO: [*408362001349414703] Current ship reactor power: 4
+2025-06-26 13:43:11,946 INFO: [LOGS] flip value = 0
+2025-06-26 13:43:11,946 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:43:11,946 INFO: [*408362001349414703] Considering cargo expansion upgrade...
+2025-06-26 13:43:11,990 INFO: [*408362001349414703] Cargo expansion upgrade bought
+2025-06-26 13:43:11,990 INFO: [LOGS] flip value = 1
+2025-06-26 13:43:11,990 INFO: 
+2025-06-26 13:43:12,031 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 7841.960911556473, 'rank': 7}}
+2025-06-26 13:43:12,031 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:43:12,095 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 7841.960911556473, 'rank': 7}}
+2025-06-26 13:43:12,138 INFO: [LOGS] rank : 7
+2025-06-26 13:43:12,138 INFO: [LOGS] operator price : 7841.960911556473
+2025-06-26 13:43:12,138 INFO: [LOGS] threshold : 2000
+2025-06-26 13:43:12,179 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:43:12,180 INFO: Completed a cycle
+2025-06-26 13:43:12,721 INFO: [*] Ship {'cargo': {'capacity': 1175.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Ozone': 0.0}, 'usage': 0.0}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 7}}, 'fuel_tank': 3622.4298858061775, 'fuel_tank_capacity': 3623.0, 'hull_decay': 299.86737068244184, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 4, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 3.84, 'hull_usage_rate': 0.05, 'speed': 400.0}} cycle began
+2025-06-26 13:43:12,792 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:43:12,932 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:43:13,019 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 1.249447377843501
+2025-06-26 13:43:14,430 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:43:14,430 INFO: 	- Extraction of Freon: 3.617159114807848/sec
+2025-06-26 13:43:14,430 INFO: 	- Extraction of Helium: 160.70479248580193/sec
+2025-06-26 13:43:14,430 INFO: 	- Extraction of Ozone: 28.029474777103864/sec
+2025-06-26 13:43:20,798 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:43:21,038 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 1.249447377843501
+2025-06-26 13:43:22,566 INFO: [*408362001349414703] Unloaded and sold 21.05186604818178 of Freon, for 939.8364942196199 credits
+2025-06-26 13:43:22,651 INFO: [*408362001349414703] Unloaded and sold 938.515988117085 of Helium, for 1209.149055139596 credits
+2025-06-26 13:43:22,734 INFO: [*408362001349414703] Unloaded and sold 163.31265759166686 of Ozone, for 2097.7097487461438 credits
+2025-06-26 13:43:23,784 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 4246.69529810536 credits
+2025-06-26 13:43:23,887 INFO: [*408362001349414703] Current hull decay level: 349.84526579617904/22976.0
+2025-06-26 13:43:23,887 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 8041.600000000009)
+2025-06-26 13:43:24,043 INFO: [*408362001349414703] Bought 10.0 of fuel for 23.309110810926487
+2025-06-26 13:43:24,137 INFO: [*408362001349414703] Refilled 10.0 fuel on the ship for 23.309110810926487 credits
+2025-06-26 13:43:24,137 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:43:24,395 INFO: [*408362001349414703] Current ship cargo capacity: 1175.3242332115249
+2025-06-26 13:43:24,395 INFO: [*408362001349414703] Current ship reactor power: 4
+2025-06-26 13:43:24,395 INFO: [LOGS] flip value = 1
+2025-06-26 13:43:24,395 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:43:24,395 INFO: [*408362001349414703] Considering reactor upgrade...
+2025-06-26 13:43:24,452 INFO: [*408362001349414703] Reactor upgrade bought
+2025-06-26 13:43:24,452 INFO: [LOGS] flip value = 0
+2025-06-26 13:43:24,453 INFO: 
+2025-06-26 13:43:24,494 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 8939.833789298986, 'rank': 8}}
+2025-06-26 13:43:24,495 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:43:24,537 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 8939.833789298986, 'rank': 8}}
+2025-06-26 13:43:24,581 INFO: [LOGS] rank : 8
+2025-06-26 13:43:24,581 INFO: [LOGS] operator price : 8939.833789298986
+2025-06-26 13:43:24,581 INFO: [LOGS] threshold : 2000
+2025-06-26 13:43:24,639 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:43:24,639 INFO: Completed a cycle
+2025-06-26 13:43:25,184 INFO: [*] Ship {'cargo': {'capacity': 1175.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Ozone': 0.0}, 'usage': 0.0}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 8}}, 'fuel_tank': 3622.834129944362, 'fuel_tank_capacity': 3623.0, 'hull_decay': 349.84526579617904, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 5, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 4.8, 'hull_usage_rate': 0.05, 'speed': 500.0}} cycle began
+2025-06-26 13:43:25,226 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:43:25,359 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:43:25,448 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.9995579022748007
+2025-06-26 13:43:26,611 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:43:26,611 INFO: 	- Extraction of Freon: 4.613413357687827/sec
+2025-06-26 13:43:26,612 INFO: 	- Extraction of Helium: 174.1101126592248/sec
+2025-06-26 13:43:26,612 INFO: 	- Extraction of Ozone: 31.26969948809759/sec
+2025-06-26 13:43:32,911 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:43:33,153 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.9995579022748007
+2025-06-26 13:43:34,430 INFO: [*408362001349414703] Unloaded and sold 24.358822528591606 of Freon, for 1220.3412559262906 credits
+2025-06-26 13:43:34,547 INFO: [!] Error during ship 408362001349414703 cycle: Either you attempted to SELL 0 units, or you don't have any unit of this resource in your cargo
+2025-06-26 13:43:34,548 INFO: Completed a cycle
+2025-06-26 13:43:35,090 INFO: [*] Ship {'cargo': {'capacity': 1175.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 919.3169765104728, 'Ozone': 165.1040132971553}, 'usage': 1102.2477323828546}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 8}}, 'fuel_tank': 3613.2383740825235, 'fuel_tank_capacity': 3623.0, 'hull_decay': 399.82316090991907, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 5, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 4.8, 'hull_usage_rate': 0.05, 'speed': 500.0}} cycle began
+2025-06-26 13:43:35,137 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:43:35,286 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:43:35,409 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.9995579022748007
+2025-06-26 13:43:36,568 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:43:36,569 INFO: 	- Extraction of Freon: 4.613413357687827/sec
+2025-06-26 13:43:36,569 INFO: 	- Extraction of Helium: 174.1101126592248/sec
+2025-06-26 13:43:36,569 INFO: 	- Extraction of Ozone: 31.26969948809759/sec
+2025-06-26 13:43:37,679 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:43:38,105 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.9995579022748007
+2025-06-26 13:43:39,541 INFO: [*408362001349414703] Unloaded and sold 1.4762922744601046 of Freon, for 81.60643821230224 credits
+2025-06-26 13:43:39,629 INFO: [*408362001349414703] Unloaded and sold 977.4927957302215 of Helium, for 2877.9441850766866 credits
+2025-06-26 13:43:39,743 INFO: [*408362001349414703] Unloaded and sold 175.11031713334665 of Ozone, for 2012.572435094928 credits
+2025-06-26 13:43:40,786 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 4972.123058383917 credits
+2025-06-26 13:43:40,906 INFO: [*408362001349414703] Current hull decay level: 449.8010560236591/22976.0
+2025-06-26 13:43:40,943 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 3446.400000000008)
+2025-06-26 13:43:43,083 INFO: [*408362001349414703] Bought 19.0 of fuel for 42.3468346908015
+2025-06-26 13:43:43,170 INFO: [*408362001349414703] Refilled 19.0 fuel on the ship for 42.3468346908015 credits
+2025-06-26 13:43:43,170 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:43:43,347 INFO: [*408362001349414703] Current ship cargo capacity: 1175.3242332115249
+2025-06-26 13:43:43,347 INFO: [*408362001349414703] Current ship reactor power: 5
+2025-06-26 13:43:43,347 INFO: [LOGS] flip value = 0
+2025-06-26 13:43:43,347 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:43:43,347 INFO: [*408362001349414703] Considering cargo expansion upgrade...
+2025-06-26 13:43:43,402 INFO: [*408362001349414703] Cargo expansion upgrade bought
+2025-06-26 13:43:43,402 INFO: [LOGS] flip value = 1
+2025-06-26 13:43:43,402 INFO: 
+2025-06-26 13:43:43,460 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 10014.346160268078, 'rank': 9}}
+2025-06-26 13:43:43,460 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:43:43,500 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 10014.346160268078, 'rank': 9}}
+2025-06-26 13:43:43,569 INFO: [LOGS] rank : 9
+2025-06-26 13:43:43,569 INFO: [LOGS] operator price : 10014.346160268078
+2025-06-26 13:43:43,570 INFO: [LOGS] threshold : 2000
+2025-06-26 13:43:43,616 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:43:43,617 INFO: Completed a cycle
+2025-06-26 13:43:44,164 INFO: [*] Ship {'cargo': {'capacity': 1275.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Ozone': 0.0}, 'usage': 0.0}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 9}}, 'fuel_tank': 3622.642618220685, 'fuel_tank_capacity': 3623.0, 'hull_decay': 449.8010560236591, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 5, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 4.8, 'hull_usage_rate': 0.05, 'speed': 500.0}} cycle began
+2025-06-26 13:43:44,208 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:43:44,353 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:43:44,458 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.9995579022748007
+2025-06-26 13:43:45,600 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:43:45,600 INFO: 	- Extraction of Freon: 5.482587994018343/sec
+2025-06-26 13:43:45,600 INFO: 	- Extraction of Helium: 186.85964094232756/sec
+2025-06-26 13:43:45,600 INFO: 	- Extraction of Ozone: 34.29981529217453/sec
+2025-06-26 13:43:52,012 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:43:52,280 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.9995579022748007
+2025-06-26 13:43:53,528 INFO: [*408362001349414703] Unloaded and sold 28.83841284853656 of Freon, for 1621.401185825273 credits
+2025-06-26 13:43:53,622 INFO: [*408362001349414703] Unloaded and sold 983.6885647650954 of Helium, for 3833.616830491769 credits
+2025-06-26 13:43:53,729 INFO: [*408362001349414703] Unloaded and sold 180.4170284368387 of Ozone, for 1959.4291260955088 credits
+2025-06-26 13:43:55,779 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 7414.447142412551 credits
+2025-06-26 13:43:55,875 INFO: [*408362001349414703] Current hull decay level: 499.77895113739913/22976.0
+2025-06-26 13:43:55,877 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 12636.800000000007)
+2025-06-26 13:43:56,048 INFO: [*408362001349414703] Bought 9.0 of fuel for 23.290923260950336
+2025-06-26 13:43:56,157 INFO: [*408362001349414703] Refilled 9.0 fuel on the ship for 23.290923260950336 credits
+2025-06-26 13:43:56,157 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:43:56,363 INFO: [*408362001349414703] Current ship cargo capacity: 1275.3242332115249
+2025-06-26 13:43:56,364 INFO: [*408362001349414703] Current ship reactor power: 5
+2025-06-26 13:43:56,364 INFO: [LOGS] flip value = 1
+2025-06-26 13:43:56,364 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:43:56,364 INFO: [*408362001349414703] Considering reactor upgrade...
+2025-06-26 13:43:57,410 INFO: [*408362001349414703] Reactor upgrade bought
+2025-06-26 13:43:57,410 INFO: [LOGS] flip value = 0
+2025-06-26 13:43:57,410 INFO: 
+2025-06-26 13:43:57,454 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 11068.843406269662, 'rank': 10}}
+2025-06-26 13:43:57,454 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:43:57,513 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 11068.843406269662, 'rank': 10}}
+2025-06-26 13:43:57,558 INFO: [LOGS] rank : 10
+2025-06-26 13:43:57,558 INFO: [LOGS] operator price : 11068.843406269662
+2025-06-26 13:43:57,558 INFO: [LOGS] threshold : 2000
+2025-06-26 13:43:58,637 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:43:58,637 INFO: Completed a cycle
+2025-06-26 13:43:59,183 INFO: [*] Ship {'cargo': {'capacity': 1275.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Ozone': 0.0}, 'usage': 0.0}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 10}}, 'fuel_tank': 3622.0468623588467, 'fuel_tank_capacity': 3623.0, 'hull_decay': 499.77895113739913, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 6, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 5.76, 'hull_usage_rate': 0.05, 'speed': 600.0}} cycle began
+2025-06-26 13:43:59,235 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:43:59,367 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:43:59,464 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.8329649185623339
+2025-06-26 13:44:00,429 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:44:00,429 INFO: 	- Extraction of Freon: 6.268037968251735/sec
+2025-06-26 13:44:00,429 INFO: 	- Extraction of Helium: 199.05358527674858/sec
+2025-06-26 13:44:00,429 INFO: 	- Extraction of Oxygen: 1.2335222663974192/sec
+2025-06-26 13:44:00,429 INFO: 	- Extraction of Ozone: 37.16096211156069/sec
+2025-06-26 13:44:05,675 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:44:07,945 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.8329649185623339
+2025-06-26 13:44:09,019 INFO: [*408362001349414703] Unloaded and sold 30.588025285068387 of Freon, for 1897.1376292912603 credits
+2025-06-26 13:44:09,104 INFO: [*408362001349414703] Unloaded and sold 971.5886965737208 of Helium, for 2920.1313187414335 credits
+2025-06-26 13:44:09,209 INFO: [*408362001349414703] Unloaded and sold 6.019588660019391 of Oxygen, for 635.4309939749562 credits
+2025-06-26 13:44:09,316 INFO: [*408362001349414703] Unloaded and sold 181.34549510441704 of Ozone, for 2225.0998117890895 credits
+2025-06-26 13:44:10,384 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 7677.799753796739 credits
+2025-06-26 13:44:10,473 INFO: [*408362001349414703] Current hull decay level: 549.7568462511409/22976.0
+2025-06-26 13:44:10,473 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 22976.0)
+2025-06-26 13:44:10,600 INFO: [*408362001349414703] Bought 10.0 of fuel for 23.644183312713274
+2025-06-26 13:44:10,699 INFO: [*408362001349414703] Refilled 10.0 fuel on the ship for 23.644183312713274 credits
+2025-06-26 13:44:10,699 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:44:10,896 INFO: [*408362001349414703] Current ship cargo capacity: 1275.3242332115249
+2025-06-26 13:44:10,896 INFO: [*408362001349414703] Current ship reactor power: 6
+2025-06-26 13:44:10,896 INFO: [LOGS] flip value = 0
+2025-06-26 13:44:10,896 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:44:10,896 INFO: [*408362001349414703] Considering cargo expansion upgrade...
+2025-06-26 13:44:10,938 INFO: [*408362001349414703] Cargo expansion upgrade bought
+2025-06-26 13:44:10,938 INFO: [LOGS] flip value = 1
+2025-06-26 13:44:10,938 INFO: 
+2025-06-26 13:44:10,980 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 12105.872912968758, 'rank': 11}}
+2025-06-26 13:44:10,980 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:44:11,022 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 12105.872912968758, 'rank': 11}}
+2025-06-26 13:44:11,091 INFO: [LOGS] rank : 11
+2025-06-26 13:44:11,091 INFO: [LOGS] operator price : 12105.872912968758
+2025-06-26 13:44:11,091 INFO: [LOGS] threshold : 2000
+2025-06-26 13:44:11,134 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:44:11,134 INFO: Completed a cycle
+2025-06-26 13:44:11,681 INFO: [*] Ship {'cargo': {'capacity': 1375.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.0}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 11}}, 'fuel_tank': 3622.451106496994, 'fuel_tank_capacity': 3623.0, 'hull_decay': 549.7568462511409, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 6, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 5.76, 'hull_usage_rate': 0.05, 'speed': 600.0}} cycle began
+2025-06-26 13:44:11,738 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:44:11,910 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:44:12,019 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.8329649185623339
+2025-06-26 13:44:12,989 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:44:12,989 INFO: 	- Extraction of Freon: 6.992627054407801/sec
+2025-06-26 13:44:12,989 INFO: 	- Extraction of Helium: 210.76845665459496/sec
+2025-06-26 13:44:12,989 INFO: 	- Extraction of Oxygen: 1.8696701343380209/sec
+2025-06-26 13:44:12,990 INFO: 	- Extraction of Ozone: 39.882140854325414/sec
+2025-06-26 13:44:18,271 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:44:18,677 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.8329649185623339
+2025-06-26 13:44:20,782 INFO: [*408362001349414703] Unloaded and sold 34.40372510768646 of Freon, for 1373.3851160657596 credits
+2025-06-26 13:44:20,891 INFO: [*408362001349414703] Unloaded and sold 1039.017374820062 of Helium, for 3095.9436235958556 credits
+2025-06-26 13:44:20,997 INFO: [*408362001349414703] Unloaded and sold 9.198777060943037 of Oxygen, for 845.8239682562908 credits
+2025-06-26 13:44:21,105 INFO: [*408362001349414703] Unloaded and sold 196.22013300328152 of Ozone, for 4340.894042203396 credits
+2025-06-26 13:44:22,182 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 9656.046750121302 credits
+2025-06-26 13:44:22,268 INFO: [*408362001349414703] Current hull decay level: 599.7347413648828/22976.0
+2025-06-26 13:44:22,268 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 10339.200000000008)
+2025-06-26 13:44:22,401 INFO: [*408362001349414703] Bought 10.0 of fuel for 26.014219404503407
+2025-06-26 13:44:22,490 INFO: [*408362001349414703] Refilled 10.0 fuel on the ship for 26.014219404503407 credits
+2025-06-26 13:44:22,491 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:44:22,690 INFO: [*408362001349414703] Current ship cargo capacity: 1375.3242332115249
+2025-06-26 13:44:22,692 INFO: [*408362001349414703] Current ship reactor power: 6
+2025-06-26 13:44:22,692 INFO: [LOGS] flip value = 1
+2025-06-26 13:44:22,692 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:44:22,692 INFO: [*408362001349414703] Considering reactor upgrade...
+2025-06-26 13:44:22,740 INFO: [*408362001349414703] Reactor upgrade bought
+2025-06-26 13:44:22,740 INFO: [LOGS] flip value = 0
+2025-06-26 13:44:22,741 INFO: 
+2025-06-26 13:44:22,784 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 13127.435489829058, 'rank': 12}}
+2025-06-26 13:44:22,786 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:44:22,828 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 13127.435489829058, 'rank': 12}}
+2025-06-26 13:44:22,892 INFO: [LOGS] rank : 12
+2025-06-26 13:44:22,892 INFO: [LOGS] operator price : 13127.435489829058
+2025-06-26 13:44:22,892 INFO: [LOGS] threshold : 2000
+2025-06-26 13:44:22,955 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:44:22,956 INFO: Completed a cycle
+2025-06-26 13:44:23,502 INFO: [*] Ship {'cargo': {'capacity': 1375.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.0}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 12}}, 'fuel_tank': 3622.855350635141, 'fuel_tank_capacity': 3623.0, 'hull_decay': 599.7347413648828, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 7, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 6.72, 'hull_usage_rate': 0.05, 'speed': 700.0}} cycle began
+2025-06-26 13:44:23,553 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:44:23,936 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:44:24,067 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.7139699301962862
+2025-06-26 13:44:24,910 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:44:24,911 INFO: 	- Extraction of Freon: 7.6702309360070515/sec
+2025-06-26 13:44:24,911 INFO: 	- Extraction of Helium: 222.06430349229197/sec
+2025-06-26 13:44:24,911 INFO: 	- Extraction of Oxygen: 2.384623097423026/sec
+2025-06-26 13:44:24,911 INFO: 	- Extraction of Ozone: 42.484739270241676/sec
+2025-06-26 13:44:30,263 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:44:30,516 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.7139699301962862
+2025-06-26 13:44:31,464 INFO: [*408362001349414703] Unloaded and sold 35.58987154307279 of Freon, for 1896.2427064838698 credits
+2025-06-26 13:44:31,586 INFO: [*408362001349414703] Unloaded and sold 1030.6206403393442 of Helium, for 3776.4691749803333 credits
+2025-06-26 13:44:31,693 INFO: [*408362001349414703] Unloaded and sold 11.064651172042883 of Oxygen, for 943.7180909613721 credits
+2025-06-26 13:44:31,783 INFO: [*408362001349414703] Unloaded and sold 197.1291902139218 of Ozone, for 3263.3834143027934 credits
+2025-06-26 13:44:32,827 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 9879.813386728369 credits
+2025-06-26 13:44:32,917 INFO: [*408362001349414703] Current hull decay level: 649.712636478626/22976.0
+2025-06-26 13:44:32,917 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 12636.800000000007)
+2025-06-26 13:44:33,074 INFO: [*408362001349414703] Bought 9.0 of fuel for 22.981775846375232
+2025-06-26 13:44:33,163 INFO: [*408362001349414703] Refilled 9.0 fuel on the ship for 22.981775846375232 credits
+2025-06-26 13:44:33,163 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:44:33,402 INFO: [*408362001349414703] Current ship cargo capacity: 1375.3242332115249
+2025-06-26 13:44:33,402 INFO: [*408362001349414703] Current ship reactor power: 7
+2025-06-26 13:44:33,402 INFO: [LOGS] flip value = 0
+2025-06-26 13:44:33,402 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:44:33,402 INFO: [*408362001349414703] Considering cargo expansion upgrade...
+2025-06-26 13:44:33,455 INFO: [*408362001349414703] Cargo expansion upgrade bought
+2025-06-26 13:44:33,455 INFO: [LOGS] flip value = 1
+2025-06-26 13:44:33,455 INFO: 
+2025-06-26 13:44:33,496 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 14135.141798632638, 'rank': 13}}
+2025-06-26 13:44:33,496 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:44:33,556 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 14135.141798632638, 'rank': 13}}
+2025-06-26 13:44:33,612 INFO: [LOGS] rank : 13
+2025-06-26 13:44:33,612 INFO: [LOGS] operator price : 14135.141798632638
+2025-06-26 13:44:33,612 INFO: [LOGS] threshold : 2000
+2025-06-26 13:44:33,661 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:44:33,661 INFO: Completed a cycle
+2025-06-26 13:44:34,204 INFO: [*] Ship {'cargo': {'capacity': 1475.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.001}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 13}}, 'fuel_tank': 3622.259594773309, 'fuel_tank_capacity': 3623.0, 'hull_decay': 649.712636478626, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 7, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 6.72, 'hull_usage_rate': 0.05, 'speed': 700.0}} cycle began
+2025-06-26 13:44:34,248 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:44:34,432 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:44:34,528 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.7139699301962862
+2025-06-26 13:44:35,369 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:44:35,369 INFO: 	- Extraction of Freon: 8.310049449884612/sec
+2025-06-26 13:44:35,369 INFO: 	- Extraction of Helium: 232.98932100180326/sec
+2025-06-26 13:44:35,369 INFO: 	- Extraction of Oxygen: 2.83388999652586/sec
+2025-06-26 13:44:35,369 INFO: 	- Extraction of Ozone: 44.985087381933575/sec
+2025-06-26 13:44:40,637 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:44:40,905 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.7139699301962862
+2025-06-26 13:44:41,855 INFO: [*408362001349414703] Unloaded and sold 39.057232414457644 of Freon, for 2030.8424914147588 credits
+2025-06-26 13:44:41,952 INFO: [*408362001349414703] Unloaded and sold 1099.7095951285128 of Helium, for 4095.1008672528565 credits
+2025-06-26 13:44:42,039 INFO: [*408362001349414703] Unloaded and sold 13.31928298367151 of Oxygen, for 1339.4915397125365 credits
+2025-06-26 13:44:42,148 INFO: [*408362001349414703] Unloaded and sold 212.01580755034348 of Ozone, for 2479.165558346587 credits
+2025-06-26 13:44:43,205 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 9944.60045672674 credits
+2025-06-26 13:44:43,292 INFO: [*408362001349414703] Current hull decay level: 699.6905315923692/22976.0
+2025-06-26 13:44:43,292 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 12636.800000000007)
+2025-06-26 13:44:43,450 INFO: [*408362001349414703] Bought 10.0 of fuel for 27.419804118953717
+2025-06-26 13:44:43,541 INFO: [*408362001349414703] Refilled 10.0 fuel on the ship for 27.419804118953717 credits
+2025-06-26 13:44:43,541 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:44:43,742 INFO: [*408362001349414703] Current ship cargo capacity: 1475.3242332115249
+2025-06-26 13:44:43,742 INFO: [*408362001349414703] Current ship reactor power: 7
+2025-06-26 13:44:43,742 INFO: [LOGS] flip value = 1
+2025-06-26 13:44:43,742 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:44:43,742 INFO: [*408362001349414703] Considering reactor upgrade...
+2025-06-26 13:44:43,784 INFO: [*408362001349414703] Reactor upgrade bought
+2025-06-26 13:44:43,785 INFO: [LOGS] flip value = 0
+2025-06-26 13:44:43,785 INFO: 
+2025-06-26 13:44:43,826 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 15130.314655173372, 'rank': 14}}
+2025-06-26 13:44:43,826 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:44:43,870 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 15130.314655173372, 'rank': 14}}
+2025-06-26 13:44:43,939 INFO: [LOGS] rank : 14
+2025-06-26 13:44:43,940 INFO: [LOGS] operator price : 15130.314655173372
+2025-06-26 13:44:43,940 INFO: [LOGS] threshold : 2000
+2025-06-26 13:44:43,983 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:44:43,983 INFO: Completed a cycle
+2025-06-26 13:44:44,527 INFO: [*] Ship {'cargo': {'capacity': 1475.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.001}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 14}}, 'fuel_tank': 3622.663838911477, 'fuel_tank_capacity': 3623.0, 'hull_decay': 699.6905315923692, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 8, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 7.68, 'hull_usage_rate': 0.05, 'speed': 800.0}} cycle began
+2025-06-26 13:44:44,588 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:44:44,761 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:44:44,843 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.6247236889217505
+2025-06-26 13:44:45,606 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:44:45,606 INFO: 	- Extraction of Freon: 8.918567868930465/sec
+2025-06-26 13:44:45,606 INFO: 	- Extraction of Helium: 243.5829162883457/sec
+2025-06-26 13:44:45,606 INFO: 	- Extraction of Oxygen: 3.2398805300439726/sec
+2025-06-26 13:44:45,606 INFO: 	- Extraction of Ozone: 47.39600154391124/sec
+2025-06-26 13:44:50,915 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:44:51,169 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.6247236889217505
+2025-06-26 13:44:52,027 INFO: [*408362001349414703] Unloaded and sold 39.9551840528084 of Freon, for 1611.8474014971139 credits
+2025-06-26 13:44:52,132 INFO: [*408362001349414703] Unloaded and sold 1094.6583967568495 of Helium, for 3480.5472383731985 credits
+2025-06-26 13:44:52,218 INFO: [*408362001349414703] Unloaded and sold 14.514664774596941 of Oxygen, for 970.6483493573975 credits
+2025-06-26 13:44:52,337 INFO: [*408362001349414703] Unloaded and sold 212.3340869167232 of Ozone, for 2977.1444140830718 credits
+2025-06-26 13:44:53,380 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 9040.187403310782 credits
+2025-06-26 13:44:53,472 INFO: [*408362001349414703] Current hull decay level: 749.6684267061065/22976.0
+2025-06-26 13:44:53,472 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 12636.800000000007)
+2025-06-26 13:44:53,638 INFO: [*408362001349414703] Bought 9.0 of fuel for 21.132216705225545
+2025-06-26 13:44:53,727 INFO: [*408362001349414703] Refilled 9.0 fuel on the ship for 21.132216705225545 credits
+2025-06-26 13:44:53,727 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:44:53,951 INFO: [*408362001349414703] Current ship cargo capacity: 1475.3242332115249
+2025-06-26 13:44:53,951 INFO: [*408362001349414703] Current ship reactor power: 8
+2025-06-26 13:44:53,951 INFO: [LOGS] flip value = 0
+2025-06-26 13:44:53,951 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:44:53,952 INFO: [*408362001349414703] Considering cargo expansion upgrade...
+2025-06-26 13:44:53,995 INFO: [*408362001349414703] Cargo expansion upgrade bought
+2025-06-26 13:44:53,995 INFO: [LOGS] flip value = 1
+2025-06-26 13:44:53,995 INFO: 
+2025-06-26 13:44:54,036 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 16114.058676539285, 'rank': 15}}
+2025-06-26 13:44:54,037 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:44:54,084 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 16114.058676539285, 'rank': 15}}
+2025-06-26 13:44:54,127 INFO: [LOGS] rank : 15
+2025-06-26 13:44:54,127 INFO: [LOGS] operator price : 16114.058676539285
+2025-06-26 13:44:54,127 INFO: [LOGS] threshold : 2000
+2025-06-26 13:44:54,194 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:44:54,195 INFO: Completed a cycle
+2025-06-26 13:44:54,744 INFO: [*] Ship {'cargo': {'capacity': 1575.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.001}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 15}}, 'fuel_tank': 3622.068083049633, 'fuel_tank_capacity': 3623.0, 'hull_decay': 749.6684267061065, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 8, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 7.68, 'hull_usage_rate': 0.05, 'speed': 800.0}} cycle began
+2025-06-26 13:44:54,789 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:44:54,918 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:44:55,004 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.6247236889217505
+2025-06-26 13:44:55,776 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:44:55,777 INFO: 	- Extraction of Freon: 9.500568987995331/sec
+2025-06-26 13:44:55,777 INFO: 	- Extraction of Helium: 253.87781959937035/sec
+2025-06-26 13:44:55,777 INFO: 	- Extraction of Oxygen: 3.6144127336474194/sec
+2025-06-26 13:44:55,777 INFO: 	- Extraction of Ozone: 49.727768237633924/sec
+2025-06-26 13:45:01,076 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:45:01,326 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.6247236889217505
+2025-06-26 13:45:02,265 INFO: [*408362001349414703] Unloaded and sold 43.32259458525878 of Freon, for 2487.915967445487 credits
+2025-06-26 13:45:02,348 INFO: [*408362001349414703] Unloaded and sold 1162.760413765115 of Helium, for 5224.251586439423 credits
+2025-06-26 13:45:02,445 INFO: [*408362001349414703] Unloaded and sold 16.481722065432162 of Oxygen, for 1811.5373958383193 credits
+2025-06-26 13:45:02,528 INFO: [*408362001349414703] Unloaded and sold 227.6658834462157 of Ozone, for 3698.2423117162853 credits
+2025-06-26 13:45:03,594 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 13221.947261439514 credits
+2025-06-26 13:45:03,685 INFO: [*408362001349414703] Current hull decay level: 799.6463218198438/22976.0
+2025-06-26 13:45:03,685 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 12636.800000000007)
+2025-06-26 13:45:03,833 INFO: [*408362001349414703] Bought 10.0 of fuel for 30.863726562253046
+2025-06-26 13:45:03,915 INFO: [*408362001349414703] Refilled 10.0 fuel on the ship for 30.863726562253046 credits
+2025-06-26 13:45:03,916 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:45:04,107 INFO: [*408362001349414703] Current ship cargo capacity: 1575.3242332115249
+2025-06-26 13:45:04,107 INFO: [*408362001349414703] Current ship reactor power: 8
+2025-06-26 13:45:04,107 INFO: [LOGS] flip value = 1
+2025-06-26 13:45:04,108 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:45:04,108 INFO: [*408362001349414703] Considering reactor upgrade...
+2025-06-26 13:45:04,148 INFO: [*408362001349414703] Reactor upgrade bought
+2025-06-26 13:45:04,148 INFO: [LOGS] flip value = 0
+2025-06-26 13:45:04,148 INFO: 
+2025-06-26 13:45:04,189 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 17087.309294335264, 'rank': 16}}
+2025-06-26 13:45:04,189 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:45:04,230 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 17087.309294335264, 'rank': 16}}
+2025-06-26 13:45:04,272 INFO: [LOGS] rank : 16
+2025-06-26 13:45:04,272 INFO: [LOGS] operator price : 17087.309294335264
+2025-06-26 13:45:04,272 INFO: [LOGS] threshold : 2000
+2025-06-26 13:45:04,316 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:45:04,316 INFO: Completed a cycle
+2025-06-26 13:45:04,858 INFO: [*] Ship {'cargo': {'capacity': 1575.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.001}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 16}}, 'fuel_tank': 3622.4723271877892, 'fuel_tank_capacity': 3623.0, 'hull_decay': 799.6463218198438, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 9, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 8.64, 'hull_usage_rate': 0.05, 'speed': 900.0}} cycle began
+2025-06-26 13:45:04,903 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:45:05,041 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:45:05,125 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.5553099457082226
+2025-06-26 13:45:05,812 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:45:05,812 INFO: 	- Extraction of Freon: 10.059704577319089/sec
+2025-06-26 13:45:05,812 INFO: 	- Extraction of Helium: 263.9015821545788/sec
+2025-06-26 13:45:05,812 INFO: 	- Extraction of Oxygen: 3.964658796960267/sec
+2025-06-26 13:45:05,812 INFO: 	- Extraction of Ozone: 51.98879826659562/sec
+2025-06-26 13:45:11,104 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:45:11,357 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.5553099457082226
+2025-06-26 13:45:12,155 INFO: [!] Error during ship 408362001349414703 cycle: Either you attempted to SELL 0 units, or you don't have any unit of this resource in your cargo
+2025-06-26 13:45:12,155 INFO: Completed a cycle
+2025-06-26 13:45:12,736 INFO: [*] Ship {'cargo': {'capacity': 1575.3242332115249, 'resources': {'Freon': 44.06141107050823, 'Helium': 1159.360096884863, 'Oxygen': 17.365205530686058, 'Ozone': 227.7109364076875}, 'usage': 1575.3242332115249}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 16}}, 'fuel_tank': 3612.876571325961, 'fuel_tank_capacity': 3623.0, 'hull_decay': 849.6242169335827, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 9, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 8.64, 'hull_usage_rate': 0.05, 'speed': 900.0}} cycle began
+2025-06-26 13:45:12,783 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:45:12,940 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:45:13,081 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.5553099457082226
+2025-06-26 13:45:13,791 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:45:13,791 INFO: 	- Extraction of Freon: 10.059704577319089/sec
+2025-06-26 13:45:13,791 INFO: 	- Extraction of Helium: 263.9015821545788/sec
+2025-06-26 13:45:13,791 INFO: 	- Extraction of Oxygen: 3.964658796960267/sec
+2025-06-26 13:45:13,791 INFO: 	- Extraction of Ozone: 51.98879826659562/sec
+2025-06-26 13:45:13,832 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:45:14,087 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.5553099457082226
+2025-06-26 13:45:14,859 INFO: [*408362001349414703] Unloaded and sold 44.06141107050823 of Freon, for 2498.7584603017826 credits
+2025-06-26 13:45:14,943 INFO: [!] Error during ship 408362001349414703 cycle: Either you attempted to SELL 0 units, or you don't have any unit of this resource in your cargo
+2025-06-26 13:45:14,943 INFO: Completed a cycle
+2025-06-26 13:45:15,507 INFO: [*] Ship {'cargo': {'capacity': 1575.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 1159.360096884863, 'Oxygen': 17.365205530686058, 'Ozone': 227.7109364076875}, 'usage': 1443.140072663647}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 16}}, 'fuel_tank': 3603.2808154641325, 'fuel_tank_capacity': 3623.0, 'hull_decay': 899.6021120473216, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 9, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 8.64, 'hull_usage_rate': 0.05, 'speed': 900.0}} cycle began
+2025-06-26 13:45:15,553 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:45:15,702 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:45:15,787 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.5553099457082226
+2025-06-26 13:45:16,514 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:45:16,514 INFO: 	- Extraction of Freon: 10.059704577319089/sec
+2025-06-26 13:45:16,514 INFO: 	- Extraction of Helium: 263.9015821545788/sec
+2025-06-26 13:45:16,514 INFO: 	- Extraction of Oxygen: 3.964658796960267/sec
+2025-06-26 13:45:16,514 INFO: 	- Extraction of Ozone: 51.98879826659562/sec
+2025-06-26 13:45:17,639 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:45:17,915 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.5553099457082226
+2025-06-26 13:45:18,751 INFO: [*408362001349414703] Unloaded and sold 3.6214936478348707 of Freon, for 239.77226374725214 credits
+2025-06-26 13:45:18,858 INFO: [*408362001349414703] Unloaded and sold 959.3425623038011 of Helium, for 4201.653832223217 credits
+2025-06-26 13:45:18,962 INFO: [*408362001349414703] Unloaded and sold 0.0 of Oxygen, for 1.4152992372950826e-12 credits
+2025-06-26 13:45:19,047 INFO: [*408362001349414703] Unloaded and sold 246.4269037836617 of Ozone, for 4206.56787017735 credits
+2025-06-26 13:45:20,202 INFO: [*408362001349414703] Unloaded and sold 298.9147904113379 of Helium, for 1125.4648605618827 credits
+2025-06-26 13:45:20,323 INFO: [*408362001349414703] Unloaded and sold 18.79248269759177 of Oxygen, for 1993.182058910325 credits
+2025-06-26 13:45:21,366 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 11766.640885620029 credits
+2025-06-26 13:45:21,461 INFO: [*408362001349414703] Current hull decay level: 949.5800071610605/22976.0
+2025-06-26 13:45:21,461 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 5744.000000000008)
+2025-06-26 13:45:21,617 INFO: [*408362001349414703] Bought 19.0 of fuel for 41.69273192850756
+2025-06-26 13:45:21,701 INFO: [*408362001349414703] Refilled 18.80848827632326 fuel on the ship for 41.69273192850756 credits
+2025-06-26 13:45:21,701 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:45:21,944 INFO: [*408362001349414703] Current ship cargo capacity: 1575.3242332115249
+2025-06-26 13:45:21,944 INFO: [*408362001349414703] Current ship reactor power: 9
+2025-06-26 13:45:21,944 INFO: [LOGS] flip value = 0
+2025-06-26 13:45:21,945 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:45:21,945 INFO: [*408362001349414703] Considering cargo expansion upgrade...
+2025-06-26 13:45:21,988 INFO: [*408362001349414703] Cargo expansion upgrade bought
+2025-06-26 13:45:21,988 INFO: [LOGS] flip value = 1
+2025-06-26 13:45:21,989 INFO: 
+2025-06-26 13:45:22,052 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 18050.86821937319, 'rank': 17}}
+2025-06-26 13:45:22,052 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:45:22,093 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 18050.86821937319, 'rank': 17}}
+2025-06-26 13:45:22,161 INFO: [LOGS] rank : 17
+2025-06-26 13:45:22,162 INFO: [LOGS] operator price : 18050.86821937319
+2025-06-26 13:45:22,162 INFO: [LOGS] threshold : 2000
+2025-06-26 13:45:22,218 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:45:22,219 INFO: Completed a cycle
+2025-06-26 13:45:22,788 INFO: [*] Ship {'cargo': {'capacity': 1675.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.002}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 17}}, 'fuel_tank': 3612.4935478786274, 'fuel_tank_capacity': 3623.0, 'hull_decay': 949.5800071610605, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 9, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 8.64, 'hull_usage_rate': 0.05, 'speed': 900.0}} cycle began
+2025-06-26 13:45:22,850 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:45:22,977 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:45:23,084 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.5553099457082226
+2025-06-26 13:45:23,768 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:45:23,768 INFO: 	- Extraction of Freon: 10.598840669794711/sec
+2025-06-26 13:45:23,768 INFO: 	- Extraction of Helium: 273.67766584592437/sec
+2025-06-26 13:45:23,768 INFO: 	- Extraction of Oxygen: 4.2953740154023405/sec
+2025-06-26 13:45:23,768 INFO: 	- Extraction of Ozone: 54.18607736796491/sec
+2025-06-26 13:45:29,088 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:45:29,327 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.5553099457082226
+2025-06-26 13:45:30,226 INFO: [*408362001349414703] Unloaded and sold 47.482806200680116 of Freon, for 1458.6146806646514 credits
+2025-06-26 13:45:30,346 INFO: [*408362001349414703] Unloaded and sold 1228.2385722547097 of Helium, for 4652.409230323008 credits
+2025-06-26 13:45:30,462 INFO: [*408362001349414703] Unloaded and sold 19.243275589002483 of Oxygen, for 1535.8970878175437 credits
+2025-06-26 13:45:30,567 INFO: [*408362001349414703] Unloaded and sold 242.7536266084821 of Ozone, for 4006.5278494422296 credits
+2025-06-26 13:45:31,647 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 11653.448848247432 credits
+2025-06-26 13:45:31,790 INFO: [*408362001349414703] Current hull decay level: 999.5579022747994/22976.0
+2025-06-26 13:45:31,790 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 6892.800000000008)
+2025-06-26 13:45:31,949 INFO: [*408362001349414703] Bought 20.0 of fuel for 42.70340225518841
+2025-06-26 13:45:32,069 INFO: [*408362001349414703] Refilled 20.0 fuel on the ship for 42.70340225518841 credits
+2025-06-26 13:45:32,069 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:45:32,241 INFO: [*408362001349414703] Current ship cargo capacity: 1675.3242332115249
+2025-06-26 13:45:32,241 INFO: [*408362001349414703] Current ship reactor power: 9
+2025-06-26 13:45:32,241 INFO: [LOGS] flip value = 1
+2025-06-26 13:45:32,241 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:45:32,241 INFO: [*408362001349414703] Considering reactor upgrade...
+2025-06-26 13:45:32,284 INFO: [*408362001349414703] Reactor upgrade bought
+2025-06-26 13:45:32,284 INFO: [LOGS] flip value = 0
+2025-06-26 13:45:32,284 INFO: 
+2025-06-26 13:45:32,347 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 19005.42971781232, 'rank': 18}}
+2025-06-26 13:45:32,347 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:45:32,390 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 19005.42971781232, 'rank': 18}}
+2025-06-26 13:45:32,453 INFO: [LOGS] rank : 18
+2025-06-26 13:45:32,453 INFO: [LOGS] operator price : 19005.42971781232
+2025-06-26 13:45:32,453 INFO: [LOGS] threshold : 2000
+2025-06-26 13:45:32,496 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:45:32,496 INFO: Completed a cycle
+2025-06-26 13:45:33,052 INFO: [*] Ship {'cargo': {'capacity': 1675.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.002}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 18}}, 'fuel_tank': 3622.897792016799, 'fuel_tank_capacity': 3623.0, 'hull_decay': 999.5579022747994, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 10, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 9.6, 'hull_usage_rate': 0.05, 'speed': 1000.0}} cycle began
+2025-06-26 13:45:33,114 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:45:33,297 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:45:33,402 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.49977895113740034
+2025-06-26 13:45:34,079 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:45:34,079 INFO: 	- Extraction of Freon: 11.120277560267503/sec
+2025-06-26 13:45:34,081 INFO: 	- Extraction of Helium: 283.2262533884705/sec
+2025-06-26 13:45:34,081 INFO: 	- Extraction of Oxygen: 4.609910555867758/sec
+2025-06-26 13:45:34,081 INFO: 	- Extraction of Ozone: 56.32548589995777/sec
+2025-06-26 13:45:39,350 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:45:39,575 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.49977895113740034
+2025-06-26 13:45:40,288 INFO: [*408362001349414703] Unloaded and sold 48.0395990603556 of Freon, for 2187.5703003171707 credits
+2025-06-26 13:45:40,377 INFO: [*408362001349414703] Unloaded and sold 1223.8793132140984 of Helium, for 2918.320607105415 credits
+2025-06-26 13:45:40,511 INFO: [*408362001349414703] Unloaded and sold 19.91481360134872 of Oxygen, for 1546.6535526973416 credits
+2025-06-26 13:45:40,642 INFO: [*408362001349414703] Unloaded and sold 243.32609908781615 of Ozone, for 4025.235151861696 credits
+2025-06-26 13:45:41,695 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 10677.779611981623 credits
+2025-06-26 13:45:41,792 INFO: [*408362001349414703] Current hull decay level: 1049.5357973885395/22976.0
+2025-06-26 13:45:41,792 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 2297.6000000000076)
+2025-06-26 13:45:41,938 INFO: [*408362001349414703] Bought 9.0 of fuel for 22.879707248372576
+2025-06-26 13:45:42,038 INFO: [*408362001349414703] Refilled 9.0 fuel on the ship for 22.879707248372576 credits
+2025-06-26 13:45:42,039 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:45:42,257 INFO: [*408362001349414703] Current ship cargo capacity: 1675.3242332115249
+2025-06-26 13:45:42,257 INFO: [*408362001349414703] Current ship reactor power: 10
+2025-06-26 13:45:42,257 INFO: [LOGS] flip value = 0
+2025-06-26 13:45:42,257 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:45:42,257 INFO: [*408362001349414703] Considering cargo expansion upgrade...
+2025-06-26 13:45:42,299 INFO: [*408362001349414703] Cargo expansion upgrade bought
+2025-06-26 13:45:42,299 INFO: [LOGS] flip value = 1
+2025-06-26 13:45:42,299 INFO: 
+2025-06-26 13:45:42,363 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 19951.60048093474, 'rank': 19}}
+2025-06-26 13:45:42,363 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:45:42,405 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 19951.60048093474, 'rank': 19}}
+2025-06-26 13:45:42,446 INFO: [LOGS] rank : 19
+2025-06-26 13:45:42,446 INFO: [LOGS] operator price : 19951.60048093474
+2025-06-26 13:45:42,446 INFO: [LOGS] threshold : 2000
+2025-06-26 13:45:42,487 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:45:42,488 INFO: Completed a cycle
+2025-06-26 13:45:43,034 INFO: [*] Ship {'cargo': {'capacity': 1775.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.002}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 19}}, 'fuel_tank': 3622.3020361549607, 'fuel_tank_capacity': 3623.0, 'hull_decay': 1049.5357973885395, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 10, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 9.6, 'hull_usage_rate': 0.05, 'speed': 1000.0}} cycle began
+2025-06-26 13:45:43,078 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:45:43,229 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:45:43,315 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.49977895113740034
+2025-06-26 13:45:43,966 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:45:43,966 INFO: 	- Extraction of Freon: 11.625896098666445/sec
+2025-06-26 13:45:43,966 INFO: 	- Extraction of Helium: 292.5648621204608/sec
+2025-06-26 13:45:43,966 INFO: 	- Extraction of Oxygen: 4.910740592902139/sec
+2025-06-26 13:45:43,966 INFO: 	- Extraction of Ozone: 58.41203142051913/sec
+2025-06-26 13:45:49,300 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:45:49,578 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.49977895113740034
+2025-06-26 13:45:50,356 INFO: [*408362001349414703] Unloaded and sold 51.38646075610548 of Freon, for 3420.3311968941343 credits
+2025-06-26 13:45:50,454 INFO: [*408362001349414703] Unloaded and sold 1293.7113805217202 of Helium, for 3223.7218247541377 credits
+2025-06-26 13:45:50,556 INFO: [*408362001349414703] Unloaded and sold 21.70547342062742 of Oxygen, for 1812.5935175063883 credits
+2025-06-26 13:45:50,642 INFO: [*408362001349414703] Unloaded and sold 258.18117887869533 of Ozone, for 3858.239406411388 credits
+2025-06-26 13:45:51,687 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 12314.88594556605 credits
+2025-06-26 13:45:51,774 INFO: [*408362001349414703] Current hull decay level: 1099.5136925022796/22976.0
+2025-06-26 13:45:51,775 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 3446.400000000008)
+2025-06-26 13:45:51,930 INFO: [*408362001349414703] Bought 10.0 of fuel for 24.374632426717213
+2025-06-26 13:45:52,042 INFO: [*408362001349414703] Refilled 10.0 fuel on the ship for 24.374632426717213 credits
+2025-06-26 13:45:52,042 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:45:52,253 INFO: [*408362001349414703] Current ship cargo capacity: 1775.3242332115249
+2025-06-26 13:45:52,253 INFO: [*408362001349414703] Current ship reactor power: 10
+2025-06-26 13:45:52,253 INFO: [LOGS] flip value = 1
+2025-06-26 13:45:52,253 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:45:52,254 INFO: [*408362001349414703] Considering reactor upgrade...
+2025-06-26 13:45:52,297 INFO: [*408362001349414703] Reactor upgrade bought
+2025-06-26 13:45:52,297 INFO: [LOGS] flip value = 0
+2025-06-26 13:45:52,297 INFO: 
+2025-06-26 13:45:52,340 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 20889.91492016606, 'rank': 20}}
+2025-06-26 13:45:52,340 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:45:52,382 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 20889.91492016606, 'rank': 20}}
+2025-06-26 13:45:52,422 INFO: [LOGS] rank : 20
+2025-06-26 13:45:52,422 INFO: [LOGS] operator price : 20889.91492016606
+2025-06-26 13:45:52,424 INFO: [LOGS] threshold : 2000
+2025-06-26 13:45:52,464 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:45:52,464 INFO: Completed a cycle
+2025-06-26 13:45:53,009 INFO: [*] Ship {'cargo': {'capacity': 1775.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.002}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 20}}, 'fuel_tank': 3622.7062802931223, 'fuel_tank_capacity': 3623.0, 'hull_decay': 1099.5136925022796, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 11, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 10.559999999999999, 'hull_usage_rate': 0.05, 'speed': 1100.0}} cycle began
+2025-06-26 13:45:53,054 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:45:53,209 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:45:53,296 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.4543445010340003
+2025-06-26 13:45:53,892 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:45:53,893 INFO: 	- Extraction of Freon: 12.11725845717482/sec
+2025-06-26 13:45:53,893 INFO: 	- Extraction of Helium: 301.7088168272581/sec
+2025-06-26 13:45:53,893 INFO: 	- Extraction of Oxygen: 5.199751686753245/sec
+2025-06-26 13:45:53,893 INFO: 	- Extraction of Ozone: 60.450021600802195/sec
+2025-06-26 13:45:59,204 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:45:59,448 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.4543445010340003
+2025-06-26 13:46:00,161 INFO: [*408362001349414703] Unloaded and sold 51.61952102756491 of Freon, for 3210.9864730384725 credits
+2025-06-26 13:46:00,267 INFO: [*408362001349414703] Unloaded and sold 1291.3137360206713 of Helium, for 4332.458576073347 credits
+2025-06-26 13:46:00,349 INFO: [*408362001349414703] Unloaded and sold 22.15094218556882 of Oxygen, for 1781.3353954063723 credits
+2025-06-26 13:46:00,447 INFO: [*408362001349414703] Unloaded and sold 258.5762530267764 of Ozone, for 3485.135918432078 credits
+2025-06-26 13:46:01,490 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 12809.91636295027 credits
+2025-06-26 13:46:01,580 INFO: [*408362001349414703] Current hull decay level: 1149.4915876160155/22976.0
+2025-06-26 13:46:01,580 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 2297.6000000000076)
+2025-06-26 13:46:01,710 INFO: [*408362001349414703] Bought 9.0 of fuel for 22.39984580511895
+2025-06-26 13:46:01,815 INFO: [*408362001349414703] Refilled 9.0 fuel on the ship for 22.39984580511895 credits
+2025-06-26 13:46:01,816 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:46:02,016 INFO: [*408362001349414703] Current ship cargo capacity: 1775.3242332115249
+2025-06-26 13:46:02,016 INFO: [*408362001349414703] Current ship reactor power: 11
+2025-06-26 13:46:02,016 INFO: [LOGS] flip value = 0
+2025-06-26 13:46:02,016 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:46:02,016 INFO: [*408362001349414703] Considering cargo expansion upgrade...
+2025-06-26 13:46:02,078 INFO: [*408362001349414703] Cargo expansion upgrade bought
+2025-06-26 13:46:02,079 INFO: [LOGS] flip value = 1
+2025-06-26 13:46:02,079 INFO: 
+2025-06-26 13:46:02,122 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 21820.84712624202, 'rank': 21}}
+2025-06-26 13:46:02,124 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:46:02,183 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 21820.84712624202, 'rank': 21}}
+2025-06-26 13:46:02,228 INFO: [LOGS] rank : 21
+2025-06-26 13:46:02,229 INFO: [LOGS] operator price : 21820.84712624202
+2025-06-26 13:46:02,229 INFO: [LOGS] threshold : 2000
+2025-06-26 13:46:02,272 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:46:02,272 INFO: Completed a cycle
+2025-06-26 13:46:02,828 INFO: [*] Ship {'cargo': {'capacity': 1875.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.002}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 21}}, 'fuel_tank': 3622.1105244312757, 'fuel_tank_capacity': 3623.0, 'hull_decay': 1149.4915876160155, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 11, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 10.559999999999999, 'hull_usage_rate': 0.05, 'speed': 1100.0}} cycle began
+2025-06-26 13:46:02,893 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:46:03,046 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:46:03,135 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.4543445010340003
+2025-06-26 13:46:03,712 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:46:03,712 INFO: 	- Extraction of Freon: 12.595679619710728/sec
+2025-06-26 13:46:03,712 INFO: 	- Extraction of Helium: 310.6716193680371/sec
+2025-06-26 13:46:03,714 INFO: 	- Extraction of Oxygen: 5.478425258595529/sec
+2025-06-26 13:46:03,714 INFO: 	- Extraction of Ozone: 62.44319523077625/sec
+2025-06-26 13:46:09,004 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:46:09,220 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.4543445010340003
+2025-06-26 13:46:09,923 INFO: [*408362001349414703] Unloaded and sold 55.01383075955319 of Freon, for 3310.3910875558913 credits
+2025-06-26 13:46:10,051 INFO: [*408362001349414703] Unloaded and sold 1169.0816710923054 of Helium, for 5091.697928715252 credits
+2025-06-26 13:46:10,157 INFO: [*408362001349414703] Unloaded and sold 23.885934127476553 of Oxygen, for 1925.117176782247 credits
+2025-06-26 13:46:10,260 INFO: [*408362001349414703] Unloaded and sold 273.50119511079896 of Ozone, for 4094.8336596337945 credits
+2025-06-26 13:46:11,415 INFO: [*408362001349414703] Unloaded and sold 191.66002173970287 of Helium, for 671.9734095144258 credits
+2025-06-26 13:46:13,469 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 15094.01326220161 credits
+2025-06-26 13:46:13,609 INFO: [*408362001349414703] Current hull decay level: 1199.4694827297515/22976.0
+2025-06-26 13:46:13,609 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 12636.800000000007)
+2025-06-26 13:46:13,761 INFO: [*408362001349414703] Bought 10.0 of fuel for 23.18545477177766
+2025-06-26 13:46:13,845 INFO: [*408362001349414703] Refilled 10.0 fuel on the ship for 23.18545477177766 credits
+2025-06-26 13:46:13,845 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:46:14,025 INFO: [*408362001349414703] Current ship cargo capacity: 1875.3242332115249
+2025-06-26 13:46:14,026 INFO: [*408362001349414703] Current ship reactor power: 11
+2025-06-26 13:46:14,026 INFO: [LOGS] flip value = 1
+2025-06-26 13:46:14,026 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:46:14,026 INFO: [*408362001349414703] Considering reactor upgrade...
+2025-06-26 13:46:14,067 INFO: [*408362001349414703] Reactor upgrade bought
+2025-06-26 13:46:14,067 INFO: [LOGS] flip value = 0
+2025-06-26 13:46:14,067 INFO: 
+2025-06-26 13:46:14,124 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 22744.82035063505, 'rank': 22}}
+2025-06-26 13:46:14,125 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:46:14,186 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 22744.82035063505, 'rank': 22}}
+2025-06-26 13:46:14,231 INFO: [LOGS] rank : 22
+2025-06-26 13:46:14,231 INFO: [LOGS] operator price : 22744.82035063505
+2025-06-26 13:46:14,232 INFO: [LOGS] threshold : 2000
+2025-06-26 13:46:14,295 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:46:14,296 INFO: Completed a cycle
+2025-06-26 13:46:14,867 INFO: [*] Ship {'cargo': {'capacity': 1875.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.003}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 22}}, 'fuel_tank': 3622.514768569429, 'fuel_tank_capacity': 3623.0, 'hull_decay': 1199.4694827297515, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 12, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 11.52, 'hull_usage_rate': 0.05, 'speed': 1200.0}} cycle began
+2025-06-26 13:46:14,914 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:46:15,095 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:46:15,179 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.41648245928116695
+2025-06-26 13:46:15,758 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:46:15,759 INFO: 	- Extraction of Freon: 13.062279391892243/sec
+2025-06-26 13:46:15,759 INFO: 	- Extraction of Helium: 319.46524144919834/sec
+2025-06-26 13:46:15,760 INFO: 	- Extraction of Oxygen: 5.747950305770805/sec
+2025-06-26 13:46:15,760 INFO: 	- Extraction of Ozone: 64.39482313578019/sec
+2025-06-26 13:46:21,064 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:46:21,323 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.41648245928116695
+2025-06-26 13:46:22,009 INFO: [*408362001349414703] Unloaded and sold 55.384064621623416 of Freon, for 3013.1382436968033 credits
+2025-06-26 13:46:22,096 INFO: [*408362001349414703] Unloaded and sold 1333.328 of Helium, for 5463.421327032214 credits
+2025-06-26 13:46:23,213 INFO: [*408362001349414703] Unloaded and sold 24.37130929646827 of Oxygen, for 1690.12174834194 credits
+2025-06-26 13:46:23,307 INFO: [!] Error during ship 408362001349414703 cycle: Either you attempted to SELL 0 units, or you don't have any unit of this resource in your cargo
+2025-06-26 13:46:23,308 INFO: Completed a cycle
+2025-06-26 13:46:23,853 INFO: [*] Ship {'cargo': {'capacity': 1875.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 27.32678237768664, 'Oxygen': 0.0, 'Ozone': 273.034050095707}, 'usage': 703.0831252392676}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 22}}, 'fuel_tank': 3612.9190127075944, 'fuel_tank_capacity': 3623.0, 'hull_decay': 1249.4473778434933, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 12, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 11.52, 'hull_usage_rate': 0.05, 'speed': 1200.0}} cycle began
+2025-06-26 13:46:23,905 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:46:24,056 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:46:24,171 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.41648245928116695
+2025-06-26 13:46:24,736 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:46:24,736 INFO: 	- Extraction of Freon: 13.062279391892243/sec
+2025-06-26 13:46:24,736 INFO: 	- Extraction of Helium: 319.46524144919834/sec
+2025-06-26 13:46:24,736 INFO: 	- Extraction of Oxygen: 5.747950305770805/sec
+2025-06-26 13:46:24,736 INFO: 	- Extraction of Ozone: 64.39482313578019/sec
+2025-06-26 13:46:27,916 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:46:28,203 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.41648245928116695
+2025-06-26 13:46:28,880 INFO: [*408362001349414703] Unloaded and sold 34.48441759459555 of Freon, for 1958.6038857859767 credits
+2025-06-26 13:46:28,995 INFO: [*408362001349414703] Unloaded and sold 877.104324632557 of Helium, for 3123.2671409738145 credits
+2025-06-26 13:46:29,110 INFO: [*408362001349414703] Unloaded and sold 15.174588807234954 of Oxygen, for 1358.4360289844253 credits
+2025-06-26 13:46:29,220 INFO: [*408362001349414703] Unloaded and sold 399.9988000000001 of Ozone, for 6946.493189985985 credits
+2025-06-26 13:46:30,374 INFO: [*408362001349414703] Unloaded and sold 44.099670613907335 of Ozone, for 791.0258358386814 credits
+2025-06-26 13:46:31,421 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 14177.826081568883 credits
+2025-06-26 13:46:31,529 INFO: [*408362001349414703] Current hull decay level: 1299.4252729572352/22976.0
+2025-06-26 13:46:31,529 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 17232.000000000004)
+2025-06-26 13:46:31,693 INFO: [!] Error during ship 408362001349414703 cycle: Either you attempted to BUY 0 units, or you don't have enough space in cargo to hold the resources
+2025-06-26 13:46:31,694 INFO: Completed a cycle
+2025-06-26 13:46:32,244 INFO: [*] Ship {'cargo': {'capacity': 1875.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.003}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 22}}, 'fuel_tank': 3603.3232568457597, 'fuel_tank_capacity': 3623.0, 'hull_decay': 1299.4252729572352, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 12, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 11.52, 'hull_usage_rate': 0.05, 'speed': 1200.0}} cycle began
+2025-06-26 13:46:32,292 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:46:32,430 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:46:32,536 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.41648245928116695
+2025-06-26 13:46:33,109 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:46:33,109 INFO: 	- Extraction of Freon: 13.062279391892243/sec
+2025-06-26 13:46:33,110 INFO: 	- Extraction of Helium: 319.46524144919834/sec
+2025-06-26 13:46:33,110 INFO: 	- Extraction of Oxygen: 5.747950305770805/sec
+2025-06-26 13:46:33,110 INFO: 	- Extraction of Ozone: 64.39482313578019/sec
+2025-06-26 13:46:38,387 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:46:38,653 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.41648245928116695
+2025-06-26 13:46:39,292 INFO: [*408362001349414703] Unloaded and sold 55.384064621623416 of Freon, for 2625.272207182935 credits
+2025-06-26 13:46:39,381 INFO: [*408362001349414703] Unloaded and sold 1333.3293333333331 of Helium, for 5228.597463021162 credits
+2025-06-26 13:46:39,487 INFO: [*408362001349414703] Unloaded and sold 24.37130929646827 of Oxygen, for 2303.997111483385 credits
+2025-06-26 13:46:39,826 INFO: [*408362001349414703] Unloaded and sold 273.034050095707 of Ozone, for 3609.802610203928 credits
+2025-06-26 13:46:40,962 INFO: [*408362001349414703] Unloaded and sold 27.32544904435349 of Helium, for 100.57552552184947 credits
+2025-06-26 13:46:42,004 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 13868.24491741326 credits
+2025-06-26 13:46:42,088 INFO: [*408362001349414703] Current hull decay level: 1349.403168070977/22976.0
+2025-06-26 13:46:42,088 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 5744.000000000008)
+2025-06-26 13:46:42,233 INFO: [*408362001349414703] Bought 19.0 of fuel for 48.99983019948202
+2025-06-26 13:46:42,323 INFO: [*408362001349414703] Refilled 29.0 fuel on the ship for 48.99983019948202 credits
+2025-06-26 13:46:42,324 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:46:42,516 INFO: [*408362001349414703] Current ship cargo capacity: 1875.3242332115249
+2025-06-26 13:46:42,516 INFO: [*408362001349414703] Current ship reactor power: 12
+2025-06-26 13:46:42,516 INFO: [LOGS] flip value = 0
+2025-06-26 13:46:42,517 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:46:42,517 INFO: [*408362001349414703] Considering cargo expansion upgrade...
+2025-06-26 13:46:42,566 INFO: [*408362001349414703] Cargo expansion upgrade bought
+2025-06-26 13:46:42,567 INFO: [LOGS] flip value = 1
+2025-06-26 13:46:42,567 INFO: 
+2025-06-26 13:46:42,617 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 23662.214616204536, 'rank': 23}}
+2025-06-26 13:46:42,617 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:46:42,660 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 23662.214616204536, 'rank': 23}}
+2025-06-26 13:46:42,704 INFO: [LOGS] rank : 23
+2025-06-26 13:46:42,704 INFO: [LOGS] operator price : 23662.214616204536
+2025-06-26 13:46:42,704 INFO: [LOGS] threshold : 2000
+2025-06-26 13:46:42,772 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:46:42,772 INFO: Completed a cycle
+2025-06-26 13:46:43,319 INFO: [*] Ship {'cargo': {'capacity': 1975.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.003}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 23}}, 'fuel_tank': 3622.727500983925, 'fuel_tank_capacity': 3623.0, 'hull_decay': 1349.403168070977, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 12, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 11.52, 'hull_usage_rate': 0.05, 'speed': 1200.0}} cycle began
+2025-06-26 13:46:43,363 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:46:43,509 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:46:43,593 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.41648245928116695
+2025-06-26 13:46:44,151 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:46:44,151 INFO: 	- Extraction of Freon: 13.51802106848524/sec
+2025-06-26 13:46:44,151 INFO: 	- Extraction of Helium: 328.10035927579275/sec
+2025-06-26 13:46:44,151 INFO: 	- Extraction of Oxygen: 6.009299019113862/sec
+2025-06-26 13:46:44,151 INFO: 	- Extraction of Ozone: 66.3077870673077/sec
+2025-06-26 13:46:49,447 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:46:49,691 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.41648245928116695
+2025-06-26 13:46:51,363 INFO: [!] Error during ship 408362001349414703 cycle: Either you attempted to SELL 0 units, or you don't have any unit of this resource in your cargo
+2025-06-26 13:46:51,364 INFO: Completed a cycle
+2025-06-26 13:46:51,926 INFO: [*] Ship {'cargo': {'capacity': 1975.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 1430.517566442454, 'Oxygen': 26.080357742954234, 'Ozone': 287.96333385290507}, 'usage': 1799.32}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 23}}, 'fuel_tank': 3613.1317451220903, 'fuel_tank_capacity': 3623.0, 'hull_decay': 1399.3810631847189, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 12, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 11.52, 'hull_usage_rate': 0.05, 'speed': 1200.0}} cycle began
+2025-06-26 13:46:52,085 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:46:52,349 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:46:52,443 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.41648245928116695
+2025-06-26 13:46:53,090 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:46:53,092 INFO: 	- Extraction of Freon: 13.51802106848524/sec
+2025-06-26 13:46:53,092 INFO: 	- Extraction of Helium: 328.10035927579275/sec
+2025-06-26 13:46:53,092 INFO: 	- Extraction of Oxygen: 6.009299019113862/sec
+2025-06-26 13:46:53,092 INFO: 	- Extraction of Ozone: 66.3077870673077/sec
+2025-06-26 13:46:54,304 INFO: [*408362001349414703] The cargo is full, stopping mining process
+2025-06-26 13:46:54,698 INFO: [*408362001349414703] Traveling to [44595916, 2679037398, 3479964711], will take 0.41648245928116695
+2025-06-26 13:46:55,527 INFO: [*408362001349414703] Unloaded and sold 5.1368480060243895 of Freon, for 252.2621259066696 credits
+2025-06-26 13:46:55,617 INFO: [*408362001349414703] Unloaded and sold 1333.328 of Helium, for 3366.513251328047 credits
+2025-06-26 13:46:55,810 INFO: [*408362001349414703] Unloaded and sold 28.363891370217512 of Oxygen, for 2608.255884917313 credits
+2025-06-26 13:46:55,897 INFO: [*408362001349414703] Unloaded and sold 313.16029293848203 of Ozone, for 3884.9022073641363 credits
+2025-06-26 13:46:57,044 INFO: [*408362001349414703] Unloaded and sold 226.56344387270997 of Helium, for 639.2640835628143 credits
+2025-06-26 13:46:58,088 INFO: [*408362001349414703] ALL RESSOURCES SOLD for a total of 10751.19755307898 credits
+2025-06-26 13:46:58,180 INFO: [*408362001349414703] Current hull decay level: 1449.3589582984607/22976.0
+2025-06-26 13:46:58,181 INFO: [*408362001349414703] NO REPAIRS REQUIRED - The hull plate price isn't optimal (score: 2297.6000000000076)
+2025-06-26 13:46:58,315 INFO: [*408362001349414703] Bought 19.0 of fuel for 51.84200577604249
+2025-06-26 13:46:58,398 INFO: [*408362001349414703] Refilled 19.0 fuel on the ship for 51.84200577604249 credits
+2025-06-26 13:46:58,398 INFO: [*408362001349414703] Checking for ship upgrades
+2025-06-26 13:46:58,597 INFO: [*408362001349414703] Current ship cargo capacity: 1975.3242332115249
+2025-06-26 13:46:58,597 INFO: [*408362001349414703] Current ship reactor power: 12
+2025-06-26 13:46:58,597 INFO: [LOGS] flip value = 1
+2025-06-26 13:46:58,597 INFO: [*408362001349414703] Upgrades available: {'CargoExpansion': {'description': 'Adds 100 of cargo capacity', 'price': 2000.0}, 'HullUpgrade': {'description': 'Increase the hull decay capacity by 100', 'price': 900.0}, 'ReactorUpgrade': {'description': "Increase the reactor power by 1, improves the ship's speed", 'price': 4000.0}, 'Shield': {'description': 'Reduce the damage and usure of the hull', 'price': 2500.0}}
+2025-06-26 13:46:58,597 INFO: [*408362001349414703] Considering reactor upgrade...
+2025-06-26 13:46:58,645 INFO: [*408362001349414703] Reactor upgrade bought
+2025-06-26 13:46:58,646 INFO: [LOGS] flip value = 0
+2025-06-26 13:46:58,646 INFO: 
+2025-06-26 13:46:58,699 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 24573.37289448644, 'rank': 24}}
+2025-06-26 13:46:58,699 INFO: [*408362001349414703] Pilot at max level
+2025-06-26 13:46:58,744 INFO: [*408362001349414703] Available crew augments: {'1032864202': {'member-type': 'Pilot', 'price': 18836.13466856635, 'rank': 3}, '4258770341': {'member-type': 'Operator', 'price': 24573.37289448644, 'rank': 24}}
+2025-06-26 13:46:58,797 INFO: [LOGS] rank : 24
+2025-06-26 13:46:58,798 INFO: [LOGS] operator price : 24573.37289448644
+2025-06-26 13:46:58,798 INFO: [LOGS] threshold : 2000
+2025-06-26 13:46:58,847 INFO: [*408362001349414703] Upgrade for Operator bought
+
+2025-06-26 13:46:58,848 INFO: Completed a cycle
+2025-06-26 13:46:59,392 INFO: [*] Ship {'cargo': {'capacity': 1975.3242332115249, 'resources': {'Freon': 0.0, 'Helium': 0.0, 'Oxygen': 0.0, 'Ozone': 0.0}, 'usage': 0.003}, 'crew': {'1032864202': {'member_type': 'Pilot', 'rank': 2}, '4258770341': {'member_type': 'Operator', 'rank': 24}}, 'fuel_tank': 3622.5359892602555, 'fuel_tank_capacity': 3623.0, 'hull_decay': 1449.3589582984607, 'hull_decay_capacity': 22976.0, 'id': 408362001349414703, 'modules': {'1': {'modtype': 'GasSucker', 'operator': 4258770341, 'rank': 1, 'totalcost': 0.0}}, 'pilot': 1032864202, 'position': [44595916, 2679037398, 3479964711], 'reactor_power': 13, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 12.48, 'hull_usage_rate': 0.05, 'speed': 1300.0}} cycle began
+2025-06-26 13:46:59,442 INFO: [*408362001349414703] Starting the Mining operation
+2025-06-26 13:46:59,572 INFO: [*408362001349414703] Targeting planet at [44595663, 2679037401, 3479964280]
+2025-06-26 13:46:59,684 INFO: [*408362001349414703] Traveling to [44595663, 2679037401, 3479964280], will take 0.3844453470287695
+2025-06-26 13:47:00,253 INFO: [*408362001349414703] Starting extraction:
+2025-06-26 13:47:00,253 INFO: 	- Extraction of Freon: 13.963740729283195/sec
+2025-06-26 13:47:00,253 INFO: 	- Extraction of Helium: 336.5865436338598/sec
+2025-06-26 13:47:00,253 INFO: 	- Extraction of Oxygen: 6.263278868405011/sec
+2025-06-26 13:47:00,253 INFO: 	- Extraction of Ozone: 68.1846421907146/sec
+2025-06-26 13:47:04,507 INFO: [!] Error during ship 408362001349414703 cycle: <urlopen error [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée>
+2025-06-26 13:47:04,507 INFO: Completed a cycle

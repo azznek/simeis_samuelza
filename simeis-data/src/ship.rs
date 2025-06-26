@@ -27,7 +27,7 @@ const FUEL_TANK_CAP_PRICE: f64 = 30.0;
 const CARGO_CAP_PRICE: f64 = 20.0;
 const HULL_DECAY_CAP_PRICE: f64 = 9.0;
 const REACTOR_POWER_PRICE: f64 = 4000.0;
-const SHIELD_PRICE : f64 = 2500.0;
+const SHIELD_PRICE: f64 = 2500.0;
 
 const REACTOR_SPEED_PER_POWER: f64 = 50.0;
 
@@ -160,7 +160,8 @@ impl Ship {
     // Updates the performances of the ship based on the crew onboard
     pub fn update_perf_stats(&mut self) {
         self.stats = ShipStats::default();
-        self.stats.hull_usage_rate = HULL_USAGE_BASE / (1.0 + (1.0 + self.shield_power as f64).log(3.5));
+        self.stats.hull_usage_rate =
+            HULL_USAGE_BASE / (1.0 + (1.0 + self.shield_power as f64).log(3.5));
         self.stats.fuel_consumption = self.reactor_power as f64;
 
         if let Some(ref pilot) = self.pilot {
@@ -243,7 +244,7 @@ impl Ship {
     pub fn stop_navigation(&mut self) -> Result<SpaceCoord, Errcode> {
         log::debug!("Stopping flight on ship {}", self.id);
         self.state = ShipState::Idle;
-        return Ok(self.position)
+        Ok(self.position)
     }
 
     pub async fn start_extraction(&mut self, galaxy: &Galaxy) -> Result<ExtractionInfo, Errcode> {

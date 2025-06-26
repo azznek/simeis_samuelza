@@ -1,0 +1,13 @@
+# Chaque section du projet a un ou plusieurs responsables (reviewers obligatoires)
+
+# Tout changement dans le dossier src/ doit être revu par les chefs
+/src/ @eliotlouys @ByggL @azznek
+
+# Les fichiers liés aux tests doivent être revus par les boss
+/tests/ @eliotlouys @ByggL @azznek
+
+# Le manuel Typst doit être validé par les tops
+/doc/manual.typ @eliotlouys @ByggL @azznek
+
+# Tout le projet (par défaut)
+/* @admin

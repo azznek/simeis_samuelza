@@ -32,7 +32,7 @@ async fn main() -> std::io::Result<()> {
         web::App::new()
             .wrap(web::middleware::Logger::default())
             .state(state.clone())
-            .configure(|srv| api::configure(srv))
+            .configure(api::configure)
     })
     .stop_runtime()
     .bind(("127.0.0.1", port))?

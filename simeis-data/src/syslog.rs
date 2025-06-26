@@ -1,8 +1,8 @@
 #![allow(clippy::type_complexity)]
-use std::sync::Arc;
-use tokio::sync::{Mutex, RwLock};
 use std::collections::BTreeMap;
-use tokio::sync::mpsc::{Receiver, Sender, error::TryRecvError};
+use std::sync::Arc;
+use tokio::sync::mpsc::{error::TryRecvError, Receiver, Sender};
+use tokio::sync::{Mutex, RwLock};
 
 use serde::{Deserialize, Serialize};
 use strum::IntoStaticStr;
@@ -119,15 +119,16 @@ impl SyslogRecv {
     }
 
     pub async fn event(&self, player: PlayerId, evt: SyslogEvent) {
-        self.add_to_fifo(player, self.tstart.elapsed().as_secs_f64(), evt).await;
+        self.add_to_fifo(player, self.tstart.elapsed().as_secs_f64(), evt)
+            .await;
     }
 
     async fn add_to_fifo(&self, id: PlayerId, ns: f64, evt: SyslogEvent) {
         log::debug!("Player {id} got event {evt:?}");
         let ok = {
-            let sysfifo = self.fifo.read().await;     // OK
+            let sysfifo = self.fifo.read().await; // OK
             if let Some(fifo) = sysfifo.get(&id) {
-                let mut player_fifo = fifo.write().await;    // OK
+                let mut player_fifo = fifo.write().await; // OK
                 player_fifo.push((ns, evt.clone()));
                 true
             } else {
@@ -138,7 +139,7 @@ impl SyslogRecv {
         if !ok {
             let mut fifo = Fifo::new();
             fifo.push((ns, evt));
-            let mut sysfifo = self.fifo.write().await;     // OK
+            let mut sysfifo = self.fifo.write().await; // OK
             sysfifo.insert(id, Arc::new(RwLock::new(fifo)));
         }
     }

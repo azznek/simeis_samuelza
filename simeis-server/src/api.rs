@@ -125,14 +125,14 @@ async fn ping() -> impl web::Responder {
 #[web::get("/syslogs")]
 async fn get_syslogs(srv: GameState, req: HttpRequest) -> impl web::Responder {
     let player = get_player!(srv, req);
-    let pid = player.read().await.id;    // OK
-    let allfifo = srv.fifo_events.read().await;    // OK
+    let pid = player.read().await.id; // OK
+    let allfifo = srv.fifo_events.read().await; // OK
     let Some(fifo) = allfifo.get(&pid) else {
         return build_response(Ok(json!({"nb": 0, "events": []})));
     };
     let fifo = fifo.clone();
     drop(allfifo);
-    let mut fifo = fifo.write().await;    // OK
+    let mut fifo = fifo.write().await; // OK
     let all_ev = fifo.remove_all();
     let res = all_ev
         .into_iter()
@@ -151,7 +151,7 @@ async fn get_syslogs(srv: GameState, req: HttpRequest) -> impl web::Responder {
 #[web::get("/player/new/{name}")]
 async fn new_player(srv: GameState, name: Path<String>) -> impl web::Responder {
     let name = name.to_string();
-    let players = srv.players.read().await;    // OK
+    let players = srv.players.read().await; // OK
     for (pid, player) in players.iter() {
         if name == player.read().await.name {
             return build_response(Err(Errcode::PlayerAlreadyExists(*pid, name)));
@@ -174,11 +174,11 @@ async fn get_player(srv: GameState, id: Path<PlayerId>, req: HttpRequest) -> imp
         return build_response(Err(Errcode::NoPlayerKey));
     };
     let id = id.as_ref();
-    let players = srv.players.read().await;    // OK
+    let players = srv.players.read().await; // OK
     let Some(player) = players.get(id) else {
         return build_response(Err(Errcode::PlayerNotFound(*id)));
     };
-    let player = player.read().await;   // OK
+    let player = player.read().await; // OK
     let res = if player.key == key {
         Ok(json!({
             "id": id,
@@ -209,7 +209,7 @@ async fn get_station_status(
 ) -> impl web::Responder {
     let player = get_player!(srv, req);
     let station = get_station!(srv, player, id.as_ref());
-    let station = station.read().await;    // OK
+    let station = station.read().await; // OK
     build_response(Ok(json!({
         "id": station.id,
         "position": station.position,
@@ -228,7 +228,7 @@ async fn list_shipyard_ships(
 ) -> impl web::Responder {
     let player = get_player!(srv, req);
     let station = get_station!(srv, player, id.as_ref());
-    let station = station.read().await;    // OK
+    let station = station.read().await; // OK
     let mut ships = vec![];
     for ship in station.shipyard.iter() {
         ships.push(json!({
@@ -404,11 +404,7 @@ async fn assign_trader(
     let player = get_player!(srv, req);
     let station = get_station!(srv, player, station_id);
     let mut station = station.write().await;
-    build_response(
-        station
-            .assign_trader(*crew_id)
-            .map(|_| json!({})),
-    )
+    build_response(station.assign_trader(*crew_id).map(|_| json!({})))
 }
 
 #[web::get("/station/{station_id}/crew/assign/{crewid}/{shipid}/pilot")]
@@ -425,11 +421,7 @@ async fn assign_pilot(
         return build_response(Err(Errcode::ShipNotFound(*ship_id)));
     };
     let mut station = station.write().await;
-    build_response(
-        station
-            .onboard_pilot(*crew_id, ship)
-            .map(|_| json!({})),
-    )
+    build_response(station.onboard_pilot(*crew_id, ship).map(|_| json!({})))
 }
 
 #[web::get("/station/{station_id}/crew/assign/{crewid}/{shipid}/{modid}")]
@@ -628,9 +620,7 @@ async fn repair_ship(
         return build_response(Err(Errcode::ShipNotFound(*ship_id)));
     };
 
-    let res = station
-            .repair_ship(ship)
-            .map(|v| json!({"added-hull": v}));
+    let res = station.repair_ship(ship).map(|v| json!({"added-hull": v}));
     build_response(res)
 }
 
@@ -709,7 +699,9 @@ async fn start_extraction(
         return build_response(Err(Errcode::ShipNotFound(*id)));
     };
     build_response(
-        ship.start_extraction(&srv.galaxy).await.map(|v| to_value(v).unwrap())
+        ship.start_extraction(&srv.galaxy)
+            .await
+            .map(|v| to_value(v).unwrap()),
     )
 }
 
@@ -724,10 +716,7 @@ async fn stop_extraction(
     let Some(ship) = player.ships.get_mut(id.as_ref()) else {
         return build_response(Err(Errcode::ShipNotFound(*id)));
     };
-    build_response(
-        ship.stop_extraction()
-            .map(|v| to_value(v).unwrap()),
-    )
+    build_response(ship.stop_extraction().map(|v| to_value(v).unwrap()))
 }
 
 // MAN
@@ -759,13 +748,15 @@ async fn unload_ship_cargo(
     let ship = player.ships.get_mut(id).unwrap();
     let res = ship.unload_cargo(&resource, *amnt, station.deref_mut());
     if let Ok(0.0) = res {
-        srv.syslog.event(
-            &pid,
-            SyslogEvent::UnloadedNothing {
-                station_cargo: station.cargo.clone(),
-                ship_cargo: ship.cargo.clone(),
-            },
-        ).await;
+        srv.syslog
+            .event(
+                &pid,
+                SyslogEvent::UnloadedNothing {
+                    station_cargo: station.cargo.clone(),
+                    ship_cargo: ship.cargo.clone(),
+                },
+            )
+            .await;
     }
     build_response(res.map(|v| json!({ "unloaded": v })))
 }
@@ -815,8 +806,8 @@ async fn sell_resource(
     let mut station = station.write().await;
     let mut market = srv.market.write().await;
     let res = station
-            .sell_resource(&resource, *amnt, player.deref_mut(), market.deref_mut())
-            .map(|tx| to_value(tx).unwrap());
+        .sell_resource(&resource, *amnt, player.deref_mut(), market.deref_mut())
+        .map(|tx| to_value(tx).unwrap());
     build_response(res)
 }
 
@@ -841,9 +832,7 @@ async fn get_fee_rate(
 
 #[cfg(feature = "testing")]
 #[web::get("/tick")]
-async fn tick_server(
-    srv: GameState,
-) -> impl web::Responder {
+async fn tick_server(srv: GameState) -> impl web::Responder {
     let Ok(_) = srv.send_sig.send(simeis_data::game::GameSignal::Tick).await else {
         return build_response(Err(Errcode::GameSignalSend));
     };
@@ -855,17 +844,23 @@ async fn resources_info() -> impl web::Responder {
     let mut data = BTreeMap::new();
     for res in Resource::iter() {
         if res.mineable(u8::MAX) || res.suckable(u8::MAX) {
-            data.insert(format!("{res:?}"), json!({
-                "base-price": res.base_price(),
-                "volume": res.volume(),
-                "difficulty": res.extraction_difficulty(),
-                "min-rank": res.min_rank(),
-            }));
+            data.insert(
+                format!("{res:?}"),
+                json!({
+                    "base-price": res.base_price(),
+                    "volume": res.volume(),
+                    "difficulty": res.extraction_difficulty(),
+                    "min-rank": res.min_rank(),
+                }),
+            );
         } else {
-            data.insert(format!("{res:?}"), json!({
-                "base-price": res.base_price(),
-                "volume": res.volume(),
-            }));
+            data.insert(
+                format!("{res:?}"),
+                json!({
+                    "base-price": res.base_price(),
+                    "volume": res.volume(),
+                }),
+            );
         }
     }
     build_response(Ok(to_value(data).unwrap()))
@@ -882,22 +877,27 @@ async fn gamestats(srv: GameState) -> impl web::Responder {
             for (_, coord) in p.stations.iter() {
                 let sta = srv.galaxy.get_station(coord).await.unwrap();
                 let station = sta.read().await;
-                s += station.cargo.resources
+                s += station
+                    .cargo
+                    .resources
                     .iter()
                     .map(|(r, amnt)| r.base_price() * amnt)
                     .sum::<f64>();
             }
             s
         };
-        data.insert(id, json!({
-            "name": p.name,
-            "score": p.score,
-            "potential": potential,
-            "age": (Instant::now() - p.created).as_secs(),
-            "lost": p.lost,
-            "money": p.money,
-            "stations": p.stations,
-        }));
+        data.insert(
+            id,
+            json!({
+                "name": p.name,
+                "score": p.score,
+                "potential": potential,
+                "age": (Instant::now() - p.created).as_secs(),
+                "lost": p.lost,
+                "money": p.money,
+                "stations": p.stations,
+            }),
+        );
     }
     build_response(Ok(to_value(data).unwrap()))
 }

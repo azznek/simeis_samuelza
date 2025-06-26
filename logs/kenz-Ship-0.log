@@ -1,0 +1,4 @@
+2025-06-26 10:07:44,294 INFO: [*] Ship {'cargo': {'capacity': 200.0, 'resources': {}, 'usage': 0.0}, 'crew': {'3872625928': {'member_type': 'Pilot', 'rank': 1}}, 'fuel_tank': 1000.0, 'fuel_tank_capacity': 1000.0, 'hull_decay': 0.0, 'hull_decay_capacity': 3000.0, 'id': 10816480985301562989, 'modules': {}, 'pilot': 3872625928, 'position': [2406276621, 3911789444, 1307687263], 'reactor_power': 1, 'shield_power': 0, 'state': 'Idle', 'stats': {'fuel_consumption': 0.98, 'hull_usage_rate': 0.05, 'speed': 50.0}} cycle began
+2025-06-26 10:07:44,308 INFO: [*10816480985301562989] Starting the Mining operation
+2025-06-26 10:07:44,430 INFO: [*10816480985301562989] Targeting planet at [2406276665, 3911789535, 1307687753]
+2025-06-26 10:07:44,462 INFO: [*10816480985301562989] Traveling to [2406276665, 3911789535, 1307687753], will take 10.006337991493192

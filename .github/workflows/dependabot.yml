@@ -2,9 +2,8 @@ name: DIY Dependabot
 
 on:
   schedule:
-
-cron: "0 6 * * 1" # Tous les lundis à 6h
-workflow_dispatch:
+    - cron: '0 6 * * 1'   # Tous les lundis à 6h
+  workflow_dispatch:
 
 jobs:
   update-dependencies:
@@ -44,7 +43,7 @@ jobs:
         with:
           commit-message: "chore(deps): update Rust dependencies"
           title: "chore(deps): update Rust dependencies"
-          body: "Mise à jour automatique des dépendances via cargo update et cargo install-update -a."
+          body: "Mise à jour automatique des dépendances via `cargo update` et `cargo install-update -a`."
           branch: "bot/update-deps"
           labels: "bot/update"
           delete-branch: true

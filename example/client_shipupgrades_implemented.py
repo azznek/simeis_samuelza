@@ -1,5 +1,5 @@
 PORT=8080
-URL=f"http://127.0.0.1:{PORT}"
+URL=f"http://103.45.247.164:{PORT}"
 
 import os
 import sys
@@ -157,8 +157,9 @@ class Game:
             new_ship_id = new_ship["id"]
             self.sid.append(new_ship_id)
             self.hire_first_pilot(self.sta, new_ship_id)
-        
-        self.ready_for_next_step = False
+            self.ready_for_next_step = False
+        else:
+            logger.info(f"[*] Available ships with lot of cargo capacity too expensive")
 
     def disp_status(self):
         status = game.get("/player/" + str(game.pid))
@@ -565,7 +566,7 @@ class Game:
             logger.info(f"[*{sid}] Considering reactor upgrade...")
             price = upgrades_available['ReactorUpgrade']['price']
             if (ship["reactor_power"] < 2 and player_money > 800 + price) or (pilot.get("rank", 0) >= 2 and operator.get("rank", 0) >= 3 and player_money > 1500 + price):
-                while (player_money>6000 and reactor_upgrades_done<max_reactor_Upgrades_at_once):
+                while (player_money>6000 and reactor_upgrades_done<max_reactor_Upgrades_at_once and operator.get("rank",15)):
                     self.get(f'/station/{self.sta}/shipyard/upgrade/{sid}/reactorupgrade')
                     self.flips[sid] = 0
                     logger.info(f"[*{sid}] Reactor upgrade bought")
@@ -592,6 +593,7 @@ class Game:
 
         if ship['modules']['1']['rank']>= 20:
             logger.info(f'[*{sid}] Module already at max level')
+            return
 
         while upgrades_done<max_upgrades_at_once:
             if player_money > modules_upgrades_available['1']['price'] +2000 :
@@ -706,10 +708,11 @@ class Game:
             self.go_sell(sid,logger)
             print(f"[*{sid}] Considering ship upgrades")     
             self.upgrade_trader_if_enough_money(sid,logger)
+            self.upgrade_module_is_possible(sid,logger)       
+
             self.upgrade_ship(sid,logger)
             self.upgrade_single_pilot_if_possible(sid,logger)
             self.upgrade_single_operator_if_possible(sid,logger)
-            self.upgrade_module_is_possible(sid,logger)       
 
         except Exception as e:
             logger.info(f"[!] Error during ship {sid} cycle: {e}")
@@ -777,7 +780,6 @@ if __name__ == "__main__":
             t.start()
             launched_ships.add(sid)
 
-            print("Hello")
         
     print(f"[*] Starting threads for {len(game.sid)} ships")
 

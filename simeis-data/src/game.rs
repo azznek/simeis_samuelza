@@ -33,7 +33,7 @@ pub enum GameSignal {
 pub struct Game {
     pub players: Arc<RwLock<BTreeMap<PlayerId, Arc<RwLock<Player>>>>>,
     pub player_index: Arc<RwLock<HashMap<PlayerKey, PlayerId>>>,
-    pub galaxy: Galaxy,
+    pub galaxy: Arc<RwLock<Galaxy>>,
     pub market: Arc<RwLock<Market>>,
     pub syslog: SyslogSend,
     pub fifo_events: SyslogFifo,
@@ -51,9 +51,9 @@ impl Game {
             .as_secs_f64();
         let data = Game {
             send_sig: send_stop,
-            galaxy: Galaxy::init(),
+            galaxy: Arc::new(RwLock::new(Galaxy::init())),
             market: Arc::new(RwLock::new(Market::init())),
-            players: Arc::new(RwLock::new(BTreeMap::new())),    // FIXME Here Deadlock
+            players: Arc::new(RwLock::new(BTreeMap::new())),
             player_index: Arc::new(RwLock::new(HashMap::new())),
             syslog: syssend.clone(),
             fifo_events: sysrecv.fifo.clone(),
@@ -111,9 +111,12 @@ impl Game {
     async fn threadloop<R: Rng>(&self, rng: &mut R, mlt: &mut Instant, syslog: &SyslogRecv) {
         let market_change_proba = (mlt.elapsed().as_secs_f64() / MARKET_CHANGE_SEC).min(1.0);
 
-        let all_players = self.players.read().await.clone(); // OK
-        for (player_id, player) in all_players {
-            let mut player = player.write().await;     // OK
+        // OK
+        let players = self.players.read().await;
+        let mut all_players: Vec<PlayerId> = players.keys().cloned().collect();
+        all_players.sort();
+        for player_id in all_players {
+            let mut player = players.get(&player_id).unwrap().write().await;    // OK
             player.update_money(syslog, ITER_PERIOD.as_secs_f64()).await;
 
             let mut deadship = vec![];
@@ -164,16 +167,17 @@ impl Game {
     }
 
     pub async fn new_player(&self, name: String) -> Result<(PlayerId, String), Errcode> {
-        let mut index = self.player_index.write().await;     // OK
-        let mut players = self.players.write().await;        // OK
-        let station = self.galaxy.init_new_station().await;
+        let mut index = self.player_index.write().await;
+        let mut players = self.players.write().await;
+        let mut galaxy = self.galaxy.write().await;
+        let station = galaxy.init_new_station().await;
 
         let player = Player::new(station, name);
         let pid = player.id;
         let key = BASE64_STANDARD.encode(player.key);
 
         index.insert(player.key, player.id);
-        players.insert(player.id, Arc::new(RwLock::new(player)));    // FIXME Here
+        players.insert(player.id, Arc::new(RwLock::new(player)));
         self.syslog.event(&pid, SyslogEvent::GameStarted).await;
         Ok((pid, key))
     }

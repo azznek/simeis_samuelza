@@ -445,6 +445,10 @@ class Game:
             self.ship_repair(self.sid)
         self.ship_refuel(self.sid)
 
+        print('Hihihihi')
+        self.get(f"/station/{self.sta}/crew/upgrade/trader")
+
+
 if __name__ == "__main__":
     name = sys.argv[1]
     game = Game(name)

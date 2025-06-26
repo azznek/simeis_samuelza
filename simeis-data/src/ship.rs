@@ -178,9 +178,6 @@ impl Ship {
     }
 
     pub fn compute_travel_costs(&self, destination: SpaceCoord) -> Result<TravelCost, Errcode> {
-        let ShipState::Idle = self.state else {
-            return Err(Errcode::ShipNotIdle);
-        };
         let travel = Travel::new(destination);
         let cost = travel.compute_costs(self)?;
         Ok(cost)

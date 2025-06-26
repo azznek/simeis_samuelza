@@ -24,7 +24,7 @@ jobs:
         run: cargo test
 
   release:
-    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs: test-and-check
 
@@ -38,7 +38,9 @@ jobs:
       - name: Compilation release
         run: cargo build --release
 
+      - name : Installer Typst
+        run : cargo install --locked typst-cli
+
+      
       - name: Compilation du manuel Typst
-        run: |
-          sudo apt update && sudo apt install -y typst
-          typst compile doc/manual.typ doc/manual.pdf
+        run: typst compile doc/manual.typ doc/manual.pdf

@@ -1,6 +1,7 @@
 PORT=8080
-URL=f"http://127.0.0.1:{PORT}"
 
+URL=f"http://127.0.0.1:{PORT}"
+#URL=f"http://103.45.247.164:{PORT}"
 
 import os
 import sys
@@ -780,7 +781,8 @@ if __name__ == "__main__":
             t.start()
             launched_ships.add(sid)
 
-        
+    print('coucou')    
+    print('Recoucou')
     print(f"[*] Starting threads for {len(game.sid)} ships")
 
     

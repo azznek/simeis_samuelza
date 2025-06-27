@@ -779,7 +779,8 @@ if __name__ == "__main__":
             t.start()
             launched_ships.add(sid)
 
-        
+    print('coucou')    
+    print('Recoucou')
     print(f"[*] Starting threads for {len(game.sid)} ships")
 
     

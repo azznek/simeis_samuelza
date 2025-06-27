@@ -2,14 +2,22 @@ name: Rust Quality Check
 
 on:
   pull_request:
-    branches:
-      - "**"
+    types: [opened, synchronize]
+
+
 
 jobs:
   check-format-clippy:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Installer Rust
+        uses: dtolnay/rust-toolchain@stable
+
       - name: Rust Check
         uses: cargo check
 

@@ -3,7 +3,7 @@ name: Rust Quality Check
 on:
   pull_request:
     branches:
-      - "**"
+      - '**'
 
 jobs:
   check-format-clippy:
@@ -15,7 +15,7 @@ jobs:
 
       - name: Installer Rust
         uses: dtolnay/rust-toolchain@stable
-        
+
       - name: Rust Check
         uses: cargo check
 

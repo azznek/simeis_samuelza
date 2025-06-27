@@ -1,5 +1,5 @@
 PORT=8080
-URL=f"http://103.45.247.164:{PORT}"
+URL=f"http://127.0.0.1:{PORT}"
 
 import os
 import json
@@ -101,7 +101,7 @@ resources = get_resources()
 for (res, data) in resources.items():
     MIN[res] = data["base-price"]
     MAX[res] = data["base-price"]
-
+     
 while True:
     time.sleep(2)
     os.system('cls' if os.name == 'nt' else 'clear')

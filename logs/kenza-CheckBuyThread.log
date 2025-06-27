@@ -1,0 +1,416 @@
+2025-06-26 09:27:04,787 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:27:04,788 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 200.0, 'Reactor power': 1, 'Operator rank': 0, 'Pilot rank': 1}
+2025-06-26 09:27:04,788 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 200.0, 'Reactor power': 1, 'Operator rank': 0, 'Pilot rank': 1}
+2025-06-26 09:27:04,808 INFO: Checked and bought ship if ready
+2025-06-26 09:27:19,812 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:27:19,825 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 200.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:27:19,825 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 200.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:27:19,846 INFO: Checked and bought ship if ready
+2025-06-26 09:27:34,853 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:27:34,853 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 200.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:27:34,853 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 200.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:27:34,872 INFO: Checked and bought ship if ready
+2025-06-26 09:27:49,889 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:27:49,889 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 200.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:27:49,890 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 200.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:27:49,904 INFO: Checked and bought ship if ready
+2025-06-26 09:28:04,929 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:28:04,929 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:28:04,929 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:28:04,934 INFO: Checked and bought ship if ready
+2025-06-26 09:28:19,963 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:28:19,963 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:28:19,963 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:28:19,968 INFO: Checked and bought ship if ready
+2025-06-26 09:28:34,994 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:28:34,994 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:28:34,994 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:28:35,010 INFO: Checked and bought ship if ready
+2025-06-26 09:28:50,015 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:28:50,016 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:28:50,016 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:28:50,041 INFO: Checked and bought ship if ready
+2025-06-26 09:29:05,055 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:29:05,055 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:29:05,056 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:29:05,071 INFO: Checked and bought ship if ready
+2025-06-26 09:29:20,101 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:29:20,101 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:29:20,101 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:29:20,117 INFO: Checked and bought ship if ready
+2025-06-26 09:29:35,142 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:29:35,142 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:29:35,142 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 1, 'Pilot rank': 1}
+2025-06-26 09:29:35,157 INFO: Checked and bought ship if ready
+2025-06-26 09:29:50,178 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:29:50,178 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:29:50,178 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:29:50,182 INFO: Checked and bought ship if ready
+2025-06-26 09:30:05,209 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:30:05,209 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:30:05,209 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:30:05,239 INFO: Checked and bought ship if ready
+2025-06-26 09:30:20,264 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:30:20,264 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:30:20,264 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:30:20,267 INFO: Checked and bought ship if ready
+2025-06-26 09:30:35,270 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:30:35,270 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:30:35,270 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:30:35,287 INFO: Checked and bought ship if ready
+2025-06-26 09:30:50,310 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:30:50,310 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:30:50,311 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:30:50,325 INFO: Checked and bought ship if ready
+2025-06-26 09:31:05,356 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:31:05,356 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:31:05,356 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:31:05,363 INFO: Checked and bought ship if ready
+2025-06-26 09:31:20,385 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:31:20,385 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:31:20,385 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:31:20,402 INFO: Checked and bought ship if ready
+2025-06-26 09:31:35,416 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:31:35,418 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:31:35,418 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:31:35,434 INFO: Checked and bought ship if ready
+2025-06-26 09:31:50,457 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:31:50,457 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:31:50,457 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:31:50,473 INFO: Checked and bought ship if ready
+2025-06-26 09:32:05,499 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:32:05,499 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:32:05,499 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:32:05,516 INFO: Checked and bought ship if ready
+2025-06-26 09:32:20,544 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:32:20,544 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:32:20,544 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:32:20,561 INFO: Checked and bought ship if ready
+2025-06-26 09:32:35,591 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:32:35,591 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:32:35,592 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:32:35,607 INFO: Checked and bought ship if ready
+2025-06-26 09:32:50,635 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:32:50,635 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:32:50,635 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:32:50,652 INFO: Checked and bought ship if ready
+2025-06-26 09:33:05,666 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:33:05,666 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:33:05,667 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 2, 'Pilot rank': 1}
+2025-06-26 09:33:05,683 INFO: Checked and bought ship if ready
+2025-06-26 09:33:20,706 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:33:20,706 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:33:20,706 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:33:20,723 INFO: Checked and bought ship if ready
+2025-06-26 09:33:35,747 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:33:35,747 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:33:35,747 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:33:35,763 INFO: Checked and bought ship if ready
+2025-06-26 09:33:50,784 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:33:50,784 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:33:50,784 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:33:50,800 INFO: Checked and bought ship if ready
+2025-06-26 09:34:05,828 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:34:05,828 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:34:05,829 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:34:05,845 INFO: Checked and bought ship if ready
+2025-06-26 09:34:20,852 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:34:20,852 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:34:20,852 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:34:20,857 INFO: Checked and bought ship if ready
+2025-06-26 09:34:35,871 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:34:35,872 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:34:35,872 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:34:35,888 INFO: Checked and bought ship if ready
+2025-06-26 09:34:50,910 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:34:50,910 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:34:50,910 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:34:50,925 INFO: Checked and bought ship if ready
+2025-06-26 09:35:05,944 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:35:05,944 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:35:05,944 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:35:05,959 INFO: Checked and bought ship if ready
+2025-06-26 09:35:20,978 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:35:20,979 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:35:20,979 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:35:20,993 INFO: Checked and bought ship if ready
+2025-06-26 09:35:36,009 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:35:36,009 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:35:36,009 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:35:36,014 INFO: Checked and bought ship if ready
+2025-06-26 09:35:51,020 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:35:51,020 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:35:51,020 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:35:51,046 INFO: Checked and bought ship if ready
+2025-06-26 09:36:06,068 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:36:06,068 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:36:06,068 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:36:06,085 INFO: Checked and bought ship if ready
+2025-06-26 09:36:21,100 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:36:21,101 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:36:21,101 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:36:21,115 INFO: Checked and bought ship if ready
+2025-06-26 09:36:36,131 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:36:36,131 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:36:36,131 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:36:36,147 INFO: Checked and bought ship if ready
+2025-06-26 09:36:51,160 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:36:51,160 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:36:51,160 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 1, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:36:51,176 INFO: Checked and bought ship if ready
+2025-06-26 09:37:06,181 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:37:06,181 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:37:06,181 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:37:06,205 INFO: Checked and bought ship if ready
+2025-06-26 09:37:21,209 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:37:21,209 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:37:21,209 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:37:21,212 INFO: Checked and bought ship if ready
+2025-06-26 09:37:36,228 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:37:36,228 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:37:36,228 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:37:36,244 INFO: Checked and bought ship if ready
+2025-06-26 09:37:51,263 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:37:51,263 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 300.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:37:51,263 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 300.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:37:51,278 INFO: Checked and bought ship if ready
+2025-06-26 09:38:06,295 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:38:06,295 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:38:06,295 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:38:06,311 INFO: Checked and bought ship if ready
+2025-06-26 09:38:21,335 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:38:21,335 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:38:21,336 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:38:21,351 INFO: Checked and bought ship if ready
+2025-06-26 09:38:36,367 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:38:36,367 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:38:36,367 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:38:36,384 INFO: Checked and bought ship if ready
+2025-06-26 09:38:51,413 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:38:51,413 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:38:51,413 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:38:51,428 INFO: Checked and bought ship if ready
+2025-06-26 09:39:06,454 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:39:06,454 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:39:06,454 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:39:06,470 INFO: Checked and bought ship if ready
+2025-06-26 09:39:21,487 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:39:21,487 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:39:21,488 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 3, 'Pilot rank': 1}
+2025-06-26 09:39:21,504 INFO: Checked and bought ship if ready
+2025-06-26 09:39:36,524 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:39:36,525 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:39:36,525 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:39:36,541 INFO: Checked and bought ship if ready
+2025-06-26 09:39:51,566 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:39:51,566 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:39:51,567 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:39:51,582 INFO: Checked and bought ship if ready
+2025-06-26 09:40:06,607 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:40:06,607 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:40:06,607 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:40:06,623 INFO: Checked and bought ship if ready
+2025-06-26 09:40:21,646 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:40:21,646 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:40:21,646 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:40:21,661 INFO: Checked and bought ship if ready
+2025-06-26 09:40:36,680 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:40:36,680 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:40:36,680 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:40:36,694 INFO: Checked and bought ship if ready
+2025-06-26 09:40:51,718 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:40:51,718 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:40:51,719 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:40:51,734 INFO: Checked and bought ship if ready
+2025-06-26 09:54:49,265 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:54:49,266 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:54:49,266 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:54:49,287 INFO: Checked and bought ship if ready
+2025-06-26 09:55:04,307 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:55:04,307 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:55:04,307 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:55:04,323 INFO: Checked and bought ship if ready
+2025-06-26 09:55:19,339 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:55:19,339 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:55:19,339 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 4, 'Pilot rank': 1}
+2025-06-26 09:55:19,356 INFO: Checked and bought ship if ready
+2025-06-26 09:55:34,384 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:55:34,385 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:55:34,385 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:55:34,400 INFO: Checked and bought ship if ready
+2025-06-26 09:55:49,419 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:55:49,419 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:55:49,419 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:55:49,434 INFO: Checked and bought ship if ready
+2025-06-26 09:56:04,462 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:56:04,462 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:56:04,462 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:56:04,477 INFO: Checked and bought ship if ready
+2025-06-26 09:56:19,504 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:56:19,504 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:56:19,504 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:56:19,520 INFO: Checked and bought ship if ready
+2025-06-26 09:56:34,536 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:56:34,536 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:56:34,536 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:56:34,552 INFO: Checked and bought ship if ready
+2025-06-26 09:56:49,576 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:56:49,576 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:56:49,576 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:56:49,592 INFO: Checked and bought ship if ready
+2025-06-26 09:57:04,610 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:57:04,610 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:57:04,610 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:57:04,625 INFO: Checked and bought ship if ready
+2025-06-26 09:57:19,653 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:57:19,653 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:57:19,653 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:57:19,669 INFO: Checked and bought ship if ready
+2025-06-26 09:57:34,698 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:57:34,698 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:57:34,698 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 5, 'Pilot rank': 1}
+2025-06-26 09:57:34,714 INFO: Checked and bought ship if ready
+2025-06-26 09:57:49,737 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:57:49,737 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:57:49,738 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:57:49,753 INFO: Checked and bought ship if ready
+2025-06-26 09:58:04,775 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:58:04,775 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:58:04,775 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:58:04,792 INFO: Checked and bought ship if ready
+2025-06-26 09:58:19,816 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:58:19,816 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:58:19,816 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:58:19,832 INFO: Checked and bought ship if ready
+2025-06-26 09:58:34,858 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:58:34,859 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:58:34,859 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:58:34,875 INFO: Checked and bought ship if ready
+2025-06-26 09:58:49,899 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:58:49,899 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:58:49,899 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:58:49,915 INFO: Checked and bought ship if ready
+2025-06-26 09:59:04,930 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:59:04,930 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:59:04,930 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:59:04,948 INFO: Checked and bought ship if ready
+2025-06-26 09:59:19,963 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:59:19,963 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:59:19,963 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:59:19,979 INFO: Checked and bought ship if ready
+2025-06-26 09:59:34,982 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:59:34,982 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:59:34,982 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:59:34,984 INFO: Checked and bought ship if ready
+2025-06-26 09:59:50,002 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 09:59:50,002 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:59:50,003 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 6, 'Pilot rank': 1}
+2025-06-26 09:59:50,019 INFO: Checked and bought ship if ready
+2025-06-26 10:00:05,042 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:00:05,042 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:00:05,042 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:00:05,058 INFO: Checked and bought ship if ready
+2025-06-26 10:00:20,089 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:00:20,089 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:00:20,089 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:00:20,104 INFO: Checked and bought ship if ready
+2025-06-26 10:00:35,131 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:00:35,131 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:00:35,131 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:00:35,148 INFO: Checked and bought ship if ready
+2025-06-26 10:00:50,176 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:00:50,176 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:00:50,176 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:00:50,193 INFO: Checked and bought ship if ready
+2025-06-26 10:01:05,213 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:01:05,213 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:01:05,213 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:01:05,228 INFO: Checked and bought ship if ready
+2025-06-26 10:01:20,242 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:01:20,243 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:01:20,243 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:01:20,257 INFO: Checked and bought ship if ready
+2025-06-26 10:01:35,283 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:01:35,284 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:01:35,284 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:01:35,299 INFO: Checked and bought ship if ready
+2025-06-26 10:01:50,319 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:01:50,319 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:01:50,319 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:01:50,335 INFO: Checked and bought ship if ready
+2025-06-26 10:02:05,351 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:02:05,351 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:02:05,351 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:02:05,382 INFO: Checked and bought ship if ready
+2025-06-26 10:02:20,403 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:02:20,403 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:02:20,403 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 1}
+2025-06-26 10:02:20,419 INFO: Checked and bought ship if ready
+2025-06-26 10:02:35,444 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:02:35,444 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:02:35,444 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:02:35,449 INFO: Checked and bought ship if ready
+2025-06-26 10:02:50,477 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:02:50,479 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:02:50,479 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:02:50,484 INFO: Checked and bought ship if ready
+2025-06-26 10:03:05,498 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:03:05,498 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:03:05,498 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 2, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:03:05,514 INFO: Checked and bought ship if ready
+2025-06-26 10:03:20,538 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:03:20,538 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 400.0, 'Reactor power': 3, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:03:20,539 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 400.0, 'Reactor power': 3, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:03:20,555 INFO: Checked and bought ship if ready
+2025-06-26 10:03:35,571 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:03:35,571 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 500.0, 'Reactor power': 3, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:03:35,571 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 500.0, 'Reactor power': 3, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:03:35,586 INFO: Checked and bought ship if ready
+2025-06-26 10:03:50,609 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:03:50,609 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 500.0, 'Reactor power': 3, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:03:50,609 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 500.0, 'Reactor power': 3, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:03:50,625 INFO: Checked and bought ship if ready
+2025-06-26 10:04:05,647 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:04:05,648 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 500.0, 'Reactor power': 4, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:04:05,648 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 500.0, 'Reactor power': 4, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:04:05,660 INFO: Checked and bought ship if ready
+2025-06-26 10:04:20,675 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:04:20,675 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 600.0, 'Reactor power': 4, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:04:20,675 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 600.0, 'Reactor power': 4, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:04:20,691 INFO: Checked and bought ship if ready
+2025-06-26 10:04:35,722 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:04:35,722 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 600.0, 'Reactor power': 5, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:04:35,722 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 600.0, 'Reactor power': 5, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:04:35,753 INFO: Checked and bought ship if ready
+2025-06-26 10:04:50,775 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:04:50,775 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 700.0, 'Reactor power': 5, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:04:50,775 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 700.0, 'Reactor power': 5, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:04:50,791 INFO: Checked and bought ship if ready
+2025-06-26 10:05:05,814 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:05:05,814 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 700.0, 'Reactor power': 6, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:05:05,814 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 700.0, 'Reactor power': 6, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:05:05,829 INFO: Checked and bought ship if ready
+2025-06-26 10:05:20,856 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:05:20,856 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 800.0, 'Reactor power': 7, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:05:20,856 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 800.0, 'Reactor power': 7, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:05:20,871 INFO: Checked and bought ship if ready
+2025-06-26 10:05:35,901 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:05:35,901 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 900.0, 'Reactor power': 7, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:05:35,901 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 900.0, 'Reactor power': 7, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:05:35,916 INFO: Checked and bought ship if ready
+2025-06-26 10:05:50,923 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:05:50,923 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 900.0, 'Reactor power': 8, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:05:50,923 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 900.0, 'Reactor power': 8, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:05:50,946 INFO: Checked and bought ship if ready
+2025-06-26 10:06:05,971 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:06:05,971 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 1000.0, 'Reactor power': 8, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:06:05,971 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 1000.0, 'Reactor power': 8, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:06:05,985 INFO: Checked and bought ship if ready
+2025-06-26 10:06:21,004 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:06:21,004 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 1100.0, 'Reactor power': 9, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:06:21,004 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 1100.0, 'Reactor power': 9, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:06:21,018 INFO: Checked and bought ship if ready
+2025-06-26 10:06:36,036 INFO: [*] Desired stats to keep on with expansion plan:{'cargo capacity': 1500, 'Reactor power': 10, 'Operator rank': 15, 'Pilot rank': 2}
+2025-06-26 10:06:36,037 INFO: [*3781432488839326680] CurrentStats : {'cargo capacity': 1100.0, 'Reactor power': 10, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:06:36,037 INFO: [*3781432488839326680] Ship 3781432488839326680 does not meet desired stats: {'cargo capacity': 1100.0, 'Reactor power': 10, 'Operator rank': 7, 'Pilot rank': 2}
+2025-06-26 10:06:36,053 INFO: Checked and bought ship if ready

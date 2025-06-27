@@ -43,8 +43,7 @@ pub enum Resource {
 impl Resource {
     pub fn scored(&self) -> bool {
         match self {
-            Resource::Fuel
-            | Resource::HullPlate => false,
+            Resource::Fuel | Resource::HullPlate => false,
             _ => true,
         }
     }
@@ -97,20 +96,18 @@ impl Resource {
 
     pub fn mineable(&self, rank: u8) -> bool {
         match self {
-            Resource::Stone
-            | Resource::Iron
-            | Resource::Copper
-            | Resource::Gold => rank > self.min_rank(),
+            Resource::Stone | Resource::Iron | Resource::Copper | Resource::Gold => {
+                rank > self.min_rank()
+            }
             _ => false,
         }
     }
 
     pub fn suckable(&self, rank: u8) -> bool {
         match self {
-            Resource::Helium
-            | Resource::Ozone
-            | Resource::Freon
-            | Resource::Oxygen => rank > self.min_rank(),
+            Resource::Helium | Resource::Ozone | Resource::Freon | Resource::Oxygen => {
+                rank > self.min_rank()
+            }
             _ => false,
         }
     }

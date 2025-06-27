@@ -57,12 +57,12 @@ impl ShipUpgrade {
         match self {
             ShipUpgrade::CargoExpansion => format!("Adds {CARGO_EXP_ADD_CAP} of cargo capacity"),
             ShipUpgrade::ReactorUpgrade => format!(
-                        "Increase the reactor power by {REACTOR_UPG_ADD}, improves the ship's speed"
-                    ),
+                "Increase the reactor power by {REACTOR_UPG_ADD}, improves the ship's speed"
+            ),
             ShipUpgrade::HullUpgrade => {
-                        format!("Increase the hull decay capacity by {HULL_UPG_ADD}")
-                    }
-            ShipUpgrade::Shield => format!("Reduce the damage and usure of the hull"),
+                format!("Increase the hull decay capacity by {HULL_UPG_ADD}")
+            }
+            ShipUpgrade::Shield => "Reduce the damage and usure of the hull".to_string(),
         }
     }
 }

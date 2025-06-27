@@ -85,10 +85,13 @@ fn test_compute_cost_addition() {
     const EPS: f64 = 1e-7;
     for n in 1..=1000 {
         let mut ship = Ship::random((0, 0, 0));
-        ship.crew.0.insert(0, crate::crew::CrewMember {
-            member_type: crate::crew::CrewMemberType::Pilot,
-            rank: 1,
-        });
+        ship.crew.0.insert(
+            0,
+            crate::crew::CrewMember {
+                member_type: crate::crew::CrewMemberType::Pilot,
+                rank: 1,
+            },
+        );
         ship.pilot = Some(0);
         ship.update_perf_stats();
         let c1 = ship.compute_travel_costs((n, n, n)).unwrap();
@@ -97,21 +100,36 @@ fn test_compute_cost_addition() {
         assert!(!c1.fuel_consumption.is_nan());
         // assert_eq!(c1.direction, (1.0, 0.0, 0.0));
         for x in 1..=4 {
-            let c2 = ship.compute_travel_costs((n*x, n*x, n*x)).unwrap();
+            let c2 = ship.compute_travel_costs((n * x, n * x, n * x)).unwrap();
             println!("{n}x{x} {c2:?}");
-            assert!(c2.distance - ((x as f64) * c1.distance) < EPS, "Wrong {x}x distance");
-            assert!(c2.duration - ((x as f64) * c1.duration) < EPS, "Wrong {x}x duration");
-            assert!(c2.fuel_consumption - ((x as f64) * c1.fuel_consumption) < EPS, "Wrong {x}x consumption");
-            assert!(c2.hull_usage - ((x as f64) * c1.hull_usage) < EPS, "Wrong {x}x hull usage");
+            assert!(
+                c2.distance - ((x as f64) * c1.distance) < EPS,
+                "Wrong {x}x distance"
+            );
+            assert!(
+                c2.duration - ((x as f64) * c1.duration) < EPS,
+                "Wrong {x}x duration"
+            );
+            assert!(
+                c2.fuel_consumption - ((x as f64) * c1.fuel_consumption) < EPS,
+                "Wrong {x}x consumption"
+            );
+            assert!(
+                c2.hull_usage - ((x as f64) * c1.hull_usage) < EPS,
+                "Wrong {x}x hull usage"
+            );
         }
-        println!("");
+        println!();
     }
 
     let mut ship = Ship::random((0, 0, 0));
-    ship.crew.0.insert(0, crate::crew::CrewMember {
-        member_type: crate::crew::CrewMemberType::Pilot,
-        rank: 1,
-    });
+    ship.crew.0.insert(
+        0,
+        crate::crew::CrewMember {
+            member_type: crate::crew::CrewMemberType::Pilot,
+            rank: 1,
+        },
+    );
     ship.pilot = Some(0);
     ship.update_perf_stats();
 
@@ -123,7 +141,10 @@ fn test_compute_cost_addition() {
 
     assert_eq!(c1.distance + c2.distance, c3.distance);
     assert_eq!(c1.duration + c2.duration, c3.duration);
-    assert_eq!(c1.fuel_consumption + c2.fuel_consumption, c3.fuel_consumption);
+    assert_eq!(
+        c1.fuel_consumption + c2.fuel_consumption,
+        c3.fuel_consumption
+    );
     assert_eq!(c1.hull_usage + c2.hull_usage, c3.hull_usage);
     assert_eq!(c1.direction, c2.direction);
     assert_eq!(c1.direction, c3.direction);

@@ -1,0 +1,49 @@
+name: DIY Dependabot
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'   # Tous les lundis à 6h
+  workflow_dispatch:
+
+jobs:
+  update-dependencies:
+    name: Mise à jour des dépendances Rust
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Installer Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Installer cargo-update
+        run: cargo install cargo-update
+
+      - name: Mettre à jour les dépendances
+        run: |
+          cargo install-update -a     # update des binaires cargo installés
+          cargo update                # update du Cargo.lock
+
+      - name: Vérifier les changements
+        id: changes
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add Cargo.lock
+          if git diff --cached --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Créer une Pull Request si mise à jour
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(deps): update Rust dependencies"
+          title: "chore(deps): update Rust dependencies"
+          body: "Mise à jour automatique des dépendances via `cargo update` et `cargo install-update -a`."
+          branch: "bot/update-deps"
+          labels: "bot/update"
+          delete-branch: true

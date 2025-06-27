@@ -27,7 +27,7 @@ jobs:
             echo "allowed=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Close PR if source branch is disallowed
+      - name: Close PR if source not allowed
         if: steps.check_branch.outputs.allowed == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,3 +42,4 @@ jobs:
             --body "This PR was automatically closed: PRs targeting \`release/*\` must originate only from \`main\` or \`bug/*\` branches."
 
           gh pr close "$PR_NUMBER" --repo "$REPO"
+

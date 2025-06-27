@@ -11,15 +11,23 @@ jobs:
   check-pr-source-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Fail if PR source branch is not allowed
+
+      - name: Check if PR source branch is not allowed
         run: |
 
           SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
 
           if [[ "$SOURCE_BRANCH" == "main" || "$SOURCE_BRANCH" == bug/* ]]; then
             echo "Source branch '$SOURCE_BRANCH' is allowed."
-            exit 0
+            echo "allowed=true" >> $GITHUB_OUTPUT
           else
             echo "Error: PRs to release/* must originate from 'main' or 'bug/*' branches."
-            exit 1
+            echo "allowed=false" >> $GITHUB_OUTPUT
           fi
+      - name: Close PR if source not allowed
+        if: steps.check_branch.outputs.allowed == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Closing PR because it violates branch policy."
+          gh pr close --repo "$GITHUB_REPOSITORY" --comment "This PR was automatically closed because PRs to release/* branches must originate only from main or bug/* branches."

@@ -1,17 +1,21 @@
 name: Checks good origin branch for release
 
-on :
-  pull_request:
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
     branches:
-      - release/release1
+      - release/*
 
 jobs:
-  checks-good-origin-branch:
-  if: github.ref_name != main || github.ref_name != bug/*
-  runs-on: ubuntu-latest
-
-  steps:
-    - uses: superbrothers/close-pull-request@v3
-      with:
-        # Optional. Post a issue comment just before closing a pull request.
-        comment: "We do not accept PRs on this branch from other branches than main and bugs/ branches"
+  check-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branches
+        run: |
+          if [ ${{ github.head_ref }} != "main" && ${{ github.head_ref }} != "bug/*"]; then
+            echo "Merge requests to main branch are only allowed from main or bug branch."
+            exit 1
+          fi

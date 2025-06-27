@@ -6,6 +6,7 @@ on:
     branches:
       - 'release/*'
 
+
 jobs:
   check-pr-source-branch:
     runs-on: ubuntu-latest

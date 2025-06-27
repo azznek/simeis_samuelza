@@ -2,8 +2,8 @@ name: Rust Quality Check
 
 on:
   pull_request:
-    branches:
-      - '**'
+    types: [opened, synchronize]
+
 
 jobs:
   check-format-clippy:

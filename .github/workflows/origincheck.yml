@@ -1,0 +1,17 @@
+name: Checks good origin branch for release
+
+on :
+  pull_request:
+    branches:
+      - release/*
+
+jobs:
+  checks-good-origin-branch:
+  if: github.ref_name != main || github.ref_name != bug/*
+  runs-on: ubuntu-latest
+
+  steps:
+    - uses: superbrothers/close-pull-request@v3
+      with:
+        # Optional. Post a issue comment just before closing a pull request.
+        comment: "We do not accept PRs on this branch from other branches than main and bugs/ branches"

@@ -9,6 +9,7 @@ on:
     branches:
       - 'release/*'
 
+
 jobs:
   check-branches:
     runs-on: ubuntu-latest

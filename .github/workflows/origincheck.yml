@@ -1,22 +1,24 @@
-name: Checks good origin branch for release
+name: Enforce PR Branch Policy
 
 on:
-  pull_request_target:
-    types:
-      - opened
-      - reopened
-      - synchronize
+  pull_request:
+    # Trigger on PRs targeting release/* branches
     branches:
       - 'release/*'
 
-
 jobs:
-  check-branches:
+  check-pr-source-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Check branches
+      - name: Fail if PR source branch is not allowed
         run: |
-          if [ ${{ github.head_ref }} != "main" && ${{ github.head_ref }} != "bug/*"]; then
-            echo "Merge requests to main branch are only allowed from main or bug branch."
+
+          SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
+
+          if [[ "$SOURCE_BRANCH" == "main" || "$SOURCE_BRANCH" == bug/* ]]; then
+            echo "Source branch '$SOURCE_BRANCH' is allowed."
+            exit 0
+          else
+            echo "Error: PRs to release/* must originate from 'main' or 'bug/*' branches."
             exit 1
           fi

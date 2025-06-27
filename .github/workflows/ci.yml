@@ -41,6 +41,5 @@ jobs:
       - name : Installer Typst
         run : cargo install --locked typst-cli
 
-      
       - name: Compilation du manuel Typst
         run: typst compile doc/manual.typ doc/manual.pdf

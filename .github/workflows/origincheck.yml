@@ -7,7 +7,8 @@ on:
       - reopened
       - synchronize
     branches:
-      - release/release1
+      - 'release/*'
+
 
 jobs:
   check-branches:

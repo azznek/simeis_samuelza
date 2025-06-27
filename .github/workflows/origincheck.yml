@@ -3,7 +3,7 @@ name: Checks good origin branch for release
 on :
   pull_request:
     branches:
-      - release/*
+      - release/release1
 
 jobs:
   checks-good-origin-branch:

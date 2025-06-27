@@ -1,0 +1,29 @@
+name: CI Rust
+
+on:
+  pull_request:
+    branches:
+      - 'release/*'
+
+jobs:
+  test-and-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Installer Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build avec heavy-testing
+        run: cargo build --features heavy-testing
+
+      - name : Tester avec heavy-testing
+        run : cargo test --features heavy-testing
+      
+      - name : Installer cargo audit
+        run :  cargo install cargo-audit --locked
+      
+      - name : Run un cargo audit sur les dépendences toml
+        run : cargo audit bin Cargo.toml

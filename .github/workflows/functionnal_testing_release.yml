@@ -28,8 +28,16 @@ jobs:
             SERVER_PID=$!
             echo "Server started with PID $SERVER_PID"
             
-            sleep 10
-            
+            echo "Waiting for server to be ready..."
+            while true; do
+            if curl -s http://localhost:9345/ping | grep -q "pong"; then
+                echo "Server is up!"
+                break
+            fi
+            echo "Server not ready yet, retrying..."
+            sleep 1
+            done
+
             # Run your tests
             python testing/testing.py test-rich
             python testing/test_pilot.py test-rich1

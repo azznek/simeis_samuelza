@@ -26,9 +26,7 @@ jobs:
         # Extract coverage percentage from XML
         COVERAGE=$(grep -oPm1 "(?<=line-rate=\")\d+\.\d+" target/coverage/cobertura.xml)
         # Convert to percent
-        COVERAGE_PERCENT=$(echo "$COVERAGE * 100" | bc | awk '{printf "%.0f", $0}')
-        echo "Coverage is ${COVERAGE_PERCENT}%"
-        echo "coverage=$COVERAGE_PERCENT" >> "$GITHUB_OUTPUT"
+        echo "coverage=$COVERAGE" >> "$GITHUB_OUTPUT"
 
     - name: Add 'not-enough-tests' label if coverage < 50%
       if: ${{ steps.coverage.outputs.coverage < 50 }}

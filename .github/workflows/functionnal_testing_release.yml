@@ -27,7 +27,9 @@ jobs:
             cargo run --features testing &
             SERVER_PID=$!
             echo "Server started with PID $SERVER_PID"
-
+            
+            sleep 10
+            
             # Run your tests
             python testing/testing.py test-rich
             python testing/test_pilot.py test-rich1

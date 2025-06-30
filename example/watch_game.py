@@ -101,7 +101,7 @@ resources = get_resources()
 for (res, data) in resources.items():
     MIN[res] = data["base-price"]
     MAX[res] = data["base-price"]
-
+     
 while True:
     time.sleep(2)
     os.system('cls' if os.name == 'nt' else 'clear')

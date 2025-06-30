@@ -21,7 +21,7 @@ jobs:
             
       - name: Installer Rust
         uses: dtolnay/rust-toolchain@stable
-        
+
       - name: Start Rust server in background
         run: |
             cargo run --features testing &
@@ -46,4 +46,5 @@ jobs:
             # Kill the server after tests
             kill $SERVER_PID
             
+
       

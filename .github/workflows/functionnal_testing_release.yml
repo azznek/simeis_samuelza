@@ -19,6 +19,9 @@ jobs:
         with:
             python-version: 3.12
 
+      - name: Installer Rust
+        uses: dtolnay/rust-toolchain@stable
+        
       - name: Build avec testing
         run: cargo build --features testing
 
@@ -34,6 +37,6 @@ jobs:
       - name: Run third test
         run: python testing/test_samuel.py
 
-        
+
       
       

@@ -6,7 +6,8 @@ on:
       - 'release/*'
 
 jobs:
-  heavy-testing:
+
+  Audit-code:
     runs-on: ubuntu-latest
 
     steps:

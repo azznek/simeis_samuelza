@@ -1,0 +1,39 @@
+
+name: Functionnal testing before release
+
+on:
+  pull_request:
+    branches:
+      - 'release/*'
+
+jobs:
+  Audit-code:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+            python-version: 3.12
+
+      - name: Build avec testing
+        run: cargo build --features testing
+
+      - name : Run avec testing
+        run : cargo run --features testing
+
+      - name: Run first test
+        run: python testing/testing.py
+
+      - name : Run second test
+        run : python testing/test_pilot.py
+
+      - name: Run third test
+        run: python testing/test_samuel.py
+
+        
+      
+      

@@ -1,6 +1,6 @@
 PORT=8080
 URL=f"http://103.45.247.164:{PORT}"
-
+   
 import os
 import sys
 import math
@@ -620,6 +620,11 @@ class Game:
         
 
         ship_ok_count = 0
+
+        if len(self.sid)>10:
+            logger.info(f'[*] Enough ship already to win the game, not to beat the marché destructeur')
+            return
+        
         for sid in self.sid:
             ship = self.get(f"/ship/{sid}")
             crew = ship['crew']

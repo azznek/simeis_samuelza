@@ -56,7 +56,7 @@ impl TravelCost {
     }
 }
 
-#[derive(Deserialize, Serialize, Debug)]
+#[derive(Deserialize, Clone, Serialize, Debug)]
 pub struct FlightData {
     pub start: SpaceCoord,
     pub destination: SpaceCoord,

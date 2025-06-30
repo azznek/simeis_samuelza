@@ -2,46 +2,33 @@ name: Enforce PR Branch Policy
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
     branches:
       - 'release/*'
 
-permissions:
-  pull-requests: write 
-  contents: read
 
 jobs:
-  enforce-policy:
+  check-pr-source-branch:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check PR source branch
-        id: check_branch
+
+      - name: Check if PR source branch is not allowed
         run: |
+
           SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
-          echo "Checking source branch: $SOURCE_BRANCH"
 
           if [[ "$SOURCE_BRANCH" == "main" || "$SOURCE_BRANCH" == bug/* ]]; then
+            echo "Source branch '$SOURCE_BRANCH' is allowed."
             echo "allowed=true" >> $GITHUB_OUTPUT
           else
+            echo "Error: PRs to release/* must originate from 'main' or 'bug/*' branches."
             echo "allowed=false" >> $GITHUB_OUTPUT
           fi
-
-
+          
       - name: Close PR if source not allowed
         if: steps.check_branch.outputs.allowed == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          PR_NUMBER="${{ github.event.pull_request.number }}"
-          REPO="${{ github.repository }}"
-
-          echo "Attempting to close PR #$PR_NUMBER because it violates branch policy."
-
-          gh pr comment "$PR_NUMBER" \
-            --repo "$REPO" \
-            --body "This PR was automatically closed: PRs targeting \`release/*\` must originate only from \`main\` or \`bug/*\` branches."
-
-          gh pr close "$PR_NUMBER" --repo "$REPO"
-
+          echo "Closing PR because it violates branch policy."
+          gh pr close --repo "$GITHUB_REPOSITORY" --comment "This PR was automatically closed because PRs to release/* branches must originate only from main or bug/* branches."
 

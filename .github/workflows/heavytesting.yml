@@ -6,7 +6,7 @@ on:
       - 'release/*'
 
 jobs:
-  test-and-check:
+  heavy-testing:
     runs-on: ubuntu-latest
 
     steps:

@@ -1,0 +1,38 @@
+name: Check Test Coverage
+
+on:
+  pull_request:
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Installer Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Install cargo-tarpaulin
+      run: cargo install cargo-tarpaulin
+
+    - name: Run cargo tarpaulin
+      id: coverage
+      run: |
+        set -e
+        # Run tarpaulin and save summary to a file
+        cargo tarpaulin --out Xml --output-dir target/coverage
+        # Extract coverage percentage from XML
+        COVERAGE=$(grep -oPm1 "(?<=line-rate=\")\d+\.\d+" target/coverage/cobertura.xml)
+        # Convert to percent
+        COVERAGE_PERCENT=$(echo "$COVERAGE * 100" | bc | awk '{printf "%.0f", $0}')
+        echo "Coverage is ${COVERAGE_PERCENT}%"
+        echo "coverage=$COVERAGE_PERCENT" >> "$GITHUB_OUTPUT"
+
+    - name: Add 'not-enough-tests' label if coverage < 50%
+      if: ${{ steps.coverage.outputs.coverage < 50 }}
+      run: |
+        gh pr edit ${{ github.event.pull_request.number }} --add-label "not-enough-tests"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,11 @@
+
+- On créé un nouveau joueur
+- Son argent de départ est X
+- On engage un trader
+- La transaction doit réussir
+- On achète de l'or 
+- La transaction doit réussir
+- Notre argent doit avoir encore diminué
+- On revend l'or
+- La transaction doit réussir
+- Notre argent doit avoir augmenté

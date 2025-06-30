@@ -6,7 +6,7 @@ on:
       - 'release/*'
 
 jobs:
-  test-and-check:
+  Audit-code:
     runs-on: ubuntu-latest
 
     steps:

@@ -33,7 +33,7 @@ const REACTOR_SPEED_PER_POWER: f64 = 50.0;
 
 pub type ShipId = u64;
 
-#[derive(Debug, Deserialize, Serialize, Default)]
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub enum ShipState {
     #[default]
     Idle,
@@ -41,7 +41,7 @@ pub enum ShipState {
     Extracting(ExtractionInfo),
 }
 
-#[derive(Deserialize, Serialize, Debug, Default)]
+#[derive(Deserialize, Serialize, Debug, Default, Clone)]
 pub struct Ship {
     pub id: ShipId,
     pub reactor_power: u16,
@@ -179,9 +179,6 @@ impl Ship {
     }
 
     pub fn compute_travel_costs(&self, destination: SpaceCoord) -> Result<TravelCost, Errcode> {
-        let ShipState::Idle = self.state else {
-            return Err(Errcode::ShipNotIdle);
-        };
         let travel = Travel::new(destination);
         let cost = travel.compute_costs(self)?;
         Ok(cost)
@@ -303,4 +300,58 @@ impl Ship {
             Ok(unloaded)
         }
     }
+}
+
+#[test]
+fn test_ship_flight() {
+    crate::tests::create_property_based_test(100000, &[], |rng| {
+        let (x, y, z) = (rng.random(), rng.random(), rng.random());
+        let mut ship = Ship::random((x, y, z));
+        ship.fuel_tank = ship.fuel_tank_capacity;
+
+        let pilot_id = rng.random();
+        ship.crew.0.insert(
+            pilot_id,
+            crate::crew::CrewMember::from(CrewMemberType::Pilot),
+        );
+        ship.pilot = Some(pilot_id);
+        ship.update_perf_stats();
+
+        let add = rng.random_range(1..100);
+        let dest = (
+            x.saturating_add(add),
+            y.saturating_add(add),
+            z.saturating_add(add),
+        );
+        let res = ship.set_travel(dest);
+        let init_state = ship.clone();
+        if let Ok(costs) = res {
+            assert!(costs.duration > 0.0);
+            ship.update_flight(costs.duration / 2.0);
+            let ShipState::InFlight(flight) = ship.state else {
+                println!("Ship not in flight: {:?}", ship.state);
+                assert!(false);
+                unreachable!();
+            };
+            assert_eq!(flight.start, (x, y, z));
+            assert_eq!(flight.destination, dest);
+            assert!(flight.dist_done > 0.0);
+            assert_ne!(flight.dist_done, flight.dist_tot);
+            assert!(init_state.fuel_tank > ship.fuel_tank);
+            assert!(ship.fuel_tank < ship.fuel_tank_capacity);
+            assert!(ship.hull_decay > 0.0);
+            assert_eq!(init_state.cargo.usage, ship.cargo.usage);
+        } else {
+            let travel = Travel::new(dest);
+            let costs = travel.compute_costs(&ship).unwrap();
+            assert!(
+                (costs.fuel_consumption > ship.fuel_tank)
+                    || (costs.hull_usage > ship.hull_decay_capacity)
+            );
+        }
+        // TODO Check hull
+        // TODO Check fuel
+        // TODO Check arrived
+        // TODO Check distance
+    });
 }

@@ -42,20 +42,17 @@ pub enum Resource {
 
 impl Resource {
     pub fn scored(&self) -> bool {
-        match self {
-            Resource::Fuel | Resource::HullPlate => false,
-            _ => true,
-        }
+        matches!(self, Resource::Fuel | Resource::HullPlate)
     }
 
     // TODO (#24) Get from configuration
     #[inline]
     pub const fn base_price(&self) -> f64 {
         match self {
-            Resource::Stone | Resource::Helium => 4.0,
-            Resource::Iron | Resource::Ozone => 16.0,
-            Resource::Copper | Resource::Freon => 46.0,
-            Resource::Gold | Resource::Oxygen => 80.0,
+            Resource::Stone | Resource::Helium => 4.0 * 2.0,
+            Resource::Iron | Resource::Ozone => 16.0 * 2.0,
+            Resource::Copper | Resource::Freon => 46.0 * 2.0,
+            Resource::Gold | Resource::Oxygen => 80.0 * 2.0,
             Resource::Fuel => 1.9,
             Resource::HullPlate => 0.75,
         }

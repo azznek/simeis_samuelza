@@ -7,7 +7,7 @@ const RANK_PRICE_WAGE_MULT: f64 = 1900.0;
 
 pub type CrewId = u32;
 
-#[derive(Debug, Deserialize, Default, Serialize)]
+#[derive(Debug, Clone, Deserialize, Default, Serialize)]
 pub struct Crew(pub BTreeMap<CrewId, CrewMember>);
 impl Crew {
     pub fn sum_wages(&self) -> f64 {
@@ -15,7 +15,7 @@ impl Crew {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct CrewMember {
     pub member_type: CrewMemberType,
     pub rank: u8,

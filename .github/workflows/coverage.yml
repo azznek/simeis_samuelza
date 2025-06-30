@@ -21,11 +21,10 @@ jobs:
       id: coverage
       run: |
         set -e
-        # Run tarpaulin and save summary to a file
-        cargo tarpaulin --out Xml --output-dir target/coverage
-        # Extract coverage percentage from XML
-        COVERAGE=$(grep -oPm1 "(?<=line-rate=\")\d+\.\d+" target/coverage/cobertura.xml)
-        # Convert to percent
+        OUTPUT=$(cargo tarpaulin --ignore-tests)
+        echo "$OUTPUT"
+        COVERAGE=$(echo "$OUTPUT" | grep "Coverage Results" | grep -oE '[0-9]+\.[0-9]+')
+        echo "Extracted coverage: $COVERAGE%"
         echo "coverage=$COVERAGE" >> "$GITHUB_OUTPUT"
 
     - name: Add 'not-enough-tests' label if coverage < 50%

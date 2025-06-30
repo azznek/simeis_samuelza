@@ -35,13 +35,13 @@ jobs:
                 break
             fi
             echo "Server not ready yet, retrying..."
-            sleep 1
+            sleep 5
             done
 
             # Run your tests
             python testing/testing.py test-rich
             python testing/test_pilot.py test-rich1
-            python testing/test_samuel.py test-rich2
+            python testing/testing_samuel.py test-rich2
 
             # Kill the server after tests
             kill $SERVER_PID

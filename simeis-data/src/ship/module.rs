@@ -17,6 +17,7 @@ pub type ShipModuleId = u16;
     EnumString,
     IntoStaticStr,
     Debug,
+    Clone,
     Serialize,
     Deserialize,
     PartialEq,
@@ -48,7 +49,7 @@ impl ShipModuleType {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct ShipModule {
     pub operator: Option<CrewId>,
     pub modtype: ShipModuleType,

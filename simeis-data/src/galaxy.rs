@@ -1,3 +1,4 @@
+#![allow(unexpected_cfgs)]
 use rand::rngs::ThreadRng;
 use rand::Rng;
 use scan::ScanResult;
@@ -29,14 +30,14 @@ pub enum SpaceObject {
     Planet(Arc<planet::Planet>),
 }
 
-struct GalaxyMap {
+pub struct Galaxy {
     objects: BTreeMap<SpaceCoord, SpaceObject>,
     discovered: Vec<GalaxySector>, // TODO BTreeMap instead ?
 }
 
-impl GalaxyMap {
-    pub fn empty() -> GalaxyMap {
-        GalaxyMap {
+impl Galaxy {
+    pub fn init() -> Galaxy {
+        Galaxy {
             objects: BTreeMap::new(),
             discovered: vec![],
         }
@@ -66,7 +67,7 @@ impl GalaxyMap {
             let planet = planet::Planet::random((x, y, z), &mut rng);
             if self
                 .insert(&(x, y, z), SpaceObject::Planet(Arc::new(planet)))
-                .is_err()
+                .is_none()
             {
                 continue;
             }
@@ -89,12 +90,12 @@ impl GalaxyMap {
         self.objects.get(coord)
     }
 
-    pub fn insert(&mut self, coord: &SpaceCoord, obj: SpaceObject) -> Result<(), ()> {
+    pub fn insert(&mut self, coord: &SpaceCoord, obj: SpaceObject) -> Option<()> {
         if self.objects.contains_key(coord) {
-            return Err(());
+            return None;
         }
         self.objects.insert(*coord, obj);
-        Ok(())
+        Some(())
     }
 
     fn list_objects_in_sector(&self, sector: &GalaxySector) -> Vec<&SpaceObject> {
@@ -114,30 +115,36 @@ impl GalaxyMap {
         }
         objects
     }
-}
 
-#[derive(Clone)]
-pub struct Galaxy(Arc<RwLock<GalaxyMap>>);
+    pub async fn get_station(&self, coord: &SpaceCoord) -> Option<Arc<RwLock<station::Station>>> {
+        let obj = self.get(coord)?;
+        let SpaceObject::BaseStation(station) = obj else {
+            return None;
+        };
+        Some(station.clone())
+    }
 
-impl Galaxy {
-    pub fn init() -> Galaxy {
-        Galaxy(Arc::new(RwLock::new(GalaxyMap::empty()))) // FIXME Here
+    pub async fn get_planet(&self, coord: &SpaceCoord) -> Option<Arc<planet::Planet>> {
+        let obj = self.get(coord)?;
+        let SpaceObject::Planet(planet) = obj else {
+            return None;
+        };
+        Some(planet.clone())
     }
 
     // TODO (#11) Generate based on the galaxy
-    pub async fn init_new_station(&self) -> (StationId, SpaceCoord) {
-        let mut galaxy = self.0.write().await; // OK
+    pub async fn init_new_station(&mut self) -> (StationId, SpaceCoord) {
         let mut rng = rand::rng();
 
         let mut seccoord = (rng.random(), rng.random(), rng.random());
-        while galaxy.is_discovered(&seccoord) {
+        while self.is_discovered(&seccoord) {
             seccoord = (rng.random(), rng.random(), rng.random());
         }
         let id = rng.random();
-        let ind = galaxy.generate_sector(&seccoord);
-        let sector = galaxy.discovered.get(ind).unwrap();
+        let ind = self.generate_sector(&seccoord);
+        let sector = self.discovered.get(ind).unwrap();
 
-        let Some(SpaceObject::Planet(pla)) = galaxy
+        let Some(SpaceObject::Planet(pla)) = self
             .list_objects_in_sector(sector)
             .iter()
             .filter(|obj| matches!(obj, SpaceObject::Planet(_)))
@@ -150,12 +157,12 @@ impl Galaxy {
         let mut retry_n = 0;
         loop {
             coord = get_rand_coord_near(&pla.position, STATION_FPLANET_DIST, &mut rng);
-            while !is_in_sector(&coord, sector) || galaxy.get(&coord).is_some() {
+            while !is_in_sector(&coord, sector) || self.get(&coord).is_some() {
                 coord = get_rand_coord_near(&pla.position, STATION_FPLANET_DIST, &mut rng);
             }
 
             let mut mindist = None;
-            for pla in galaxy
+            for pla in self
                 .list_objects_in_sector(sector)
                 .iter()
                 .filter_map(|obj| {
@@ -187,38 +194,17 @@ impl Galaxy {
             }
         }
         let station = Arc::new(RwLock::new(station::Station::init(id, coord)));
-        galaxy
-            .insert(&coord, SpaceObject::BaseStation(station))
+        self.insert(&coord, SpaceObject::BaseStation(station))
             .unwrap();
-        drop(galaxy);
         (id, coord)
     }
 
-    pub async fn get_station(&self, coord: &SpaceCoord) -> Option<Arc<RwLock<station::Station>>> {
-        let galaxy = self.0.read().await; // OK
-        let obj = galaxy.get(coord)?;
-        let SpaceObject::BaseStation(station) = obj else {
-            return None;
-        };
-        Some(station.clone())
-    }
-
-    pub async fn get_planet(&self, coord: &SpaceCoord) -> Option<Arc<planet::Planet>> {
-        let galaxy = self.0.read().await; // OK
-        let obj = galaxy.get(coord)?;
-        let SpaceObject::Planet(planet) = obj else {
-            return None;
-        };
-        Some(planet.clone())
-    }
-
     pub async fn scan_sector(&self, rank: u8, center: &SpaceCoord) -> ScanResult {
-        let galaxy = self.0.read().await; // OK
         let strengh = (rank - 1) as f64;
         let mut results = ScanResult::empty();
         debug_assert!(strengh >= 0.0);
         for sector in sectors_around(center, strengh) {
-            for obj in galaxy.list_objects_in_sector(&sector) {
+            for obj in self.list_objects_in_sector(&sector) {
                 results.add(rank, obj).await;
             }
         }
@@ -377,4 +363,10 @@ fn test_compute_sector() {
             (SECTOR_SIZE.2, 2 * SECTOR_SIZE.2)
         )
     );
+}
+
+#[cfg(feature = "heavy_testing")]
+#[test]
+fn test_heavy_testing() {
+    assert!(false);
 }

@@ -18,4 +18,3 @@ tokio = { workspace = true }
 [features]
 default = []
 testing = []
-heavy-testing = []

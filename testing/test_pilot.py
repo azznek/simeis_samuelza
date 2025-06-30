@@ -81,52 +81,46 @@ class test_scenari:
             print("!!! Player already lost, please restart the server to reset the game")
             sys.exit(0)
 
-
-
-    def testing_scenarii1(self):
-
-
+    def testingScenarioHirePilot(self):
+        
         status = self.get(f"/player/{self.pid}")
+
         self.sta = list(status["stations"].keys())[0]
+
+
+        # Acheter un vaisseau
+        # Get all the ships available for purchasing in the station
+        available = self.get(f"/station/{self.sta}/shipyard/list")["ships"]
+        # Get the cheapest option
+        cheapest = sorted(available, key = lambda ship: ship["price"])[0]
+        # Buy it
+        shipID = self.get(f"/station/{self.sta}/shipyard/buy/" + str(cheapest["id"]))
+        assert(shipID)
         
+
+        # Engager un pilote et l'assigner au vaisseau
+        pilot = self.get(f"/station/{self.sta}/crew/hire/pilot")["id"]
+        self.get(f"/station/{self.sta}/crew/assign/{pilot}/{shipID['shipId']}/pilot")
+        assert(pilot)
+        ship = self.get(f'/ship/{shipID['shipId']}')
+        #print(ship)
+        assert(ship['crew'])
+
+
+
         start_player_money = self.get(f'/player/{self.pid}')['money']
-        #print(f'Start player money : {start_player_money}')
-
-
-        # Engager un trader et l'assigner à la station
-        trader = self.get(f"/station/{self.sta}/crew/hire/trader")["id"]
-        self.get(f"/station/{self.sta}/crew/assign/{trader}/trading")
-
+        print(start_player_money)
         self.get('/tick/100')
+        player_money_after_time_passed = self.get(f'/player/{self.pid}')['money']
+        print(player_money_after_time_passed)
+
+        assert(player_money_after_time_passed < start_player_money)
 
 
-        # S'assurer que les salaires sont prélevés
-        player_money_t1 = self.get(f'/player/{self.pid}')['money']
-        #print(f'after trader salary player money : {player_money_t1}')
+        print('Test hire pilot passed.')
 
-        assert(player_money_t1 < start_player_money)
-
-        # Acheter de l'or et s'assurer que l'argent descend
-        self.get(f'/market/{self.sta}/buy/gold/10')
-
-        player_money_t2 = self.get(f'/player/{self.pid}')['money']
-        #print(f'Player money after buy gold : {player_money_t2}')
-        assert(player_money_t2 < player_money_t1)
-
-        # Vendre l'or et s'assurer que l'argent monte
-    
-        self.get(f'/market/{self.sta}/sell/gold/10')
-        player_money_t3 = self.get(f'/player/{self.pid}')['money']
-        #print(f'Player money after sell gold : {player_money_t3}')
-
-        assert(player_money_t3 > player_money_t2)
-        
-        print('Test scenario1 passed')
-    
 
 if __name__ == "__main__":
     name = sys.argv[1]
     game = test_scenari(name)
-    game.testing_scenarii1()
-
-    
+    game.testingScenarioHirePilot()

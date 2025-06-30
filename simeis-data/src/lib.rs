@@ -8,3 +8,6 @@ pub mod market;
 pub mod player;
 pub mod ship;
 pub mod syslog;
+
+#[cfg(test)]
+pub mod tests;

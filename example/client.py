@@ -1,6 +1,8 @@
 PORT=8080
-URL=f"http://103.45.247.164:{PORT}"
-   
+
+TESTING_PORT=9345
+URL=f"http://0.0.0.0:{TESTING_PORT}"
+
 import os
 import sys
 import math

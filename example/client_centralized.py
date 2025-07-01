@@ -1,6 +1,6 @@
 PORT=8080
-#URL=f"http://127.0.0.1:{PORT}"
-URL=f"http://103.45.247.164:{PORT}"
+URL=f"http://127.0.0.1:{PORT}"
+#URL=f"http://103.45.247.164:{PORT}"
 
 import os
 import sys
@@ -759,7 +759,7 @@ if __name__ == "__main__":
     def run_dashboard_loop(game):
         while True:
             game.display_dashboard()
-            time.sleep(0.5)
+            time.sleep(0.1)
 
     for index, sid in enumerate(game.sid):
             t = threading.Thread(target=continuous_ship_loop, args=(sid, index), daemon=True, name=f"ShipThread-{index}")

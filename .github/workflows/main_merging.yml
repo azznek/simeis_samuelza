@@ -13,14 +13,16 @@ permissions:
 
 jobs:
     matrix-compiling :
-        if : 
+        
         strategy:
             matrix:
-                version : [ 1.75.0 , 1.80.0 , 1.85.0 , 1.88.0]
+                version : [  1.85.0 , 1.88.0]
                 os : [macos-latest , ubuntu-latest , windows-latest]
         
         runs-on: ${{matrix.os}}
-
+        
+        if :  contains(github.ref, 'feature/')
+    
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -41,9 +43,9 @@ jobs:
             - name: Set up Rust
               uses: actions-rs/toolchain@v1
               with:
-                toolchain: ${{matrix.version}}  # You can specify 'stable', 'beta', 'nightly', or a specific version like '1.75.0'
-                override: true     # Makes this version the default for the job
-                components: clippy # Optional: install additional components like rustfmt, clippy, etc.
+                toolchain: ${{matrix.version}} 
+                override: true    
+                components: clippy 
 
             - name: Compilation release
               run: cargo build --release

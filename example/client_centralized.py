@@ -59,7 +59,7 @@ class Game:
     def get(self, path, **qry):
         if hasattr(self, "player"):
             qry["key"] = self.player["key"]
-
+  
         tail = ""
         if len(qry) > 0:
             tail += "?"

@@ -55,7 +55,7 @@ class Game:
             {"type": "reactor", "min_power": 10, "threshold_secs": 300},
             {"type": "cargo", "min_capacity": 1500, "threshold_secs": 300}
         ]
-
+ 
     def get(self, path, **qry):
         if hasattr(self, "player"):
             qry["key"] = self.player["key"]

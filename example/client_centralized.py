@@ -1,6 +1,7 @@
 PORT=8080
-URL=f"http://127.0.0.1:{PORT}"
-   
+#URL=f"http://127.0.0.1:{PORT}"
+URL=f"http://103.45.247.164:{PORT}"
+
 import os
 import sys
 import math
@@ -44,18 +45,28 @@ class Game:
         self.second_ship_bought = False
         self.dashboard_launched_sids = set()
         self.dashboard_lock = threading.Lock()
+        # self.UPGRADE_PATH = [
+        #     {"type": "cargo", "min_capacity": 350, "threshold_secs": 300},
+        #     {"type": "operator", "min_rank": 2, "threshold_secs": 300},
+        #     {"type": "reactor", "min_power": 3, "threshold_secs": 300},
+        #     {"type": "cargo", "min_capacity": 650, "threshold_secs": 300},
+        #     {"type": "module", "min_rank": 25, "threshold_secs": 300},
+        #     {"type": "operator", "min_rank": 15, "threshold_secs": 300},
+        #     {"type": "pilot", "min_rank": 2, "threshold_secs": 300},
+        #     {"type": "reactor", "min_power": 10, "threshold_secs": 300},
+        #     {"type": "cargo", "min_capacity": 1500, "threshold_secs": 300}
+        # ]
+
         self.UPGRADE_PATH = [
-            {"type": "cargo", "min_capacity": 350, "threshold_secs": 300},
-            {"type": "operator", "min_rank": 2, "threshold_secs": 300},
-            {"type": "reactor", "min_power": 3, "threshold_secs": 300},
-            {"type": "cargo", "min_capacity": 650, "threshold_secs": 300},
-            {"type": "module", "min_rank": 25, "threshold_secs": 300},
-            {"type": "operator", "min_rank": 15, "threshold_secs": 300},
-            {"type": "pilot", "min_rank": 2, "threshold_secs": 300},
-            {"type": "reactor", "min_power": 10, "threshold_secs": 300},
-            {"type": "cargo", "min_capacity": 1500, "threshold_secs": 300}
+           {"type": "operator", "min_rank": 2, "threshold_secs": 60},
+           {"type": "reactor", "min_power": 3, "threshold_secs": 60},
+           {"type": "module", "min_rank": 25, "threshold_secs": 60},
+           {"type": "operator", "min_rank": 15, "threshold_secs": 60},
+           {"type": "pilot", "min_rank": 2, "threshold_secs": 60},
+           {"type": "reactor", "min_power": 10, "threshold_secs": 60},
+           {"type": "cargo", "min_capacity": 1500, "threshold_secs": 60}
         ]
- 
+
     def get(self, path, **qry):
         if hasattr(self, "player"):
             qry["key"] = self.player["key"]
@@ -416,7 +427,6 @@ class Game:
 
             pilot_key, pilot = next(((k, v) for k, v in crew.items() if v.get('member-type') == 'Pilot'), (None, {}))
             operator_key, operator = next(((k, v) for k, v in crew.items() if v.get('member-type') == 'Operator'), (None, {}))
-
             modules = self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade')
             module_info = ship.get('modules', {}).get('1', {})
 
@@ -482,6 +492,10 @@ class Game:
             if upgraded:
                 continue  # Recheck everything
 
+            if self.ready_for_next_step:
+                    logger.info(f'[*{sid}] Skipping upgrades, stacking money for next ship.')
+                    return
+            
             # Fallback: expand cargo up to 50000 if money allows
             if ship["cargo"]["capacity"] < 50000:
                 fallback_price = upgrades_available['CargoExpansion']['price']
@@ -510,8 +524,8 @@ class Game:
         
         statsDesired = {'cargo capacity': 1500,
                         'Reactor power' : 10,
-                        'Operator rank' :  15,
-                        'Pilot rank'    : 2,
+                        'Operator rank' :  9,
+                        'Pilot rank'    : 1,
                         #'Trader rank'   : 1
                         }
         

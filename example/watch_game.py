@@ -1,5 +1,6 @@
 PORT=8080
-URL=f"http://127.0.0.1:{PORT}"
+#URL=f"http://127.0.0.1:{PORT}"
+URL=f"http://103.45.247.164:{PORT}"
 
 import os
 import json

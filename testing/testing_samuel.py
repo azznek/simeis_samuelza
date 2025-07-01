@@ -1,5 +1,4 @@
 import sys
-
 import unittest
 import random, string
 import os
@@ -117,7 +116,6 @@ class Game:
         if not check_has(ship["crew"], "member_type", "Operator"):
             op = self.get(f"/station/{sta}/crew/hire/operator")["id"]
             self.get(f"/station/{sta}/crew/assign/{op}/{sid}/{mod_id}")
-            
 
 def randomword(length):
    letters = string.ascii_lowercase

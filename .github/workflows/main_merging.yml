@@ -1,0 +1,49 @@
+name : matrix-compiling
+
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - 'main'
+
+permissions:
+  pull-requests: write 
+  contents: read
+
+jobs:
+    matrix-compiling :
+        if : 
+        strategy:
+            matrix:
+                version : [ 1.75.0 , 1.80.0 , 1.85.0 , 1.88.0]
+                os : [macos-latest , ubuntu-latest , windows-latest]
+        
+        runs-on: ${{matrix.os}}
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: "Cache cargo"
+              id: cache-cargo
+              uses: "actions/cache@v4"
+              with:
+                path: |
+                    ~/.cargo/bin/
+                    ~/.cargo/registry/index/
+                    ~/.cargo/registry/cache/
+                    ~/.cargo/git/db/
+                    target/
+                key: cargo-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/*.rs') }}
+                restore-keys: cargo-
+
+            - name: Set up Rust
+              uses: actions-rs/toolchain@v1
+              with:
+                toolchain: ${{matrix.version}}  # You can specify 'stable', 'beta', 'nightly', or a specific version like '1.75.0'
+                override: true     # Makes this version the default for the job
+                components: clippy # Optional: install additional components like rustfmt, clippy, etc.
+
+            - name: Compilation release
+              run: cargo build --release

@@ -1,0 +1,70 @@
+name: Checks before merging to release
+
+on:
+  pull_request:
+    branches:
+      - "release/*"
+
+jobs:
+  functional-testing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+
+      - name: Installer Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build avec testing
+        run: cargo build --features testing
+
+      - name: Run avec testing
+        run: cargo run --features testing
+
+      - name: Run first test
+        run: python testing/testing.py
+
+      - name: Run second test
+        run: python testing/test_pilot.py
+
+      - name: Run third test
+        run: python testing/test_samuel.py
+
+  enforce-policy:
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.action == 'reopened')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check PR source branch
+        id: check_branch
+        run: |
+          SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
+          echo "Checking source branch: $SOURCE_BRANCH"
+
+          if [[ "$SOURCE_BRANCH" == "main" || "$SOURCE_BRANCH" == bug/* ]]; then
+            echo "allowed=true" >> $GITHUB_OUTPUT
+          else
+            echo "allowed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Close PR if source not allowed
+        if: steps.check_branch.outputs.allowed == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          REPO="${{ github.repository }}"
+
+          echo "Attempting to close PR #$PR_NUMBER because it violates branch policy."
+
+          gh pr comment "$PR_NUMBER" \
+            --repo "$REPO" \
+            --body "This PR was automatically closed: PRs targeting \`release/*\` must originate only from \`main\` or \`bug/*\` branches."
+
+          gh pr close "$PR_NUMBER" --repo "$REPO"

@@ -49,7 +49,7 @@ class Game:
             {"type": "operator", "min_rank": 2, "threshold_secs": 300},
             {"type": "reactor", "min_power": 3, "threshold_secs": 300},
             {"type": "cargo", "min_capacity": 650, "threshold_secs": 300},
-            {"type": "module", "min_rank": 20, "threshold_secs": 300},
+            {"type": "module", "min_rank": 25, "threshold_secs": 300},
             {"type": "operator", "min_rank": 15, "threshold_secs": 300},
             {"type": "pilot", "min_rank": 2, "threshold_secs": 300},
             {"type": "reactor", "min_power": 10, "threshold_secs": 300},
@@ -430,7 +430,7 @@ class Game:
                 step_threshold = player_status["costs"] * step.get("threshold_secs", 300)
 
                 t = step["type"]
-                if t == "trader" and self.number_of_trader_upgrades < step["min_rank"]:
+                if t == "trader" and self.number_of_trader_upgrades <= step["min_rank"]:
                     price = self.get(f"/station/{self.sta}/upgrades")["trader-upgrade"]
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/crew/upgrade/trader")
@@ -439,7 +439,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "pilot" and pilot.get("rank", 0) < step["min_rank"]:
+                elif t == "pilot" and pilot.get("rank", 0) <= step["min_rank"]:
                     price = pilot.get("price", 0)
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{pilot_key}")
@@ -447,7 +447,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "operator" and operator.get("rank", 0) < step["min_rank"]:
+                elif t == "operator" and operator.get("rank", 0) <= step["min_rank"]:
                     price = operator.get("price", 0)
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{operator_key}")
@@ -455,7 +455,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "cargo" and ship["cargo"]["capacity"] < step["min_capacity"]:
+                elif t == "cargo" and ship["cargo"]["capacity"] <= step["min_capacity"]:
                     price = upgrades_available['CargoExpansion']['price']
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/cargoexpansion")
@@ -463,7 +463,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "reactor" and ship["reactor_power"] < step["min_power"]:
+                elif t == "reactor" and ship["reactor_power"] <= step["min_power"]:
                     price = upgrades_available['ReactorUpgrade']['price']
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/reactorupgrade")
@@ -471,7 +471,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "module" and module_info.get("rank", 0) < step["min_rank"]:
+                elif t == "module" and module_info.get("rank", 0) <= step["min_rank"]:
                     mod_price = modules.get('1', {}).get("price")
                     if mod_price and player_money > mod_price + step_threshold:
                         self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade/1')
@@ -493,6 +493,14 @@ class Game:
                     logger.info(f"[*{sid}] Fallback cargo upgrade skipped (not enough money)")
             else:
                 logger.info(f"[*{sid}] Fallback: cargo at max threshold (50000)")
+
+            # Fallback: operator level
+            if  operator.get("rank", 0) <= 35:
+                price = operator.get("price", 0)
+                if player_money > price + step_threshold:
+                    self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{operator_key}")
+                    logger.info(f"[*{sid}] Upgraded operator to rank {operator['rank'] + 1}")
+                    continue 
 
             break
 
@@ -572,7 +580,7 @@ class Game:
             except Exception as e:
                 print(f"Erreur récupération du vaisseau {sid}: {e}")
                 continue
-            if index>3:
+            if index>=3:
                 break
             print(f"=== SHIP {index} ===")
             print(f"État        : {ship.get('state')}")

@@ -258,6 +258,7 @@ impl Ship {
         );
 
         let extraction = ExtractionInfo::create(self, &planet);
+        // TODO Else, return an error to say that we don't have any module to extract resource on this planet
         if !extraction.0.is_empty() {
             self.state = ShipState::Extracting(extraction.clone());
         }

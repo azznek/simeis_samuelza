@@ -6,13 +6,26 @@ on:
       - 'release/*'
 
 jobs:
-
-  Audit-code:
+  heavy-testing:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: "Cache cargo"
+        id: cache-cargo
+        uses: "actions/cache@v4"
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          save-always: true
+          key: cargotest-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/*.rs') }}
+          restore-keys: cargotest-
 
       - name: Installer Rust
         uses: dtolnay/rust-toolchain@stable

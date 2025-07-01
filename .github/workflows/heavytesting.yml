@@ -38,6 +38,6 @@ jobs:
           save-always: true
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/*.rs') }}
           restore-keys: ${{ runner.os }}-cargo-
-            
+          
       - name : Run un cargo audit sur les dépendences toml
         run : cargo audit bin Cargo.toml

@@ -13,6 +13,7 @@ jobs:
     steps:
       - name: Aquire code
         uses: actions/checkout@v2
+
       - name: "Cache cargo"
         id: cache-cargo
         uses: "actions/cache@v4"
@@ -68,12 +69,6 @@ jobs:
                     mv debbuild.deb target/release/simeis-server-${VERSION}.deb
 
 
-      - name: Build and export Docker image
-        run: |
-          cp target/release/simeis-server .
-          docker build -t simeis-server:${VERSION} .
-          docker save simeis-server:${VERSION} -o target/release/simeis-server-docker-${VERSION}.tar
-
       - name: Release the new binaries
         uses: mini-bomba/create-github-release@v1.1.3
         with:
@@ -90,6 +85,5 @@ jobs:
             target/release/simeis-server.exe
             target/release/libsimeis_data.rlib
             target/release/simeis-server-${{ env.VERSION }}.deb
-            target/release/simeis-server-docker-${{ env.VERSION }}.tar
             doc/manual.pdf
           clear_attachments: true

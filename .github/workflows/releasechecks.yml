@@ -1,0 +1,96 @@
+name: Checks before merging to release
+
+on:
+  pull_request:
+    branches:
+      - "release/*"
+
+jobs:
+  functional-testing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: "Cache cargo"
+        id: cache-cargo
+        uses: "actions/cache@v4"
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          save-always: true
+          key: cargotestrelease-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/*.rs') }}
+          restore-keys: cargotestrelease-
+            
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+
+      - name: Installer Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build avec testing
+        run: cargo build --features testing
+
+      - name: Start Rust server in background
+        run: |
+            cargo run --features testing &
+            SERVER_PID=$!
+            echo "Server started with PID $SERVER_PID"
+            
+            echo "Waiting for server to be ready..."
+            while true; do
+            if curl -s http://localhost:9345/ping | grep -q "pong"; then
+                echo "Server is up!"
+                break
+            fi
+            echo "Server not ready yet, retrying..."
+            sleep 5
+            done
+
+            # Run your tests
+            python testing/testing.py test-rich
+            python testing/test_pilot.py test-rich1
+            python testing/testing_samuel.py test-rich2
+
+            # Kill the server after tests
+            kill $SERVER_PID
+
+  enforce-policy:
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.action == 'reopened')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check PR source branch
+        id: check_branch
+        run: |
+          SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
+          echo "Checking source branch: $SOURCE_BRANCH"
+
+          if [[ "$SOURCE_BRANCH" == "main" || "$SOURCE_BRANCH" == bug/* ]]; then
+            echo "allowed=true" >> $GITHUB_OUTPUT
+          else
+            echo "allowed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Close PR if source not allowed
+        if: steps.check_branch.outputs.allowed == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          REPO="${{ github.repository }}"
+
+          echo "Attempting to close PR #$PR_NUMBER because it violates branch policy."
+
+          gh pr comment "$PR_NUMBER" \
+            --repo "$REPO" \
+            --body "This PR was automatically closed: PRs targeting \`release/*\` must originate only from \`main\` or \`bug/*\` branches."
+
+          gh pr close "$PR_NUMBER" --repo "$REPO"

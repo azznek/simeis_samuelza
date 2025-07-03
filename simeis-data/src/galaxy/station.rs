@@ -193,6 +193,9 @@ impl Station {
     }
 
     pub fn refuel_ship(&mut self, ship: &mut Ship) -> Result<f64, Errcode> {
+        if self.position != ship.position {
+            return Err(Errcode::ShipNotInStation);
+        }
         let Some(qty) = self.cargo.resources.get(&Resource::Fuel) else {
             return Err(Errcode::NoFuelInCargo);
         };
@@ -209,6 +212,9 @@ impl Station {
     }
 
     pub fn repair_ship(&mut self, ship: &mut Ship) -> Result<f64, Errcode> {
+        if self.position != ship.position {
+            return Err(Errcode::ShipNotInStation);
+        }
         let Some(qty) = self.cargo.resources.get(&Resource::HullPlate) else {
             return Err(Errcode::NoHullPlateInCargo);
         };

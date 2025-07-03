@@ -11,8 +11,15 @@ import string
 import urllib.request
 import threading
 import logging
+from rich.console import Console
+from rich.live import Live
+from rich.table import Table
+from rich.panel import Panel
+from datetime import datetime, timedelta
 
+import time
 
+console= Console()
 
 
 class SimeisError(Exception):
@@ -35,6 +42,7 @@ class Game:
         self.setup_player(username)
 
         # Useful for our game loops
+        self.startTime = datetime.now()
         self.pid = self.player["playerId"]
         self.sid = []
         self.sta = None
@@ -58,8 +66,8 @@ class Game:
         # ]
 
         self.UPGRADE_PATH = [
-           {"type": "operator", "min_rank": 2, "threshold_secs": 60},
            {"type": "reactor", "min_power": 3, "threshold_secs": 60},
+           {"type": "operator", "min_rank": 2, "threshold_secs": 60},
            {"type": "cargo", "min_capacity": 600, "threshold_secs": 60},
            {"type": "operator", "min_rank": 9, "threshold_secs": 60},
            {"type": "module", "min_rank": 6, "threshold_secs": 60},
@@ -448,7 +456,7 @@ class Game:
                 step_threshold = player_status["costs"] * step.get("threshold_secs", 300)
 
                 t = step["type"]
-                if t == "trader" and self.number_of_trader_upgrades < step["min_rank"]:
+                if t == "trader" and self.number_of_trader_upgrades <= step["min_rank"]:
                     price = self.get(f"/station/{self.sta}/upgrades")["trader-upgrade"]
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/crew/upgrade/trader")
@@ -457,7 +465,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "pilot" and pilot.get("rank", 0) < step["min_rank"]:
+                elif t == "pilot" and pilot.get("rank", 0) <= step["min_rank"]:
                     price = pilot.get("price", 0)
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{pilot_key}")
@@ -465,15 +473,17 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "operator" and operator.get("rank", 0) < step["min_rank"]:
+                elif t == "operator" and operator.get("rank", 0) <= step["min_rank"]:
                     price = operator.get("price", 0)
+                    logger.info("coucou")
+
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{operator_key}")
                         logger.info(f"[*{sid}] Upgraded operator to rank {operator['rank'] + 1}")
                         upgraded = True
                         break
 
-                elif t == "cargo" and ship["cargo"]["capacity"] < step["min_capacity"]:
+                elif t == "cargo" and ship["cargo"]["capacity"] <= step["min_capacity"]:
                     price = upgrades_available['CargoExpansion']['price']
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/cargoexpansion")
@@ -481,7 +491,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "reactor" and ship["reactor_power"] < step["min_power"]:
+                elif t == "reactor" and ship["reactor_power"] <= step["min_power"]:
                     price = upgrades_available['ReactorUpgrade']['price']
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/reactorupgrade")
@@ -489,7 +499,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "module" and module_info.get("rank", 0) < step["min_rank"]:
+                elif t == "module" and module_info.get("rank", 0) <= step["min_rank"]:
                     mod_price = modules.get('1', {}).get("price")
                     if mod_price and player_money > mod_price + step_threshold:
                         self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade/1')
@@ -539,9 +549,9 @@ class Game:
             operator = next((v for v in crew.values() if v.get('member-type') == 'Operator'), {})
             return operator.get("rank", 0) > step["min_rank"]
         elif t == "cargo":
-            return ship["cargo"]["capacity"] > step["min_capacity"]
+            return ship["cargo"]["capacity"] >= step["min_capacity"]
         elif t == "reactor":
-            return ship["reactor_power"] > step["min_power"]
+            return ship["reactor_power"] >= step["min_power"]
         elif t == "module":
             return ship["modules"].get("1", {}).get("rank", 0) > step["min_rank"]
         return True
@@ -597,50 +607,126 @@ class Game:
             self.ready_for_next_step = True
 
 
-    
+    def build_station_panel(self,station):
+        table = Table.grid()
+        table.add_row("[bold cyan]Station ID[/bold cyan]", str(station['id']))
+        table.add_row("[bold cyan]Position[/bold cyan]", str(station['position']))
+        table.add_row("[bold cyan]Cargo[/bold cyan]", f"{station['cargo']['usage']} / {station['cargo']['capacity']}")
 
-        
-        
-    def display_dashboard(self):
-        os.system('cls' if os.name == 'nt' else 'clear')
-        station = self.get(f'/station/{self.sta}')
-        self.disp_status()
-        print(" DASHBOARD DES VAISSEAUX\n")
-        print(f"=== STATION  ===")
-        print(f"ID        : {station.get('id')}")
-        print(f"Position    : {station.get('position')}")
-        print(f"Cargo       : {station['cargo']['usage']} / {station['cargo']['capacity']}")
         for res, amt in station['cargo']['resources'].items():
-            print(f"   {res}: {amt}")
-        print("-" * 40)
-        #self.disp_market()
+            table.add_row(f"  {res}", str(amt))
+        
+        return Panel(table, title="STATION", border_style="cyan")
+
+
+    def build_ship_panel(self,index, ship):
+        table = Table.grid()
+        table.add_row("[bold magenta]État[/bold magenta]", str(ship.get('state')))
+        table.add_row("Position", str(ship.get('position')))
+        table.add_row("Fuel", f"{ship.get('fuel_tank')} / {ship.get('fuel_tank_capacity')}")
+        table.add_row("Hull", f"{ship['hull_decay_capacity'] - ship['hull_decay']} / {ship['hull_decay_capacity']}")
+        table.add_row("Reactor", f"{ship.get('reactor_power')} for {ship['stats']['speed']}")
+        table.add_row("Cargo", f"{ship['cargo']['usage']} / {ship['cargo']['capacity']}")
+
+        for module in ship.get('modules', {}).values():
+            table.add_row("Module", str(module))
+
+        for member in ship.get('crew', {}).values():
+            table.add_row("Crew", f"{member['member_type']} (rank {member['rank']})")
+
+        for res, amt in ship['cargo']['resources'].items():
+            table.add_row(f"  {res}", str(amt))
+
+        return Panel(table, title=f"SHIP {index}", border_style="magenta")
+
+    def build_player_panel(self):
+        status = game.get("/player/" + str(self.pid))
+        money = round(status["money"], 2)
+        tbd =  int(status["money"] / status["costs"])
+        num_ships = len(self.sid)
+        cost_per_sec = round(status["costs"], 2)
+        
+        time_played_fmt = str(datetime.now()-self.startTime).split('.')[0]  # Removes microseconds
+
+
+        table = Table.grid()
+        table.add_row("[bold yellow]Money : [/bold yellow]", f"{money:,.2f} ¤")
+        table.add_row("Time Before Death : ", str(tbd))
+        table.add_row("Number of Ships : ", str(num_ships))
+        table.add_row("Costs per second : ", f"{cost_per_sec:,.2f} ¤/s")
+        table.add_row("Time Played", time_played_fmt)
+
+        return Panel(table, title="PLAYER", border_style="yellow")
+
+    def display_dashboard(self):
+        with Live(refresh_per_second=3, screen=True) as live:
+            while True:
+                try:
+                    station = self.get(f'/station/{self.sta}')
+                    ships = []
+                    for sid in self.sid[:2]:
+                        try:
+                            ship = self.get(f"/ship/{sid}")
+                            ships.append(ship)
+                        except Exception as e:
+                            ships.append({"state": f"Erreur récupération: {e}"})
+                except Exception as e:
+                    live.update(Panel(f"[bold red]Erreur récupération des données: {e}[/bold red]"))
+                    time.sleep(2)
+                    continue
+
+                panels = [self.build_player_panel(),self.build_station_panel(station)]
+                for index, ship in enumerate(ships, start=1):
+                    panels.append(self.build_ship_panel(index, ship))
+
+                layout = Table.grid(padding=1)
+                for panel in panels:
+                    layout.add_row(panel)
+
+                live.update(layout)
+                time.sleep(0.3)
+
+
+    # def display_dashboard(self):
+    #     os.system('cls' if os.name == 'nt' else 'clear')
+    #     station = self.get(f'/station/{self.sta}')
+    #     self.disp_status()
+    #     print(" DASHBOARD DES VAISSEAUX\n")
+    #     print(f"=== STATION  ===")
+    #     print(f"ID        : {station.get('id')}")
+    #     print(f"Position    : {station.get('position')}")
+    #     print(f"Cargo       : {station['cargo']['usage']} / {station['cargo']['capacity']}")
+    #     for res, amt in station['cargo']['resources'].items():
+    #         print(f"   {res}: {amt}")
+    #     print("-" * 40)
+    #     #self.disp_market()
             
-        index =1
-        for sid in self.sid:
-            try:
-                ship = self.get(f"/ship/{sid}")
-            except Exception as e:
-                print(f"Erreur récupération du vaisseau {sid}: {e}")
-                continue
-            if index>=3:
-                break
-            print(f"=== SHIP {index} ===")
-            print(f"État        : {ship.get('state')}")
-            print(f"Position    : {ship.get('position')}")
-            print(f"Fuel        : {ship.get('fuel_tank')} / {ship.get('fuel_tank_capacity')}")
-            print(f"Hull        : {ship['hull_decay_capacity'] - ship['hull_decay']} / {ship['hull_decay_capacity']}")
-            print(f"Reactor     : {ship.get('reactor_power')} for {ship["stats"]["speed"]}")
-            print(f"Cargo       : {ship['cargo']['usage']} / {ship['cargo']['capacity']}")
-            for module in ship.get('modules').values():
-                print(f'Module : {module}')
-            print("Crew        :")
-            for member in ship.get('crew', {}).values():
-                print(f" - {member['member_type']} (rank {member['rank']})")
-            print("Ressources  :")
-            for res, amt in ship['cargo']['resources'].items():
-                print(f"   {res}: {amt}")
-            print("-" * 40)
-            index+=1
+    #     index =1
+    #     for sid in self.sid:
+    #         try:
+    #             ship = self.get(f"/ship/{sid}")
+    #         except Exception as e:
+    #             print(f"Erreur récupération du vaisseau {sid}: {e}")
+    #             continue
+    #         if index>=3:
+    #             break
+    #         print(f"=== SHIP {index} ===")
+    #         print(f"État        : {ship.get('state')}")
+    #         print(f"Position    : {ship.get('position')}")
+    #         print(f"Fuel        : {ship.get('fuel_tank')} / {ship.get('fuel_tank_capacity')}")
+    #         print(f"Hull        : {ship['hull_decay_capacity'] - ship['hull_decay']} / {ship['hull_decay_capacity']}")
+    #         print(f"Reactor     : {ship.get('reactor_power')} for {ship["stats"]["speed"]}")
+    #         print(f"Cargo       : {ship['cargo']['usage']} / {ship['cargo']['capacity']}")
+    #         for module in ship.get('modules').values():
+    #             print(f'Module : {module}')
+    #         print("Crew        :")
+    #         for member in ship.get('crew', {}).values():
+    #             print(f" - {member['member_type']} (rank {member['rank']})")
+    #         print("Ressources  :")
+    #         for res, amt in ship['cargo']['resources'].items():
+    #             print(f"   {res}: {amt}")
+    #         print("-" * 40)
+    #         index+=1
 
     def expand_station_storage_if_needed_by_volume(self, sid, logger):
         ship = self.get(f"/ship/{sid}")
@@ -725,6 +811,10 @@ class Game:
             
         except Exception as e:
             logger.info(f"[!] Error during ship {sid} cycle: {e}")
+            
+	
+        
+
 
 
 if __name__ == "__main__":

@@ -1,0 +1,353 @@
+name : CI Workflows
+
+on :
+    pull_request:
+    
+
+jobs :
+    cache_all:
+        runs-on: ubuntu-latest
+        steps:
+            
+            - name: "Cache cargo"
+              id: cache-cargo
+              uses: "actions/cache@v4"
+              with:
+                path: |
+                    ~/.cargo/bin/
+                    ~/.cargo/registry/index/
+                    ~/.cargo/registry/cache/
+                    ~/.cargo/git/db/
+                    target/
+                save-always: true
+                key: cargo-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/*.rs') }}
+                restore-keys: cargo-
+
+            - name: Installer Rust
+              uses: dtolnay/rust-toolchain@stable
+
+            - name : Installer Typst
+              run : cargo install --locked typst-cli
+            
+            - name: Install cargo-tarpaulin
+              run: cargo install cargo-tarpaulin
+
+            - name : Installer cargo audit
+              run :  cargo install cargo-audit --locked
+
+
+    test-and-check:
+        if: github.ref == 'refs/heads/main' 
+        runs-on: ubuntu-latest
+        needs: cache_all
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+      
+            - name: "Cache cargo"
+              id: cache-cargo
+              uses: "actions/cache@v4"
+              with:
+                path: |
+                    ~/.cargo/bin/
+                    ~/.cargo/registry/index/
+                    ~/.cargo/registry/cache/
+                    ~/.cargo/git/db/
+                    target/
+                save-always: true
+                key: cargo-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/*.rs') }}
+                restore-keys: cargo-
+
+            - name: Installer Rust
+              uses: dtolnay/rust-toolchain@stable
+
+            - name: Format + Linter
+              run: cargo fmt --all -- --check && cargo clippy --all-targets
+
+            - name: Tests unitaires
+              run: cargo test
+
+      
+
+    release:
+      if: github.ref == 'refs/heads/main' 
+      runs-on: ubuntu-latest
+      needs: test-and-check
+
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: "Cache cargo"
+          id: cache-cargo
+          uses: "actions/cache@v4"
+          with:
+            path: |
+                ~/.cargo/bin/
+                ~/.cargo/registry/index/
+                ~/.cargo/registry/cache/
+                ~/.cargo/git/db/
+                target/
+            key: cargo-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/*.rs') }}
+            restore-keys: cargo-
+
+        - name: Installer Rust
+          uses: dtolnay/rust-toolchain@stable
+
+        - name: Compilation release
+          run: cargo build --release
+
+        - name : Installer Typst
+          run : cargo install --locked typst-cli
+
+        - name: Compilation du manuel Typst
+          run: typst compile doc/manual.typ doc/manual.pdf
+
+
+    coverage:
+
+        runs-on: ubuntu-latest
+        needs: cache_all
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: "Cache cargo"
+              id: cache-cargo
+              uses: "actions/cache@v4"
+              with:
+                  path: |
+                    ~/.cargo/bin/
+                    ~/.cargo/registry/index/
+                    ~/.cargo/registry/cache/
+                    ~/.cargo/git/db/
+                    target/
+                    save-always: true
+                  key: cargo-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/*.rs') }}
+                  restore-keys: cargo-
+
+            - name: Installer Rust
+              uses: dtolnay/rust-toolchain@stable
+
+            - name: Install cargo-tarpaulin
+              run: cargo install cargo-tarpaulin
+
+            - name: Run cargo tarpaulin
+              id: coverage
+              run: |
+                  set -e
+                  OUTPUT=$(cargo tarpaulin --ignore-tests)
+                  echo "$OUTPUT"
+                  COVERAGE=$(echo "$OUTPUT" | grep "Coverage Results" | grep -oE '[0-9]+\.[0-9]+')
+                  echo "Extracted coverage: $COVERAGE%"
+                  echo "coverage=$COVERAGE" >> "$GITHUB_OUTPUT"
+
+            - name: Comment warning if coverage < 50%
+              if: ${{ steps.coverage.outputs.coverage < 50 }}
+              run: |
+                  PR_NUMBER=${{ github.event.pull_request.number }}
+                  COMMENT="Not enough tests"
+                  echo -e "$COMMENT"
+                  curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                      -H "Content-Type: application/json" \
+                      -X POST \
+                      -d "$(jq -nc --arg body "$COMMENT" '{body: $body}')" \
+                      "https://api.github.com/repos/${{ github.repository }}/issues/$PR_NUMBER/comments"
+                        
+
+    heavy-testing:
+        if: github.ref_name == 'release/*'
+        runs-on: ubuntu-latest
+        needs: cache_all
+
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: "Cache cargo"
+          id: cache-cargo
+          uses: "actions/cache@v4"
+          with:
+            path: |
+                ~/.cargo/bin/
+                ~/.cargo/registry/index/
+                ~/.cargo/registry/cache/
+                ~/.cargo/git/db/
+                target/
+            key: cargo-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/*.rs') }}
+            restore-keys: cargo-
+
+        - name: Installer Rust
+          uses: dtolnay/rust-toolchain@stable
+
+        - name: Build avec heavy-testing
+          run: cargo build --features heavy-testing
+
+        - name : Tester avec heavy-testing
+          run : cargo test --features heavy-testing
+        
+        - name : Installer cargo audit
+          run :  cargo install cargo-audit --locked
+        
+        - name : Run un cargo audit sur les dépendences toml
+          run : cargo audit 
+
+
+    matrix-compiling :
+        if:  github.head_ref == 'feature/*'        
+
+        strategy:
+            matrix:
+                version : [  1.85.0 , 1.88.0]
+                os : [macos-latest , ubuntu-latest , windows-latest]
+        
+        runs-on: ${{matrix.os}}
+        
+        needs: cache_all
+
+    
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Set up Rust
+              uses: actions-rs/toolchain@v1
+              with:
+                toolchain: ${{matrix.version}} 
+                override: true    
+                components: clippy 
+
+            - name: Compilation release
+              run: cargo build --release
+
+      
+    check-format-clippy:
+      if: (github.event.action == 'opened' || github.event.action == 'synchronize')
+      runs-on: ubuntu-latest
+      needs: cache_all
+
+      steps:
+
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: "Cache cargo"
+          id: cache-cargo
+          uses: "actions/cache@v4"
+          with:
+            path: |
+              ~/.cargo/bin/
+              ~/.cargo/registry/index/
+              ~/.cargo/registry/cache/
+              ~/.cargo/git/db/
+              target/
+            save-always: true
+            key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/*.rs') }}
+            restore-keys: ${{ runner.os }}-cargo-
+
+        - name: Installer Rust
+          uses: dtolnay/rust-toolchain@stable
+        
+        
+
+        - name: Rust Check
+          run: cargo check
+
+        - name: Format
+          run: cargo fmt --check
+
+        - name: Clippy
+          run: cargo clippy
+
+    functional-testing:
+      if: github.ref_name == 'release/*'
+      runs-on: ubuntu-latest
+      needs: cache_all
+
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: "Cache cargo"
+          id: cache-cargo
+          uses: "actions/cache@v4"
+          with:
+            path: |
+              ~/.cargo/bin/
+              ~/.cargo/registry/index/
+              ~/.cargo/registry/cache/
+              ~/.cargo/git/db/
+              target/
+            save-always: true
+            key: cargo-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/*.rs') }}
+            restore-keys: cargo-
+              
+        - name: setup python
+          uses: actions/setup-python@v5
+          with:
+            python-version: 3.12
+
+        - name: Installer Rust
+          uses: dtolnay/rust-toolchain@stable
+
+        - name: Build avec testing
+          run: cargo build --features testing
+
+        - name: Start Rust server in background
+          run: |
+              cargo run --features testing &
+              SERVER_PID=$!
+              echo "Server started with PID $SERVER_PID"
+              
+              echo "Waiting for server to be ready..."
+              while true; do
+              if curl -s http://localhost:9345/ping | grep -q "pong"; then
+                  echo "Server is up!"
+                  break
+              fi
+              echo "Server not ready yet, retrying..."
+              sleep 5
+              done
+
+              # Run your tests
+              python testing/testing.py test-rich
+              python testing/test_pilot.py test-rich1
+              python testing/testing_samuel.py test-rich2
+
+              # Kill the server after tests
+              kill $SERVER_PID
+
+    enforce-policy:
+      if: github.ref_name == 'release/*' && (github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.action == 'reopened')
+      runs-on: ubuntu-latest
+      needs: cache_all
+
+      steps:
+        - name: Check PR source branch
+          id: check_branch
+          run: |
+            SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
+            echo "Checking source branch: $SOURCE_BRANCH"
+
+            if [[ "$SOURCE_BRANCH" == "main" || "$SOURCE_BRANCH" == bug/* ]]; then
+              echo "allowed=true" >> $GITHUB_OUTPUT
+            else
+              echo "allowed=false" >> $GITHUB_OUTPUT
+            fi
+
+        - name: Close PR if source not allowed
+          if: steps.check_branch.outputs.allowed == 'false'
+          env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            PR_NUMBER="${{ github.event.pull_request.number }}"
+            REPO="${{ github.repository }}"
+
+            echo "Attempting to close PR #$PR_NUMBER because it violates branch policy."
+
+            gh pr comment "$PR_NUMBER" \
+              --repo "$REPO" \
+              --body "This PR was automatically closed: PRs targeting \`release/*\` must originate only from \`main\` or \`bug/*\` branches."
+
+            gh pr close "$PR_NUMBER" --repo "$REPO"

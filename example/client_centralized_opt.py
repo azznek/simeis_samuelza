@@ -27,6 +27,66 @@ def check_has(alld, key, *req):
     alltypes = [c[key] for c in alld.values()]
     return all([k in alltypes for k in req])
 
+def estimate_gain(kind, id, data):
+    if kind == "module":
+        current_rank = data["modules"][id]["rank"]
+        new_rank = current_rank + 1
+        if new_rank > 45:
+            return 0.0
+        gain_ratio = (new_rank*100  / current_rank) if current_rank > 0 else 200.0
+        if data["cargo"]["capacity"] > 10000:
+            return (gain_ratio-100)*2
+        return gain_ratio-100
+
+    elif kind == "crew":
+        current_rank = data["crew"][id]["rank"]
+        new_rank = current_rank + 1
+        if "Pilot" == data["crew"][id]["member_type"] and new_rank > 20:
+            return 0.0
+        if "Operator" == data["crew"][id]["member_type"] and new_rank > 200:
+            return 0.0
+        gain_ratio = (new_rank*100  / current_rank) if current_rank > 0 else 200.0
+        if "Operator" == data["crew"][id]["member_type"] and data["cargo"]["capacity"] > 10000:
+            return (gain_ratio+-100)*2
+        return gain_ratio-100
+    
+    elif kind == "trader":
+        rank = data["crew"][id]["rank"]
+        current_fee = 0.26 / (rank ** 1.15)
+        new_fee = 0.26 / ((rank + 1) ** 1.15)
+        if new_fee <= 0.01:
+            return 0
+        gain_ratio = (current_fee * 100 / new_fee) if current_fee > 0 else 200.0
+        return gain_ratio-100
+    elif kind == "ship":
+        current_ships = len(data["ships"]) 
+        new_ships = current_ships + 1
+        gain_ratio = (new_ships * 100 / current_ships) if current_ships > 0 else 200.0
+        return gain_ratio - 100
+    elif kind == "shipupgrade":
+        # Accès à la stat modifiée selon le type
+        if id == "ReactorUpgrade":
+            current = data["reactor_power"]
+            new = current + 1
+            if new > 50: return 0
+        elif id == "CargoExpansion":
+            current = data["cargo"]["capacity"]
+            new = current + 100
+            if new > 100000: return 0
+        elif id == "HullUpgrade":
+            current = data["hull_decay_capacity"]
+            new = current 
+        elif id == "Shield":
+            current = data["shield_power"]
+            new = current + 0.01
+            if new > 20: return 0
+        else:
+            return 0.0
+        gain_ratio = (new*100 / current) if current > 0 else 110.0
+        return gain_ratio-100
+
+    return 0.0
+
 class Game:
     def __init__(self, username):
         # Init connection & setup player
@@ -60,13 +120,11 @@ class Game:
         self.UPGRADE_PATH = [
            {"type": "operator", "min_rank": 2, "threshold_secs": 60},
            {"type": "reactor", "min_power": 3, "threshold_secs": 60},
-           {"type": "cargo", "min_capacity": 600, "threshold_secs": 60},
-           {"type": "operator", "min_rank": 9, "threshold_secs": 60},
-           {"type": "module", "min_rank": 6, "threshold_secs": 60},
+           {"type": "module", "min_rank": 25, "threshold_secs": 60},
+           {"type": "operator", "min_rank": 15, "threshold_secs": 60},
            {"type": "pilot", "min_rank": 2, "threshold_secs": 60},
-           {"type": "cargo", "min_capacity": 1500, "threshold_secs": 60},
            {"type": "reactor", "min_power": 10, "threshold_secs": 60},
-           {"type": "module", "min_rank": 25, "threshold_secs": 60}
+           {"type": "cargo", "min_capacity": 1500, "threshold_secs": 60}
         ]
 
     def get(self, path, **qry):
@@ -414,7 +472,129 @@ class Game:
     
     
 
+    def optimize_upgrades(self,sid,logger):
+        player = self.get(f"/player/{self.pid}")
+        money = player["money"]
+        ship = self.get(f"/ship/{sid}")
+        station= self.get(f"/station/{self.sta}")
 
+        upgrades = []
+
+        # Prévisualisation
+        mod_preview = self.get(f"/station/{self.sta}/shop/modules/{sid}/upgrade")
+        crew_preview = self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}")
+        ship_upgrades = self.get(f"/station/{self.sta}/shipyard/upgrade")
+        station_upgrades = self.get(f"/station/{self.sta}/upgrades")
+        available = self.get(f"/station/{self.sta}/shipyard/list")["ships"]
+
+        # Modules
+        for mod_id in ship["modules"]:
+            mod_id_str = str(mod_id)
+            if mod_id_str in mod_preview:
+                price = mod_preview[mod_id_str]["price"]
+                gain = estimate_gain("module", mod_id, ship)
+                upgrades.append(("module", mod_id, price, gain))
+
+        # Crew
+        for crew_id in ship["crew"]:
+            crew_id_str = str(crew_id)
+            if crew_id_str in crew_preview:
+                price = crew_preview[crew_id_str]["price"]
+                gain = estimate_gain("crew", crew_id, ship)
+                upgrades.append(("crew", crew_id, price, gain))
+
+        # Ship upgrades
+        for upg, data in ship_upgrades.items():
+            price = data["price"]
+            gain = estimate_gain("shipupgrade", upg, ship)
+            upgrades.append(("shipupgrade", upg, price, gain))
+            
+        # Trader upgrade
+        price = station_upgrades["trader-upgrade"]
+        gain = estimate_gain("trader", str(station["trader"]), station)
+        upgrades.append(("trader", str(station["trader"]), price, gain))
+        
+        # New ship
+        for ship_data in available:
+            ship_id = ship_data["id"]
+            price = ship_data["price"]+30000
+            gain = estimate_gain("ship", ship_id, player)
+            upgrades.append(("ship", ship_id, price, gain))
+        
+        # Trier par rentabilité
+        upgrades.sort(key=lambda u: u[3] / u[2], reverse=True)
+        
+        # Seuil de ratio
+        top_ratio = upgrades[0][3] / upgrades[0][2]
+        min_ratio = top_ratio * (1.0 - 0.10)
+        shipmoney = money / len(player["ships"])  # Money per ship
+        moneyMinCap = shipmoney*0.1
+        shipUpgradeCap = 100
+        while upgrades:
+            kind, id_, price, gain = upgrades[0]
+            ratio = gain / price
+
+            if ratio < min_ratio:
+                logger.log(f"[] Skipping {kind} {id_}: ratio too low ({ratio:.4f}) price={price:.1f}, gain={gain:.1f})")
+                upgrades.pop(0)  # Enlever de la liste
+                continue
+
+            if shipmoney <= price + moneyMinCap:
+                logger.log(f"[] Not enough money for {kind} {id_}: need {price:.1f}, have {shipmoney:.1f}, gain={gain:.1f}%")
+                upgrades.pop(0)
+                continue
+
+            try:
+                if kind == "module":
+                    res = self.get(f"/station/{self.sta}/shop/modules/{sid}/upgrade/{id_}")
+                    logger.log(f"[] Module {id_} upgraded for {price:.1f} & gain {gain:.1f}%")
+                elif kind == "crew":
+                    res = self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{id_}")
+                    logger.log(f"[] Crew {id_} upgraded for {price:.1f} & gain {gain:.1f}%")
+                elif kind == "shipupgrade":
+                    res = self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/{id_}")
+                    logger.log(f"[] Ship upgrade {id_} for {price:.1f} & gain {gain:.1f}%")  
+                    shipUpgradeCap -= 1
+                    if shipUpgradeCap <= 0:
+                        logger.log("[] Ship upgrades cap reached")
+                        upgrades.pop(0)
+                        continue
+                elif kind == "trader":
+                    res = self.get(f"/station/{self.sta}/crew/upgrade/trader")
+                    logger.log(f"[] Trader upgraded for {price:.1f} & gain {gain:.1f}%")
+                elif kind == "ship":
+                    res = self.get(f"/station/{self.sta}/shipyard/buy/{id_}")
+                    threading.Thread(target=self.ship_cycle, args=(self,id_), daemon=True).start()
+                    logger.log(f"[] Bought new ship {id_} for {price:.1f} & gain {gain:.1f}%")
+                shipmoney -= price
+            except SimeisError as e:
+                logger.log(f"[!] Upgrade {kind} {id_} failed:", e)
+                upgrades.pop(0)
+                continue
+            
+            ship = self.get(f"/ship/{sid}")
+
+            if kind == "module":
+                mod_preview = self.get(f"/station/{self.sta}/shop/modules/{sid}/upgrade")
+                price = mod_preview[str(id_)]["price"]
+                gain = estimate_gain("module", id_, ship)
+            elif kind == "crew":
+                crew_preview = self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}")
+                price = crew_preview[str(id_)]["price"]
+                gain = estimate_gain("crew", id_, ship)
+            elif kind == "shipupgrade":
+                gain = estimate_gain("shipupgrade", id_, ship)
+            elif kind == "trader":
+                station_upgrades = self.get(f"/station/{self.sta}/upgrades")
+                price = station_upgrades["trader-upgrade"]
+                gain = estimate_gain("trader", id_, station)
+
+            upgrades[0] = (kind, id_, price, gain)
+            upgrades.sort(key=lambda u: u[3] / u[2], reverse=True)
+
+            top_ratio = upgrades[0][3] / upgrades[0][2]
+            min_ratio = top_ratio * (1.0 - 0.10)
+        logger.log(f"[*] Ship money left after upgrades: {shipmoney:.2f} credits")
 
     def upgrade_path_for_ship(self, sid, logger):
         logger.info(f"[*{sid}] Running centralized upgrade path with fallback")
@@ -434,13 +614,7 @@ class Game:
 
             upgraded = False
 
-            for i, step in enumerate(self.UPGRADE_PATH):
-
-                previous_steps = self.UPGRADE_PATH[:i]
-                if not all(self.step_is_satisfied(ship, crew, prev) for prev in previous_steps):
-                    logger.info(f"[*{sid}] Waiting for previous steps to complete before '{step['type']}' upgrade.")
-                    break
-
+            for step in self.UPGRADE_PATH:
                 if self.ready_for_next_step:
                     logger.info(f'[*{sid}] Skipping upgrades, stacking money for next ship.')
                     return
@@ -448,7 +622,7 @@ class Game:
                 step_threshold = player_status["costs"] * step.get("threshold_secs", 300)
 
                 t = step["type"]
-                if t == "trader" and self.number_of_trader_upgrades < step["min_rank"]:
+                if t == "trader" and self.number_of_trader_upgrades <= step["min_rank"]:
                     price = self.get(f"/station/{self.sta}/upgrades")["trader-upgrade"]
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/crew/upgrade/trader")
@@ -457,7 +631,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "pilot" and pilot.get("rank", 0) < step["min_rank"]:
+                elif t == "pilot" and pilot.get("rank", 0) <= step["min_rank"]:
                     price = pilot.get("price", 0)
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{pilot_key}")
@@ -465,7 +639,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "operator" and operator.get("rank", 0) < step["min_rank"]:
+                elif t == "operator" and operator.get("rank", 0) <= step["min_rank"]:
                     price = operator.get("price", 0)
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{operator_key}")
@@ -473,7 +647,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "cargo" and ship["cargo"]["capacity"] < step["min_capacity"]:
+                elif t == "cargo" and ship["cargo"]["capacity"] <= step["min_capacity"]:
                     price = upgrades_available['CargoExpansion']['price']
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/cargoexpansion")
@@ -481,7 +655,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "reactor" and ship["reactor_power"] < step["min_power"]:
+                elif t == "reactor" and ship["reactor_power"] <= step["min_power"]:
                     price = upgrades_available['ReactorUpgrade']['price']
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/reactorupgrade")
@@ -489,7 +663,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "module" and module_info.get("rank", 0) < step["min_rank"]:
+                elif t == "module" and module_info.get("rank", 0) <= step["min_rank"]:
                     mod_price = modules.get('1', {}).get("price")
                     if mod_price and player_money > mod_price + step_threshold:
                         self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade/1')
@@ -505,7 +679,7 @@ class Game:
                     return
             
             # Fallback: expand cargo up to 50000 if money allows
-            if ship["cargo"]["capacity"] < 50000 and player_money >= 20000:
+            if ship["cargo"]["capacity"] < 50000:
                 fallback_price = upgrades_available['CargoExpansion']['price']
                 if player_money > fallback_price + safety_threshold:
                     self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/cargoexpansion")
@@ -517,7 +691,7 @@ class Game:
                 logger.info(f"[*{sid}] Fallback: cargo at max threshold (50000)")
 
             # Fallback: operator level
-            if  operator.get("rank", 0) <= 35 and player_money >= 20000:
+            if  operator.get("rank", 0) <= 35:
                 price = operator.get("price", 0)
                 if player_money > price + step_threshold:
                     self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{operator_key}")
@@ -525,26 +699,6 @@ class Game:
                     continue 
 
             break
-
-
-    def step_is_satisfied(self, ship, crew, step):
-        t = step["type"]
-
-        if t == "trader":
-            return self.number_of_trader_upgrades >= step["min_rank"]
-        elif t == "pilot":
-            pilot = next((v for v in crew.values() if v.get('member-type') == 'Pilot'), {})
-            return pilot.get("rank", 0) > step["min_rank"]
-        elif t == "operator":
-            operator = next((v for v in crew.values() if v.get('member-type') == 'Operator'), {})
-            return operator.get("rank", 0) > step["min_rank"]
-        elif t == "cargo":
-            return ship["cargo"]["capacity"] > step["min_capacity"]
-        elif t == "reactor":
-            return ship["reactor_power"] > step["min_power"]
-        elif t == "module":
-            return ship["modules"].get("1", {}).get("rank", 0) > step["min_rank"]
-        return True
 
 
     def check_for_next_ship(self,logger):
@@ -721,7 +875,7 @@ class Game:
             logger.info(f"[*] Ship {ship_concerned} cycle began")
             self.go_mine(sid,logger)
             self.go_sell(sid,logger)
-            self.upgrade_path_for_ship(sid,logger)
+            self.optimize_upgrades(sid,logger)
             
         except Exception as e:
             logger.info(f"[!] Error during ship {sid} cycle: {e}")
@@ -787,7 +941,7 @@ if __name__ == "__main__":
     def run_dashboard_loop(game):
         while True:
             game.display_dashboard()
-            time.sleep(0.5)
+            time.sleep(0.1)
 
     for index, sid in enumerate(game.sid):
             t = threading.Thread(target=continuous_ship_loop, args=(sid, index), daemon=True, name=f"ShipThread-{index}")

@@ -1,7 +1,7 @@
 PORT=8080
-#URL=f"http://127.0.0.1:{PORT}"
-URL=f"http://103.45.247.164:{PORT}"
-   
+URL=f"http://127.0.0.1:{PORT}"
+#URL=f"http://103.45.247.164:{PORT}"
+
 import os
 import sys
 import math
@@ -11,6 +11,9 @@ import string
 import urllib.request
 import threading
 import logging
+
+
+
 
 class SimeisError(Exception):
     pass
@@ -40,11 +43,34 @@ class Game:
         self.flips = {}
         self.ready_for_next_step = None
         self.second_ship_bought = False
+        self.dashboard_launched_sids = set()
+        self.dashboard_lock = threading.Lock()
+        # self.UPGRADE_PATH = [
+        #     {"type": "cargo", "min_capacity": 350, "threshold_secs": 300},
+        #     {"type": "operator", "min_rank": 2, "threshold_secs": 300},
+        #     {"type": "reactor", "min_power": 3, "threshold_secs": 300},
+        #     {"type": "cargo", "min_capacity": 650, "threshold_secs": 300},
+        #     {"type": "module", "min_rank": 25, "threshold_secs": 300},
+        #     {"type": "operator", "min_rank": 15, "threshold_secs": 300},
+        #     {"type": "pilot", "min_rank": 2, "threshold_secs": 300},
+        #     {"type": "reactor", "min_power": 10, "threshold_secs": 300},
+        #     {"type": "cargo", "min_capacity": 1500, "threshold_secs": 300}
+        # ]
+
+        self.UPGRADE_PATH = [
+           {"type": "operator", "min_rank": 2, "threshold_secs": 60},
+           {"type": "reactor", "min_power": 3, "threshold_secs": 60},
+           {"type": "module", "min_rank": 25, "threshold_secs": 60},
+           {"type": "operator", "min_rank": 15, "threshold_secs": 60},
+           {"type": "pilot", "min_rank": 2, "threshold_secs": 60},
+           {"type": "reactor", "min_power": 10, "threshold_secs": 60},
+           {"type": "cargo", "min_capacity": 1500, "threshold_secs": 60}
+        ]
 
     def get(self, path, **qry):
         if hasattr(self, "player"):
             qry["key"] = self.player["key"]
-
+  
         tail = ""
         if len(qry) > 0:
             tail += "?"
@@ -162,6 +188,9 @@ class Game:
         else:
             logger.info(f"[*] Available ships with lot of cargo capacity too expensive")
 
+    def get_player_money(self):
+        return self.get(f"/player/{self.pid}")["money"]
+    
     def disp_status(self):
         status = game.get("/player/" + str(game.pid))
         print("[*] Current status: {} credits, costs: {}, time left before lost: {} secs".format(
@@ -381,232 +410,113 @@ class Game:
     # - Fill our cargo with resources
     # - Once the cargo is full, we stop mining, and this function returns
     
-    def get_player_money(self):
-        return self.get(f"/player/{self.pid}")["money"]
-
-    def upgrade_trader_if_enough_money(self,sid,logger):
-        if self.ready_for_next_step:
-            logger.info(f'[*{sid}] No upgrading, stacking money for next step')
-            return
-        
-        logger.info(f"[*{sid}] Level of the trader: {self.number_of_trader_upgrades}")
-
-        trader_upgrade_price = self.get(f"/station/{self.sta}/upgrades")["trader-upgrade"]
-        player_money = self.get_player_money()
-        required_money = [trader_upgrade_price + 600, trader_upgrade_price + 2500, trader_upgrade_price + 4000]
-
-        if self.number_of_trader_upgrades>=1 :
-            logger.info(f'[*{sid}] Trader already at desired level -- No upgrades bought')
-            return
-        
-        if self.number_of_trader_upgrades < len(required_money) and player_money > required_money[self.number_of_trader_upgrades]:
-            self.get(f"/station/{self.sta}/crew/upgrade/trader")
-            logger.info(f"[*{sid}] Trader upgrade level {self.number_of_trader_upgrades + 1} bought")
-            self.number_of_trader_upgrades += 1
-        else:
-            logger.info(f"[*{sid}] The trader upgrade was too expensive for us")
+    
 
 
-    def upgrade_single_operator_if_possible(self,sid,logger):
-        logger.info(f'[LOGS] ready? operator: {self.ready_for_next_step}')
 
-        if self.ready_for_next_step:
-            logger.info(f'[*{sid}] No upgrading, stacking money for next step')
-            return
-        
-        upgrades_done = 0
-        max_upgrades = 10
-        
-        while upgrades_done<max_upgrades:
+    def upgrade_path_for_ship(self, sid, logger):
+        logger.info(f"[*{sid}] Running centralized upgrade path with fallback")
 
-            actual_crew_augment = self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}")
-            logger.info(f"[*{sid}] Available crew augments: {actual_crew_augment}")
+        while True:
+            ship = self.get(f"/ship/{sid}")
+            crew = self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}")
+            upgrades_available = self.get(f'/station/{self.sta}/shipyard/upgrade')
+            player_status = self.get(f"/player/{self.pid}")
+            player_money = player_status["money"]
+            safety_threshold = player_status["costs"] * 600  # 10 minutes of survival buffer
 
-            pilot = next((v for v in actual_crew_augment.values() if v.get('member-type') == 'Pilot'), None)
-            operator_key, operator = next(((k, v) for k, v in actual_crew_augment.items() if v.get('member-type') == 'Operator'), (None, None))
+            pilot_key, pilot = next(((k, v) for k, v in crew.items() if v.get('member-type') == 'Pilot'), (None, {}))
+            operator_key, operator = next(((k, v) for k, v in crew.items() if v.get('member-type') == 'Operator'), (None, {}))
+            modules = self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade')
+            module_info = ship.get('modules', {}).get('1', {})
 
-            if not pilot or not operator:
-                logger.info("[!] Could not find Pilot or Operator")
-                break
+            upgraded = False
 
-            if pilot["rank"] < 2 and operator["rank"] > 2:
-                logger.info(f"[*{sid}] Must rank up Pilot before further operator upgrades\n")
-                break
+            for step in self.UPGRADE_PATH:
+                if self.ready_for_next_step:
+                    logger.info(f'[*{sid}] Skipping upgrades, stacking money for next ship.')
+                    return
 
-            if operator['rank']>=30:
-                logger.info(f'[*{sid}] Operator at max level')
-                break
-            
-            operator_price = operator["price"]
-            rank_thresholds = {
-                2: 800,
-                3: 1000,
-                4: 1500,
-                5: 2000
-            }
+                step_threshold = player_status["costs"] * step.get("threshold_secs", 300)
 
-            player_money = self.get_player_money()
-            rank = operator["rank"]
-            logger.info(f'[LOGS] rank : {rank}')
+                t = step["type"]
+                if t == "trader" and self.number_of_trader_upgrades <= step["min_rank"]:
+                    price = self.get(f"/station/{self.sta}/upgrades")["trader-upgrade"]
+                    if player_money > price + step_threshold:
+                        self.get(f"/station/{self.sta}/crew/upgrade/trader")
+                        self.number_of_trader_upgrades += 1
+                        logger.info(f"[*{sid}] Upgraded trader to level {self.number_of_trader_upgrades}")
+                        upgraded = True
+                        break
 
-            logger.info(f'[LOGS] operator price : {operator_price}')
-            
+                elif t == "pilot" and pilot.get("rank", 0) <= step["min_rank"]:
+                    price = pilot.get("price", 0)
+                    if player_money > price + step_threshold:
+                        self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{pilot_key}")
+                        logger.info(f"[*{sid}] Upgraded pilot to rank {pilot['rank'] + 1}")
+                        upgraded = True
+                        break
 
-            if rank >= 5 :
-                threshold = 2000
-            else:
-                threshold = rank_thresholds.get(rank)
+                elif t == "operator" and operator.get("rank", 0) <= step["min_rank"]:
+                    price = operator.get("price", 0)
+                    if player_money > price + step_threshold:
+                        self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{operator_key}")
+                        logger.info(f"[*{sid}] Upgraded operator to rank {operator['rank'] + 1}")
+                        upgraded = True
+                        break
 
-            logger.info(f'[LOGS] threshold : {threshold}')
-
-
-            if (operator_price + threshold) < player_money:
-                self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{operator_key}")
-                logger.info(f"[*{sid}] Upgrade for Operator bought\n")
-                upgrades_done+=1
-            else:
-                logger.info(f"[*{sid}] The operator upgrade was too expensive for us (or rank already too high)\n")
-                break
-
-
-    def upgrade_single_pilot_if_possible(self,sid,logger):
-        #logger.info(f'[LOGS] ready? pilot: {self.ready_for_next_step}')
-
-        if self.ready_for_next_step:
-            logger.info(f'[*{sid}] No upgrading, stacking money for next step')
-            return
-
-
-        
-        actual_crew_augment = self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}")
-        logger.info(f"[*{sid}] Available crew augments: {actual_crew_augment}")
-
-        pilot_key, pilot = next(((k, v) for k, v in actual_crew_augment.items() if v.get('member-type') == 'Pilot'), (None, None))
-        if not pilot:
-            logger.info("[!] Could not find Pilot\n")
-            return
-        
-        if pilot['rank'] >=3 :
-            logger.info(f'[*{sid}] Pilot at max level')
-            return
-        
-        player_money = self.get_player_money()
-        upgrade_thresholds = {
-            2: 1000,
-            3: 4000,
-        }
-
-        rank = pilot["rank"]
-        if rank >= 4 :
-            threshold = 2000000
-        else:
-            threshold = upgrade_thresholds.get(rank)
-
-        if threshold and (pilot["price"] + threshold) < player_money:
-            self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{pilot_key}")
-            logger.info(f"[*{sid}] Upgrade for Pilot bought\n")
-        else:
-            logger.info(f"[*{sid}] The pilot upgrade was too expensive for us (or rank already too high)\n")
-
-
-    def upgrade_ship(self,sid,logger):
-        #logger.info(f'[LOGS] ready? ship : {self.ready_for_next_step}')
-
-        if self.ready_for_next_step:
-            logger.info(f'[*{sid}] No upgrading, stacking money for next step')
-            return
-
-        if sid not in self.flips:
-            self.flips[sid] = 0
-
-        logger.info(f"[*{sid}] Checking for ship upgrades")
-
-        player_money = self.get_player_money()
-        upgrades_available = self.get(f'/station/{self.sta}/shipyard/upgrade')
-        actual_crew = self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}")
-        ship = self.get(f'/ship/{sid}')
-
-        pilot = next((v for v in actual_crew.values() if v.get('member-type') == 'Pilot'), {})
-        operator = next((v for v in actual_crew.values() if v.get('member-type') == 'Operator'), {})
-        flip = self.flips[sid]
-
-        logger.info(f"[*{sid}] Current ship cargo capacity: {ship['cargo']['capacity']}")
-        logger.info(f"[*{sid}] Current ship reactor power: {ship['reactor_power']}")
-        logger.info(f"[LOGS] flip value = {self.flips[sid]}")
-        logger.info(f"[*{sid}] Upgrades available: {upgrades_available}")
-
-        if ship["reactor_power"] >=15 :
-            flip = 0
-
-        cargo_upgrades_done = 0
-        max_cargo_Upgrades_at_once = 50
-        
-        reactor_upgrades_done = 0
-        max_reactor_Upgrades_at_once = 15
-
-        if flip == 0:
-            logger.info(f"[*{sid}] Considering cargo expansion upgrade...")
-            price = upgrades_available['CargoExpansion']['price']
-            if (ship["cargo"]["capacity"] <= 400 and player_money > 600 + price) or (pilot.get("rank", 0) >=2 and operator.get("rank", 0) >= 3 and player_money > 1500 + price):
-                
-                while (player_money>4000 and cargo_upgrades_done<max_cargo_Upgrades_at_once):
-                    self.get(f'/station/{self.sta}/shipyard/upgrade/{sid}/cargoexpansion')
+                elif t == "cargo" and ship["cargo"]["capacity"] <= step["min_capacity"]:
                     price = upgrades_available['CargoExpansion']['price']
-                    player_money = self.get_player_money()
-                    logger.info(f"[*{sid}] Cargo expansion upgrade bought")
-                    cargo_upgrades_done+=1
+                    if player_money > price + step_threshold:
+                        self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/cargoexpansion")
+                        logger.info(f"[*{sid}] Cargo upgrade bought")
+                        upgraded = True
+                        break
 
-                
-                
-                self.flips[sid] = 1
-                logger.info(f"[*{sid}] Cargo expansion upgrade bought")
-                logger.info(f"[LOGS] flip value = {self.flips[sid]}")
-            else:
-                logger.info(f"[*{sid}] Cargo expansion upgrade too expensive or not in priority list")
-        elif flip == 1:
-            logger.info(f"[*{sid}] Considering reactor upgrade...")
-            price = upgrades_available['ReactorUpgrade']['price']
-            if (ship["reactor_power"] < 2 and player_money > 800 + price) or (pilot.get("rank", 0) >= 2 and operator.get("rank", 0) >= 3 and player_money > 1500 + price):
-                while (player_money>6000 and reactor_upgrades_done<max_reactor_Upgrades_at_once and operator.get("rank",15)):
-                    self.get(f'/station/{self.sta}/shipyard/upgrade/{sid}/reactorupgrade')
-                    self.flips[sid] = 0
-                    logger.info(f"[*{sid}] Reactor upgrade bought")
-                    logger.info(f"[LOGS] flip value = {self.flips[sid]}")
-                    player_money = self.get_player_money()
-            else:
-                logger.info(f"[*{sid}] Reactor upgrade too expensive or not in priority list")
-        else :
-            logger.info(f"[*{sid}] No ship upgrades considered, stacking money for further improvements")
-        logger.info("")
+                elif t == "reactor" and ship["reactor_power"] <= step["min_power"]:
+                    price = upgrades_available['ReactorUpgrade']['price']
+                    if player_money > price + step_threshold:
+                        self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/reactorupgrade")
+                        logger.info(f"[*{sid}] Reactor upgrade bought")
+                        upgraded = True
+                        break
 
-    def upgrade_module_is_possible(self,sid,logger):
-        if self.ready_for_next_step:
-            logger.info(f'[*{sid}] No upgrading, stacking money for next step')
-            return
-        
-        modules_upgrades_available = self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade')
-        #logger.info(f"[AAAAAAAAAAAAAAAAAAAAAAAAAA] {modules_upgrades_available['1']['price']} et {modules_upgrades_available['1']['module-type']}")
-        ship = self.get(f'/ship/{sid}')
-        player_money = self.get_player_money()
+                elif t == "module" and module_info.get("rank", 0) <= step["min_rank"]:
+                    mod_price = modules.get('1', {}).get("price")
+                    if mod_price and player_money > mod_price + step_threshold:
+                        self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade/1')
+                        logger.info(f"[*{sid}] Upgraded module to rank {module_info['rank'] + 1}")
+                        upgraded = True
+                        break
 
-        max_upgrades_at_once = 5
-        upgrades_done = 0
+            if upgraded:
+                continue  # Recheck everything
 
-        if ship['modules']['1']['rank']>= 20:
-            logger.info(f'[*{sid}] Module already at max level')
-            return
-
-        while upgrades_done<max_upgrades_at_once:
-            if player_money > modules_upgrades_available['1']['price'] +2000 :
-                self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade/1')
-                upgrades_done+=1
-                logger.info(f'[*{sid}] Bought {ship['modules']['1']['modtype']} upgrade for {modules_upgrades_available['1']['price']}')
-            else : 
-                logger.info(f'[*{sid}] {ship['modules']['1']['modtype']} upgrade too expensive of not in priority list')
-                break
+            if self.ready_for_next_step:
+                    logger.info(f'[*{sid}] Skipping upgrades, stacking money for next ship.')
+                    return
             
-            modules_upgrades_available = self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade')
+            # Fallback: expand cargo up to 50000 if money allows
+            if ship["cargo"]["capacity"] < 50000:
+                fallback_price = upgrades_available['CargoExpansion']['price']
+                if player_money > fallback_price + safety_threshold:
+                    self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/cargoexpansion")
+                    logger.info(f"[*{sid}] Fallback: Cargo upgrade to capacity {ship['cargo']['capacity'] + 100}")
+                    continue  # Recheck upgrades
+                else:
+                    logger.info(f"[*{sid}] Fallback cargo upgrade skipped (not enough money)")
+            else:
+                logger.info(f"[*{sid}] Fallback: cargo at max threshold (50000)")
 
+            # Fallback: operator level
+            if  operator.get("rank", 0) <= 35:
+                price = operator.get("price", 0)
+                if player_money > price + step_threshold:
+                    self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{operator_key}")
+                    logger.info(f"[*{sid}] Upgraded operator to rank {operator['rank'] + 1}")
+                    continue 
+
+            break
 
 
     def check_for_next_ship(self,logger):
@@ -614,17 +524,15 @@ class Game:
         
         statsDesired = {'cargo capacity': 1500,
                         'Reactor power' : 10,
-                        'Operator rank' :  15,
-                        'Pilot rank'    : 2,
+                        'Operator rank' :  9,
+                        'Pilot rank'    : 1,
                         #'Trader rank'   : 1
                         }
         
 
         ship_ok_count = 0
 
-        if len(self.sid)>10:
-            logger.info(f'[*] Enough ship already to win the game, not to beat the marché destructeur')
-            return
+        
         
         for sid in self.sid:
             ship = self.get(f"/ship/{sid}")
@@ -661,10 +569,83 @@ class Game:
             self.ready_for_next_step = True
 
 
-
+    
 
         
         
+    def display_dashboard(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+        station = self.get(f'/station/{self.sta}')
+        self.disp_status()
+        print(" DASHBOARD DES VAISSEAUX\n")
+        print(f"=== STATION  ===")
+        print(f"ID        : {station.get('id')}")
+        print(f"Position    : {station.get('position')}")
+        print(f"Cargo       : {station['cargo']['usage']} / {station['cargo']['capacity']}")
+        for res, amt in station['cargo']['resources'].items():
+            print(f"   {res}: {amt}")
+        print("-" * 40)
+        #self.disp_market()
+            
+        index =1
+        for sid in self.sid:
+            try:
+                ship = self.get(f"/ship/{sid}")
+            except Exception as e:
+                print(f"Erreur récupération du vaisseau {sid}: {e}")
+                continue
+            if index>=3:
+                break
+            print(f"=== SHIP {index} ===")
+            print(f"État        : {ship.get('state')}")
+            print(f"Position    : {ship.get('position')}")
+            print(f"Fuel        : {ship.get('fuel_tank')} / {ship.get('fuel_tank_capacity')}")
+            print(f"Hull        : {ship['hull_decay_capacity'] - ship['hull_decay']} / {ship['hull_decay_capacity']}")
+            print(f"Reactor     : {ship.get('reactor_power')} for {ship["stats"]["speed"]}")
+            print(f"Cargo       : {ship['cargo']['usage']} / {ship['cargo']['capacity']}")
+            for module in ship.get('modules').values():
+                print(f'Module : {module}')
+            print("Crew        :")
+            for member in ship.get('crew', {}).values():
+                print(f" - {member['member_type']} (rank {member['rank']})")
+            print("Ressources  :")
+            for res, amt in ship['cargo']['resources'].items():
+                print(f"   {res}: {amt}")
+            print("-" * 40)
+            index+=1
+
+    def expand_station_storage_if_needed_by_volume(self, sid, logger):
+        ship = self.get(f"/ship/{sid}")
+        station = self.get(f"/station/{self.sta}")
+
+        # Total à vendre
+        total_to_unload = ship["cargo"]["capacity"]
+        capacity = station["cargo"]["capacity"]
+
+        # Combien de déchargements seraient nécessaires ?
+        required_unloads = (total_to_unload + capacity - 1) // capacity
+
+        if required_unloads <= 3:
+            return  # Pas besoin d'élargir
+
+        # Cible : tout vendre en 3 déchargements max
+        target_capacity = (total_to_unload + 2) // 3
+        extra_space_needed = target_capacity - capacity
+
+        station_upgrades = self.get(f'/station/{self.sta}/upgrades')
+        logger.info(station_upgrades)
+        cost_per_unit = station_upgrades["cargo-expansion"]  # fictif, à ajuster selon ton jeu
+        total_cost = extra_space_needed * cost_per_unit
+        player = self.get(f"/player/{self.pid}")
+        safety_threshold = player["costs"] * 300
+        
+        if player["money"] > total_cost + safety_threshold:
+            self.get(f"/station/{self.sta}/shop/cargo/buy/{int(extra_space_needed)}")  # Endpoint fictif
+            logger.info(f"[*{sid}] Achat de {extra_space_needed} stockage pour tout vendre en 3 déchargements")
+
+        else:
+
+            logger.info(f"[*{sid}] Pas assez de crédits pour acheter {int(extra_space_needed)} stockage supplémentaire")
 
     # - Go back to the station
     # - Unload all the cargo
@@ -679,6 +660,11 @@ class Game:
         if ship["position"] != station["position"]:
             self.travel(ship["id"], station["position"],logger)
         sold_total = 0
+
+        
+        
+
+        self.expand_station_storage_if_needed_by_volume(sid,logger)
         # Unload the cargo and sell it directly on the market
         while True:
             ship = self.get(f"/ship/{sid}")
@@ -703,24 +689,12 @@ class Game:
     
     def ship_cycle(self, sid,logger):
         try:
-            station = self.get(f'/station/{self.sta}')
-            print(f'STATIONLOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL {station}')
             ship_concerned = self.get(f'/ship/{sid}')
             logger.info(f"[*] Ship {ship_concerned} cycle began")
-            print(f"[*] Ship {ship_concerned} cycle began")
-            self.disp_status()
-            print(f"[*{sid}] Ship went mining")
             self.go_mine(sid,logger)
-            self.disp_market()
-            print(f"[*{sid}] Ship went to sell its cargo")
             self.go_sell(sid,logger)
-            print(f"[*{sid}] Considering ship upgrades")     
-            self.upgrade_trader_if_enough_money(sid,logger)
-            self.upgrade_module_is_possible(sid,logger)       
-            self.upgrade_ship(sid,logger)
-            self.upgrade_single_pilot_if_possible(sid,logger)
-            self.upgrade_single_operator_if_possible(sid,logger)
-
+            self.upgrade_path_for_ship(sid,logger)
+            
         except Exception as e:
             logger.info(f"[!] Error during ship {sid} cycle: {e}")
 
@@ -736,7 +710,6 @@ if __name__ == "__main__":
             playerName = game.get(f"/player/{game.pid}")['name']
             thread_name = f"{playerName}-Ship-{index}"
             logger = get_thread_logger(thread_name)
-            
             while True:
                 try:
                     game.ship_cycle(sid,logger)
@@ -783,6 +756,11 @@ if __name__ == "__main__":
                 logger.addHandler(handler)
             return logger
 
+    def run_dashboard_loop(game):
+        while True:
+            game.display_dashboard()
+            time.sleep(0.1)
+
     for index, sid in enumerate(game.sid):
             t = threading.Thread(target=continuous_ship_loop, args=(sid, index), daemon=True, name=f"ShipThread-{index}")
             t.start()
@@ -792,7 +770,7 @@ if __name__ == "__main__":
     print('Recoucou')
     print(f"[*] Starting threads for {len(game.sid)} ships")
 
-    
+    threading.Thread(target=run_dashboard_loop,args=(game,),daemon=True,name="Dashboard").start()
 
     threading.Thread(target=check_and_buy_loop, daemon=True, name="CheckBuyThread").start()
 

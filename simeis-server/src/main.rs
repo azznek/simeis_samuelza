@@ -1,3 +1,4 @@
+#![allow(unexpected_cfgs)]
 use ntex::web;
 
 use simeis_data::game::Game;
@@ -8,7 +9,7 @@ pub type GameState = ntex::web::types::State<Game>;
 
 #[ntex::main]
 async fn main() -> std::io::Result<()> {
-    std::env::set_var("RUST_LOG", "info");
+    std::env::set_var("RUST_LOG", "debug");
 
     #[cfg(not(feature = "testing"))]
     let port = 8080;
@@ -18,13 +19,13 @@ async fn main() -> std::io::Result<()> {
 
     env_logger::builder()
         .parse_default_env()
-        // .filter_module("ntex_server", log::LevelFilter::Warn)
-        // .filter_module("ntex_io", log::LevelFilter::Warn)
-        // .filter_module("ntex_rt", log::LevelFilter::Warn)
-        // .filter_module("ntex::http::h1", log::LevelFilter::Warn)
+        .filter_module("ntex_server", log::LevelFilter::Warn)
+        .filter_module("ntex_io", log::LevelFilter::Warn)
+        .filter_module("ntex_rt", log::LevelFilter::Warn)
+        .filter_module("ntex::http::h1", log::LevelFilter::Warn)
         .init();
 
-    log::info!("Running on http://127.0.0.1:{port}");
+    log::info!("Running on http://0.0.0.0:{port}");
     let (gamethread, state) = Game::init();
     let game = state.clone();
 
@@ -36,12 +37,15 @@ async fn main() -> std::io::Result<()> {
     })
     .stop_runtime()
     .bind(("127.0.0.1", port))?
-    // With multiple workers but without the "watch_game" script, works OK
-    // With 1 worker only, works like a charm
-    .workers(1)
     .run()
     .await;
 
     game.stop(gamethread).await;
     res
+}
+
+#[cfg(feature = "heavy_testing")]
+#[test]
+fn test_heavy_testing() {
+    assert!(false);
 }

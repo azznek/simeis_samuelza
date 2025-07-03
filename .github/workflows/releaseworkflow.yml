@@ -44,4 +44,5 @@ jobs:
           files: |
             target/release/simeis-server.exe
             target/release/libsimeis_data.rlib
+            doc/manual.pdf
           clear_attachments: true

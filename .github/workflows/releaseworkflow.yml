@@ -13,6 +13,25 @@ jobs:
     steps:
       - name: Aquire code
         uses: actions/checkout@v2
+      - name: "Cache cargo"
+        id: cache-cargo
+        uses: "actions/cache@v4"
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          save-always: true
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('**/*.rs') }}
+          restore-keys: ${{ runner.os }}-cargo-
+
+      - name: Installer Rust
+        uses: dtolnay/rust-toolchain@stable
+      
+      - name: Compilation release
+        run: cargo build --release
 
       - name: Extract version from branch name
         run: |

@@ -43,5 +43,5 @@ jobs:
             Commit message:
             ${{ env.GIT_MESSAGE }}
           files: |
-            build/*.exe
+            target/release/simeis-server.exe
           clear_attachments: true

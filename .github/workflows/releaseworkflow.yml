@@ -29,7 +29,6 @@ jobs:
           git log -1 --pretty=%B >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-
       - name: Release the new binaries
         uses: mini-bomba/create-github-release@v1.1.3
         with:
@@ -44,4 +43,5 @@ jobs:
             ${{ env.GIT_MESSAGE }}
           files: |
             target/release/simeis-server.exe
+            target/release/libsimeis_data.rlib
           clear_attachments: true

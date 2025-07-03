@@ -47,6 +47,32 @@ jobs:
           echo "GIT_MESSAGE<<EOF" >> $GITHUB_ENV
           git log -1 --pretty=%B >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+           
+      - name: Create deb package
+        run: |
+          mkdir -p debbuild/DEBIAN
+          mkdir -p debbuild/usr/local/bin
+
+          cp target/release/simeis-server debbuild/usr/local/bin/
+          
+                  cat <<EOF > debbuild/DEBIAN/control
+          Package: simeis-server
+          Version: ${VERSION}
+          Section: base
+          Priority: optional
+          Architecture: amd64
+          Maintainer: Samuelza
+          Description: Serveur simeis compilé en Rust
+          EOF
+                    dpkg-deb --build debbuild
+                    mv debbuild.deb target/release/simeis-server-${VERSION}.deb
+
+
+      - name: Build and export Docker image
+        run: |
+          cp target/release/simeis-server .
+          docker build -t simeis-server:${VERSION} .
+          docker save simeis-server:${VERSION} -o target/release/simeis-server-docker-${VERSION}.tar
 
       - name: Release the new binaries
         uses: mini-bomba/create-github-release@v1.1.3
@@ -63,5 +89,7 @@ jobs:
           files: |
             target/release/simeis-server.exe
             target/release/libsimeis_data.rlib
+            target/release/simeis-server-${{ env.VERSION }}.deb
+            target/release/simeis-server-docker-${{ env.VERSION }}.tar
             doc/manual.pdf
           clear_attachments: true

@@ -60,11 +60,13 @@ class Game:
         self.UPGRADE_PATH = [
            {"type": "operator", "min_rank": 2, "threshold_secs": 60},
            {"type": "reactor", "min_power": 3, "threshold_secs": 60},
-           {"type": "module", "min_rank": 25, "threshold_secs": 60},
-           {"type": "operator", "min_rank": 15, "threshold_secs": 60},
+           {"type": "cargo", "min_capacity": 600, "threshold_secs": 60},
+           {"type": "operator", "min_rank": 9, "threshold_secs": 60},
+           {"type": "module", "min_rank": 6, "threshold_secs": 60},
            {"type": "pilot", "min_rank": 2, "threshold_secs": 60},
+           {"type": "cargo", "min_capacity": 1500, "threshold_secs": 60},
            {"type": "reactor", "min_power": 10, "threshold_secs": 60},
-           {"type": "cargo", "min_capacity": 1500, "threshold_secs": 60}
+           {"type": "module", "min_rank": 25, "threshold_secs": 60}
         ]
 
     def get(self, path, **qry):
@@ -432,7 +434,13 @@ class Game:
 
             upgraded = False
 
-            for step in self.UPGRADE_PATH:
+            for i, step in enumerate(self.UPGRADE_PATH):
+
+                previous_steps = self.UPGRADE_PATH[:i]
+                if not all(self.step_is_satisfied(ship, crew, prev) for prev in previous_steps):
+                    logger.info(f"[*{sid}] Waiting for previous steps to complete before '{step['type']}' upgrade.")
+                    break
+
                 if self.ready_for_next_step:
                     logger.info(f'[*{sid}] Skipping upgrades, stacking money for next ship.')
                     return
@@ -440,7 +448,7 @@ class Game:
                 step_threshold = player_status["costs"] * step.get("threshold_secs", 300)
 
                 t = step["type"]
-                if t == "trader" and self.number_of_trader_upgrades <= step["min_rank"]:
+                if t == "trader" and self.number_of_trader_upgrades < step["min_rank"]:
                     price = self.get(f"/station/{self.sta}/upgrades")["trader-upgrade"]
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/crew/upgrade/trader")
@@ -449,7 +457,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "pilot" and pilot.get("rank", 0) <= step["min_rank"]:
+                elif t == "pilot" and pilot.get("rank", 0) < step["min_rank"]:
                     price = pilot.get("price", 0)
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{pilot_key}")
@@ -457,7 +465,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "operator" and operator.get("rank", 0) <= step["min_rank"]:
+                elif t == "operator" and operator.get("rank", 0) < step["min_rank"]:
                     price = operator.get("price", 0)
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{operator_key}")
@@ -465,7 +473,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "cargo" and ship["cargo"]["capacity"] <= step["min_capacity"]:
+                elif t == "cargo" and ship["cargo"]["capacity"] < step["min_capacity"]:
                     price = upgrades_available['CargoExpansion']['price']
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/cargoexpansion")
@@ -473,7 +481,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "reactor" and ship["reactor_power"] <= step["min_power"]:
+                elif t == "reactor" and ship["reactor_power"] < step["min_power"]:
                     price = upgrades_available['ReactorUpgrade']['price']
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/reactorupgrade")
@@ -481,7 +489,7 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "module" and module_info.get("rank", 0) <= step["min_rank"]:
+                elif t == "module" and module_info.get("rank", 0) < step["min_rank"]:
                     mod_price = modules.get('1', {}).get("price")
                     if mod_price and player_money > mod_price + step_threshold:
                         self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade/1')
@@ -497,7 +505,7 @@ class Game:
                     return
             
             # Fallback: expand cargo up to 50000 if money allows
-            if ship["cargo"]["capacity"] < 50000:
+            if ship["cargo"]["capacity"] < 50000 and player_money >= 20000:
                 fallback_price = upgrades_available['CargoExpansion']['price']
                 if player_money > fallback_price + safety_threshold:
                     self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/cargoexpansion")
@@ -509,7 +517,7 @@ class Game:
                 logger.info(f"[*{sid}] Fallback: cargo at max threshold (50000)")
 
             # Fallback: operator level
-            if  operator.get("rank", 0) <= 35:
+            if  operator.get("rank", 0) <= 35 and player_money >= 20000:
                 price = operator.get("price", 0)
                 if player_money > price + step_threshold:
                     self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{operator_key}")
@@ -517,6 +525,26 @@ class Game:
                     continue 
 
             break
+
+
+    def step_is_satisfied(self, ship, crew, step):
+        t = step["type"]
+
+        if t == "trader":
+            return self.number_of_trader_upgrades >= step["min_rank"]
+        elif t == "pilot":
+            pilot = next((v for v in crew.values() if v.get('member-type') == 'Pilot'), {})
+            return pilot.get("rank", 0) > step["min_rank"]
+        elif t == "operator":
+            operator = next((v for v in crew.values() if v.get('member-type') == 'Operator'), {})
+            return operator.get("rank", 0) > step["min_rank"]
+        elif t == "cargo":
+            return ship["cargo"]["capacity"] > step["min_capacity"]
+        elif t == "reactor":
+            return ship["reactor_power"] > step["min_power"]
+        elif t == "module":
+            return ship["modules"].get("1", {}).get("rank", 0) > step["min_rank"]
+        return True
 
 
     def check_for_next_ship(self,logger):
@@ -759,7 +787,7 @@ if __name__ == "__main__":
     def run_dashboard_loop(game):
         while True:
             game.display_dashboard()
-            time.sleep(0.1)
+            time.sleep(0.5)
 
     for index, sid in enumerate(game.sid):
             t = threading.Thread(target=continuous_ship_loop, args=(sid, index), daemon=True, name=f"ShipThread-{index}")

@@ -103,7 +103,6 @@ jobs:
       - name: Run and test server container
         run: |
           docker run -d --name simeis-server-test -p 8080:8080 simeis-docker-image
-
           attempt=0
           max_attempts=10
           until curl --fail http://localhost:8080/ping; do

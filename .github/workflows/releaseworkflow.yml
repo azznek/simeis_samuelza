@@ -105,18 +105,16 @@ jobs:
           docker run -d --name simeis-server-test -p 8080:8080 simeis-docker-image
           attempt=0
           max_attempts=10
-          until curl --fail http://localhost:8080/ping; do
-            echo "($attempt/$max_attempts) Server not ready yet. Retrying in 5 seconds..."
-            sleep 5
-            attempt=$((attempt+1))
-            if [ "$attempt" -gt "$max_attempts" ]; then
-              echo " Server did not respond after $max_attempts attempts"
+          echo "Waiting for server to be ready..."
+              while true; do
+              if curl -s http://localhost:9345/ping | grep -q "pong"; then
+                  echo "Server is up!"
+                  break
+              fi
+              echo "Server not ready yet, retrying..."
+              sleep 5
+              done
 
-              docker logs simeis-server-test
-              docker rm -f simeis-server-test
-              exit 1
-            fi
-          done
 
           echo " Server responded successfully!"
 

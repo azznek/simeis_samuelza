@@ -1,6 +1,6 @@
 PORT=8080
-URL=f"http://127.0.0.1:{PORT}"
-#URL=f"http://103.45.247.164:{PORT}"
+#URL=f"http://127.0.0.1:{PORT}"
+URL=f"http://103.45.247.164:{PORT}"
 
 import os
 import sys
@@ -50,7 +50,7 @@ class Game:
         self.pid = self.player["playerId"]
         self.sid = []
         self.sta = None
-        self.number_of_trader_upgrades = 0
+        self.number_of_trader_upgrades = 1
         self.last_hullplate_values = []
         self.flips = {}
         self.ready_for_next_step = None
@@ -70,13 +70,16 @@ class Game:
         # ]
 
         self.UPGRADE_PATH = [
-           {"type": "reactor", "min_power": 3, "threshold_secs": 60},
-           {"type": "operator", "min_rank": 2, "threshold_secs": 60},
-           {"type": "cargo", "min_capacity": 600, "threshold_secs": 60},
-           {"type": "trader", "min_rank": 3, "threshold_secs": 60},
-           {"type": "operator", "min_rank": 9, "threshold_secs": 60},
-           {"type": "module", "min_rank": 6, "threshold_secs": 60},
+           {"type": "reactor", "min_power": 2, "threshold_secs": 60},
+           {"type": "operator", "min_rank": 3, "threshold_secs": 60},
+           {"type": "reactor", "min_power": 4, "threshold_secs": 60},
+           {"type": "cargo", "min_capacity": 500, "threshold_secs": 60},
+           {"type": "trader", "min_rank": 2, "threshold_secs": 60},
+           {"type": "operator", "min_rank": 11, "threshold_secs": 60},
            {"type": "pilot", "min_rank": 2, "threshold_secs": 60},
+           {"type": "reactor", "min_power": 6, "threshold_secs": 60},
+           {"type": "cargo", "min_capacity": 800, "threshold_secs": 60},
+           {"type": "module", "min_rank": 6, "threshold_secs": 60},
            {"type": "cargo", "min_capacity": 1500, "threshold_secs": 60},
            {"type": "reactor", "min_power": 10, "threshold_secs": 60},
            {"type": "module", "min_rank": 25, "threshold_secs": 60},
@@ -366,9 +369,9 @@ class Game:
     def travel(self, sid, pos,logger):
         costs = self.get(f"/ship/{sid}/navigate/{pos[0]}/{pos[1]}/{pos[2]}")
         logger.info(f"[*{sid}] Traveling to {pos}, will take {costs["duration"]}")
-        self.wait_idle(sid, ts=costs["duration"])
+        self.wait_idle(sid, ts=0.2)
 
-    def wait_idle(self, sid, ts=1):
+    def wait_idle(self, sid, ts=0.1):
         ship = self.get(f"/ship/{sid}")
         while ship["state"] != "Idle":
             time.sleep(ts)
@@ -452,7 +455,8 @@ class Game:
             player_status = self.get(f"/player/{self.pid}")
             player_money = player_status["money"]
             safety_threshold = player_status["costs"] * 600  # 10 minutes of survival buffer
-
+            logger.info(f'[TEST] {upgrades_available}')
+            logger.info(f'[TEST] {crew}')
             pilot_key, pilot = next(((k, v) for k, v in crew.items() if v.get('member-type') == 'Pilot'), (None, {}))
             operators = {k: v for k, v in crew.items() if v.get('member-type') == 'Operator'}
             modules = self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade')
@@ -461,7 +465,7 @@ class Game:
             upgraded = False
 
             for i, step in enumerate(self.UPGRADE_PATH):
-
+                logger.info(step)
                 previous_steps = self.UPGRADE_PATH[:i]
                 if not all(self.step_is_satisfied(ship, crew, prev) for prev in previous_steps):
                     logger.info(f"[*{sid}] Waiting for previous steps to complete before '{step['type']}' upgrade.")
@@ -476,6 +480,7 @@ class Game:
                 t = step["type"]
                 if t == "trader" and self.number_of_trader_upgrades <= step["min_rank"]:
                     price = self.get(f"/station/{self.sta}/upgrades")["trader-upgrade"]
+                    logger.info(price)
                     if player_money > price + step_threshold:
                         self.get(f"/station/{self.sta}/crew/upgrade/trader")
                         self.number_of_trader_upgrades += 1
@@ -645,6 +650,7 @@ class Game:
         table.add_row("[bold cyan]Station ID[/bold cyan]", str(station['id']))
         table.add_row("[bold cyan]Position[/bold cyan]", str(station['position']))
         table.add_row("[bold cyan]Cargo[/bold cyan]", f"{station['cargo']['usage']} / {station['cargo']['capacity']}")
+        table.add_row("[bold cyan]Trader[/bold cyan]", f"{station['crew']}")
 
         for res, amt in station['cargo']['resources'].items():
             table.add_row(f"  {res}", str(amt))
@@ -787,7 +793,7 @@ class Game:
         safety_threshold = player["costs"] * 300
         
         if player["money"] > total_cost + safety_threshold:
-            self.get(f"/station/{self.sta}/shop/cargo/buy/{int(extra_space_needed)}")  # Endpoint fictif
+            self.get(f"/station/{self.sta}/shop/cargo/buy/{int(extra_space_needed)}")
             logger.info(f"[*{sid}] Achat de {extra_space_needed} stockage pour tout vendre en 3 déchargements")
 
         else:
@@ -802,7 +808,7 @@ class Game:
         self.wait_idle(sid) # If we are currently occupied, wait
         ship = self.get(f"/ship/{sid}")
         station = self.get(f"/station/{self.sta}")
-
+        logger.info(station)
         # If we aren't at the station, got there
         if ship["position"] != station["position"]:
             self.travel(ship["id"], station["position"],logger)

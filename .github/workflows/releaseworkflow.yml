@@ -129,7 +129,6 @@ jobs:
         with:
           name: simeis-docker-image
 
-
       - name: Load Docker image from tar
         run: |
           docker load -i simeis-docker-image.tar

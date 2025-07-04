@@ -67,7 +67,7 @@ jobs:
           echo "GIT_MESSAGE<<EOF" >> $GITHUB_ENV
           git log -1 --pretty=%B >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-           
+            
       - name: Create deb package
         run: |
           mkdir -p debbuild/DEBIAN

@@ -100,11 +100,28 @@ jobs:
         run: |
           docker load -i simeis-docker-image.tar
 
-      - name: Run and test server container
+      - name: Start server container in background
         run: |
-          docker run --rm simeis-docker-image --version
+          docker run -d --name simeis-test simeis-docker-image
 
-          
+      - name: Wait a few seconds for the server to start
+        run: sleep 5
+
+      - name: Check if server container is running
+        run: |
+          if docker ps | grep -q simeis-test; then
+            echo " Server is running"
+          else
+            echo " Server is not running"
+            docker logs simeis-test || true
+            exit 1
+          fi
+
+      - name: Stop and remove the container
+        if: always()
+        run: docker rm -f simeis-test
+
+
       - name: Release the new binaries
         uses: mini-bomba/create-github-release@v1.1.3
         with:

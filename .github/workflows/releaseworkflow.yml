@@ -111,6 +111,7 @@ jobs:
             attempt=$((attempt+1))
             if [ "$attempt" -gt "$max_attempts" ]; then
               echo " Server did not respond after $max_attempts attempts"
+
               docker logs simeis-server-test
               docker rm -f simeis-server-test
               exit 1
@@ -120,6 +121,7 @@ jobs:
           echo " Server responded successfully!"
 
           # Cleanup
+
           docker rm -f simeis-server-test
 
           

@@ -106,7 +106,6 @@ jobs:
 
           sleep 5
 
-          # 3. Run a test against it
           curl --fail http://localhost:8080/ping || {
             echo "Server failed health check"
             docker logs simeis-server-test
@@ -116,6 +115,7 @@ jobs:
             
           docker rm -f simeis-server-test
 
+          
       - name: Release the new binaries
         uses: mini-bomba/create-github-release@v1.1.3
         with:

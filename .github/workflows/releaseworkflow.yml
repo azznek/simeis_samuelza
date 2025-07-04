@@ -118,6 +118,7 @@ jobs:
           echo " Server responded successfully!"
 
           # Cleanup
+
           docker rm -f simeis-server-test
 
           

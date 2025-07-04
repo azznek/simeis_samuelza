@@ -95,7 +95,15 @@ jobs:
       - name: Save Docker image to archive
         run: |
           docker image save -o simeis-docker-image.tar simeis-docker-image
+      
+      - name: Load Docker image from tar
+        run: |
+          docker load -i simeis-docker-image.tar
 
+      - name: Run container and check output
+        run: |
+          docker run --rm simeis-docker-image --help
+          
       - name: Release the new binaries
         uses: mini-bomba/create-github-release@v1.1.3
         with:
@@ -116,25 +124,4 @@ jobs:
             simeis-docker-image.tar
           clear_attachments: true
 
-              
-  test_image:
-    runs-on: ubuntu-latest
-    needs: create_release  
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Download Docker image artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: simeis-docker-image.tar
-
-
-
-      - name: Load Docker image from tar
-        run: |
-          docker load -i simeis-docker-image.tar
-
-      - name: Run container and check output
-        run: |
-          docker run --rm simeis-docker-image --help
+        

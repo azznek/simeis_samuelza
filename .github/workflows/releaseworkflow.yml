@@ -72,9 +72,31 @@ jobs:
         run: |
           mkdir -p debbuild/DEBIAN
           mkdir -p debbuild/usr/local/bin
+          mkdir -p debbuild/usr/local/man
 
           cp target/release/simeis-server debbuild/usr/local/bin/
-          
+                  
+                  cat <<EOF > debbuild/usr/local/man
+
+          .\" Manpage for simeis but not really hihi.
+          .\" Contact no one to correct errors or typos. We don't do any
+          .TH man 1 "04 july 2025" "1.0" "simeis"
+          .SH NAME
+          Simeis is a nice game if you forget about le destructeur de marché.
+          .SH SYNOPSIS
+          In a galaxy far, far away, you could fight oppression but instead, you are mining.
+          .SH DESCRIPTION
+          Go mine.
+          .SH OPTIONS
+          The nuseradd does not take any options. However, you can supply username.
+          .SH SEE ALSO
+          Nowhere, you must mine.
+          .SH BUGS
+          No known bugs.
+          .SH AUTHOR
+          Timothée Cercueil but the bot is mine.
+          EOF
+
                   cat <<EOF > debbuild/DEBIAN/control
           Package: simeis-server
           Version: ${VERSION}
@@ -87,6 +109,14 @@ jobs:
                     dpkg-deb --build debbuild
                     mv debbuild.deb target/release/simeis-server-${VERSION}.deb
 
+
+      - name: Build Docker image
+        run: |
+          docker build -f .github/Dockerfile -t simeis-docker-image .
+
+      - name: Save Docker image to archive
+        run: |
+          docker image save -o simeis-docker-image.tar simeis-docker-image
 
       - name: Release the new binaries
         uses: mini-bomba/create-github-release@v1.1.3
@@ -105,4 +135,5 @@ jobs:
             target/release/libsimeis_data.rlib
             target/release/simeis-server-${{ env.VERSION }}.deb
             doc/manual.pdf
+            simeis-docker-image.tar
           clear_attachments: true

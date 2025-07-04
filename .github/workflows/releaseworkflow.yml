@@ -158,5 +158,5 @@ jobs:
           context: .
           file: simeis-docker-image.tar
           push: true
-          tags: Samuelza-simeis-docker-image
+          tags: samuelza-simeis-docker-image
         

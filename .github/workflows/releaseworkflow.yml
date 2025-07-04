@@ -104,16 +104,23 @@ jobs:
         run: |
           docker run -d --name simeis-server-test -p 8080:8080 simeis-docker-image
 
-          sleep 5
+          attempt=0
+          max_attempts=10
+          until curl --fail http://localhost:8080/ping; do
+            attempt=$((attempt+1))
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "Server did not respond after $max_attempts attempts"
+              docker logs simeis-server-test
+              docker rm -f simeis-server-test
+              exit 1
+            fi
+            echo "Server not ready yet, retrying in 5 seconds... ($attempt/$max_attempts)"
+            sleep 5
+          done
 
-          # 3. Run a test against it
-          curl --fail http://localhost:8080/ping || {
-            echo "Server failed health check"
-            docker logs simeis-server-test
-            docker rm -f simeis-server-test
-            exit 1
-          }
-            
+          echo "Server responded successfully"
+
+          # Stop and clean up
           docker rm -f simeis-server-test
 
       - name: Release the new binaries

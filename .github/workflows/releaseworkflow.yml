@@ -121,7 +121,6 @@ jobs:
         if: always()
         run: docker rm -f simeis-test
 
-
       - name: Release the new binaries
         uses: mini-bomba/create-github-release@v1.1.3
         with:

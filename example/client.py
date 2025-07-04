@@ -180,7 +180,7 @@ class Game:
             previous_market_prices = prices
         else:
             previous_market_prices = self.previous_market_values['prices'] """
-
+        print(market)
         print("[*] Current market: ")
         for key, value in prices.items():
             print(f" - {key}: {value}")
@@ -256,6 +256,7 @@ class Game:
     def buy_first_mining_module(self, modtype, sta, sid):
         # Buy the mining module
         all = self.get(f"/station/{sta}/shop/modules")
+        print(all)
         mod_id = self.get(f"/station/{sta}/shop/modules/{sid}/buy/{modtype}")["id"]
 
         # Check if we have the crew assigned on this module

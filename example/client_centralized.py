@@ -16,11 +16,15 @@ from rich.live import Live
 from rich.table import Table
 from rich.panel import Panel
 from datetime import datetime, timedelta
+import shutil
 
+
+columns, _ = shutil.get_terminal_size()
 import time
 
-console= Console()
-
+console = Console()
+panel_width = int(columns * 0.6)  # 40% of terminal width
+panel_width = max(panel_width, 30)  # Minimum width for safety
 
 class SimeisError(Exception):
     pass
@@ -42,7 +46,7 @@ class Game:
         self.setup_player(username)
 
         # Useful for our game loops
-        self.startTime = datetime.now()
+        self.startTime = None
         self.pid = self.player["playerId"]
         self.sid = []
         self.sta = None
@@ -69,12 +73,15 @@ class Game:
            {"type": "reactor", "min_power": 3, "threshold_secs": 60},
            {"type": "operator", "min_rank": 2, "threshold_secs": 60},
            {"type": "cargo", "min_capacity": 600, "threshold_secs": 60},
+           {"type": "trader", "min_rank": 3, "threshold_secs": 60},
            {"type": "operator", "min_rank": 9, "threshold_secs": 60},
            {"type": "module", "min_rank": 6, "threshold_secs": 60},
            {"type": "pilot", "min_rank": 2, "threshold_secs": 60},
            {"type": "cargo", "min_capacity": 1500, "threshold_secs": 60},
            {"type": "reactor", "min_power": 10, "threshold_secs": 60},
-           {"type": "module", "min_rank": 25, "threshold_secs": 60}
+           {"type": "module", "min_rank": 25, "threshold_secs": 60},
+           {"type": "trader", "min_rank": 5, "threshold_secs": 60},
+           {"type": "nextmod", "mod_number": 3, "threshold_secs": 60},     
         ]
 
     def get(self, path, **qry):
@@ -137,6 +144,8 @@ class Game:
         self.sta = list(status["stations"].keys())[0]
         station = self.get(f"/station/{self.sta}")
         self.ready_for_next_step = False
+        if not self.startTime :
+            self.startTime = datetime.now()
         if not check_has(station["crew"], "member_type", "Trader"):
             self.hire_first_trader(self.sta)
             print("[*] Hired a trader, assigned it on station", self.sta)
@@ -290,12 +299,21 @@ class Game:
     # If not, let's create a new player
     # If the player has lost, logger.info an error message
     
-    
+    def buy_next_mining_module(self,sid,modtype,logger):
+        
+        
+
+        mod_id = self.get(f"/station/{self.sta}/shop/modules/{sid}/buy/{modtype}")["id"]
+
+        op = self.get(f"/station/{self.sta}/crew/hire/operator")["id"]
+        self.get(f"/station/{self.sta}/crew/assign/{op}/{sid}/{mod_id}")
+
+
     def buy_first_mining_module(self, modtype, sta, sid):
         # Buy the mining module
         all = self.get(f"/station/{sta}/shop/modules")
         mod_id = self.get(f"/station/{sta}/shop/modules/{sid}/buy/{modtype}")["id"]
-
+        
         # Check if we have the crew assigned on this module
         # If not, hire an operator, and assign it to the mining module of our ship
         ship = self.get(f"/ship/{sid}")
@@ -436,7 +454,7 @@ class Game:
             safety_threshold = player_status["costs"] * 600  # 10 minutes of survival buffer
 
             pilot_key, pilot = next(((k, v) for k, v in crew.items() if v.get('member-type') == 'Pilot'), (None, {}))
-            operator_key, operator = next(((k, v) for k, v in crew.items() if v.get('member-type') == 'Operator'), (None, {}))
+            operators = {k: v for k, v in crew.items() if v.get('member-type') == 'Operator'}
             modules = self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade')
             module_info = ship.get('modules', {}).get('1', {})
 
@@ -473,15 +491,16 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "operator" and operator.get("rank", 0) <= step["min_rank"]:
-                    price = operator.get("price", 0)
-                    logger.info("coucou")
-
-                    if player_money > price + step_threshold:
-                        self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{operator_key}")
-                        logger.info(f"[*{sid}] Upgraded operator to rank {operator['rank'] + 1}")
-                        upgraded = True
-                        break
+                elif t == "operator":
+                    operators = {k: v for k, v in crew.items() if v.get('member-type') == 'Operator'}
+                    for key, op in operators.items():
+                        if op.get("rank", 0) <= step["min_rank"]:
+                            price = op.get("price", 0)
+                            if player_money > price + step_threshold:
+                                self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{key}")
+                                logger.info(f"[*{sid}] Upgraded operator {key} to rank {op['rank'] + 1}")
+                                upgraded = True
+                                break  # upgrade only one operator per tick
 
                 elif t == "cargo" and ship["cargo"]["capacity"] <= step["min_capacity"]:
                     price = upgrades_available['CargoExpansion']['price']
@@ -507,6 +526,14 @@ class Game:
                         upgraded = True
                         break
 
+                elif t == "nextmod" and step['mod_number']<=len(ship['modules']):
+                    ship = self.get(f'/ship/{sid}')
+                    modtype = ship['modules']['1']['modtype']
+                    price_mod =  self.get(f"/station/{self.sta}/shop/modules")[modtype]
+                    if price_mod and player_money > price_mod + step_threshold:
+                        self.buy_next_mining_module(sid,modtype,logger)
+                    
+
             if upgraded:
                 continue  # Recheck everything
 
@@ -515,7 +542,7 @@ class Game:
                     return
             
             # Fallback: expand cargo up to 50000 if money allows
-            if ship["cargo"]["capacity"] < 50000 and player_money >= 20000:
+            if ship["cargo"]["capacity"] < 35000 and player_money >= 20000:
                 fallback_price = upgrades_available['CargoExpansion']['price']
                 if player_money > fallback_price + safety_threshold:
                     self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/cargoexpansion")
@@ -527,12 +554,16 @@ class Game:
                 logger.info(f"[*{sid}] Fallback: cargo at max threshold (50000)")
 
             # Fallback: operator level
-            if  operator.get("rank", 0) <= 35 and player_money >= 20000:
-                price = operator.get("price", 0)
-                if player_money > price + step_threshold:
-                    self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{operator_key}")
-                    logger.info(f"[*{sid}] Upgraded operator to rank {operator['rank'] + 1}")
-                    continue 
+            operators = {k: v for k, v in crew.items() if v.get('member-type') == 'Operator'}
+
+            for key, op in operators.items():
+                if op.get("rank", 0) <= 35 and player_money >= 20000:
+                    price = op.get("price", 0)
+                    if player_money > price + safety_threshold:
+                        self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{key}")
+                        logger.info(f"[*{sid}] Fallback: upgraded operator {key} to rank {op['rank'] + 1}")
+                        break  # one fallback upgrade per loop
+
 
             break
 
@@ -546,14 +577,16 @@ class Game:
             pilot = next((v for v in crew.values() if v.get('member-type') == 'Pilot'), {})
             return pilot.get("rank", 0) > step["min_rank"]
         elif t == "operator":
-            operator = next((v for v in crew.values() if v.get('member-type') == 'Operator'), {})
-            return operator.get("rank", 0) > step["min_rank"]
+            operators = [v for v in crew.values() if v.get('member-type') == 'Operator']
+            return all(op.get("rank", 0) > step["min_rank"] for op in operators)
         elif t == "cargo":
             return ship["cargo"]["capacity"] >= step["min_capacity"]
         elif t == "reactor":
             return ship["reactor_power"] >= step["min_power"]
         elif t == "module":
             return ship["modules"].get("1", {}).get("rank", 0) > step["min_rank"]
+        elif t == "nextmod":
+            return len(operators) >= step["mod_number"]
         return True
 
 
@@ -616,7 +649,7 @@ class Game:
         for res, amt in station['cargo']['resources'].items():
             table.add_row(f"  {res}", str(amt))
         
-        return Panel(table, title="STATION", border_style="cyan")
+        return Panel(table, title="STATION", border_style="cyan",width=panel_width)
 
 
     def build_ship_panel(self,index, ship):
@@ -637,7 +670,7 @@ class Game:
         for res, amt in ship['cargo']['resources'].items():
             table.add_row(f"  {res}", str(amt))
 
-        return Panel(table, title=f"SHIP {index}", border_style="magenta")
+        return Panel(table, title=f"SHIP {index}", border_style="red",width=panel_width)
 
     def build_player_panel(self):
         status = game.get("/player/" + str(self.pid))
@@ -656,7 +689,7 @@ class Game:
         table.add_row("Costs per second : ", f"{cost_per_sec:,.2f} ¤/s")
         table.add_row("Time Played", time_played_fmt)
 
-        return Panel(table, title="PLAYER", border_style="yellow")
+        return Panel(table, title=f"PLAYER {status["name"]}", border_style="yellow",width=panel_width)
 
     def display_dashboard(self):
         with Live(refresh_per_second=3, screen=True) as live:

@@ -123,6 +123,7 @@ jobs:
           # Stop and clean up
           docker rm -f simeis-server-test
 
+          
       - name: Release the new binaries
         uses: mini-bomba/create-github-release@v1.1.3
         with:

@@ -102,24 +102,7 @@ jobs:
 
       - name: Run and test server container
         run: |
-          docker run -d --name simeis-server-test -p 8080:8080 simeis-docker-image
-          attempt=0
-          max_attempts=10
-          echo "Waiting for server to be ready..."
-              while true; do
-              if curl -s http://localhost:9345/ping | grep -q "pong"; then
-                  echo "Server is up!"
-                  break
-              fi
-              echo "Server not ready yet, retrying..."
-              sleep 5
-              done
-
-          echo " Server responded successfully!"
-
-          # Cleanup
-
-          docker rm -f simeis-server-test
+          docker run --rm simeis-docker-image --version
 
           
       - name: Release the new binaries

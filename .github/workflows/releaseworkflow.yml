@@ -72,11 +72,11 @@ jobs:
         run: |
           mkdir -p debbuild/DEBIAN
           mkdir -p debbuild/usr/local/bin
-          mkdir -p debbuild/usr/local/man
+          mkdir -p debbuild/usr/local/man/
 
           cp target/release/simeis-server debbuild/usr/local/bin/
                   
-                  cat <<EOF > debbuild/usr/local/man
+                  cat <<EOF > debbuild/usr/local/man/simeis
 
           .\" Manpage for simeis but not really hihi.
           .\" Contact no one to correct errors or typos. We don't do any

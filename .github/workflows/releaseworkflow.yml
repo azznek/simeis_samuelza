@@ -31,6 +31,10 @@ jobs:
       - name: Installer Rust
         uses: dtolnay/rust-toolchain@stable
       
+      - name: Compilation release
+        run: cargo build --release
+
+
       - name: Extract version from branch name
         run: |
           BRANCH_NAME="${{ github.event.pull_request.base.ref }}"

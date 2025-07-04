@@ -104,23 +104,23 @@ jobs:
         run: |
           docker run -d --name simeis-server-test -p 8080:8080 simeis-docker-image
 
-          attempt=0
+          attempt=1
           max_attempts=10
           until curl --fail http://localhost:8080/ping; do
+            echo "($attempt/$max_attempts) Server not ready yet. Retrying in 5 seconds..."
+            sleep 5
             attempt=$((attempt+1))
-            if [ "$attempt" -ge "$max_attempts" ]; then
-              echo "Server did not respond after $max_attempts attempts"
+            if [ "$attempt" -gt "$max_attempts" ]; then
+              echo " Server did not respond after $max_attempts attempts"
               docker logs simeis-server-test
               docker rm -f simeis-server-test
               exit 1
             fi
-            echo "Server not ready yet, retrying in 5 seconds... ($attempt/$max_attempts)"
-            sleep 5
           done
 
-          echo "Server responded successfully"
+          echo " Server responded successfully!"
 
-          # Stop and clean up
+          # Cleanup
           docker rm -f simeis-server-test
 
           

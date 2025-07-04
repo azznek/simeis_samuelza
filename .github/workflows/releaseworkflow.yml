@@ -127,7 +127,7 @@ jobs:
       - name: Download Docker image artifact
         uses: actions/download-artifact@v4
         with:
-          name: simeis-docker-image
+          name: simeis-docker-image.tar
 
 
       - name: Load Docker image from tar

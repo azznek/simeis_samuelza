@@ -104,6 +104,7 @@ jobs:
         run: |
           docker run --rm simeis-docker-image --version
 
+
           
       - name: Release the new binaries
         uses: mini-bomba/create-github-release@v1.1.3

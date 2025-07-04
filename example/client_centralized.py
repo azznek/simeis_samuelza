@@ -74,7 +74,6 @@ class Game:
            {"type": "operator", "min_rank": 3, "threshold_secs": 60},
            {"type": "reactor", "min_power": 4, "threshold_secs": 60},
            {"type": "cargo", "min_capacity": 500, "threshold_secs": 60},
-           {"type": "trader", "min_rank": 2, "threshold_secs": 60},
            {"type": "operator", "min_rank": 11, "threshold_secs": 60},
            {"type": "pilot", "min_rank": 2, "threshold_secs": 60},
            {"type": "reactor", "min_power": 6, "threshold_secs": 60},
@@ -84,6 +83,9 @@ class Game:
            {"type": "reactor", "min_power": 10, "threshold_secs": 60},
            {"type": "module", "min_rank": 25, "threshold_secs": 60},
            {"type": "trader", "min_rank": 5, "threshold_secs": 60},
+           {"type": "cargo", "min_capacity": 35000, "threshold_secs": 60},     
+           {"type": "operator", "min_rank": 3, "threshold_secs": 60},     
+
            {"type": "nextmod", "mod_number": 3, "threshold_secs": 60},     
         ]
 
@@ -546,29 +548,6 @@ class Game:
                     logger.info(f'[*{sid}] Skipping upgrades, stacking money for next ship.')
                     return
             
-            # Fallback: expand cargo up to 50000 if money allows
-            if ship["cargo"]["capacity"] < 35000 and player_money >= 20000:
-                fallback_price = upgrades_available['CargoExpansion']['price']
-                if player_money > fallback_price + safety_threshold:
-                    self.get(f"/station/{self.sta}/shipyard/upgrade/{sid}/cargoexpansion")
-                    logger.info(f"[*{sid}] Fallback: Cargo upgrade to capacity {ship['cargo']['capacity'] + 100}")
-                    continue  # Recheck upgrades
-                else:
-                    logger.info(f"[*{sid}] Fallback cargo upgrade skipped (not enough money)")
-            else:
-                logger.info(f"[*{sid}] Fallback: cargo at max threshold (50000)")
-
-            # Fallback: operator level
-            operators = {k: v for k, v in crew.items() if v.get('member-type') == 'Operator'}
-
-            for key, op in operators.items():
-                if op.get("rank", 0) <= 35 and player_money >= 20000:
-                    price = op.get("price", 0)
-                    if player_money > price + safety_threshold:
-                        self.get(f"/station/{self.sta}/crew/upgrade/ship/{sid}/{key}")
-                        logger.info(f"[*{sid}] Fallback: upgraded operator {key} to rank {op['rank'] + 1}")
-                        break  # one fallback upgrade per loop
-
 
             break
 

@@ -1,6 +1,6 @@
 PORT=8080
-URL=f"http://127.0.0.1:{PORT}"
-#URL=f"http://103.45.247.164:{PORT}"
+#URL=f"http://127.0.0.1:{PORT}"
+URL=f"http://103.45.247.164:{PORT}"
 
 import os
 import sys
@@ -11,10 +11,20 @@ import string
 import urllib.request
 import threading
 import logging
+from rich.console import Console
+from rich.live import Live
+from rich.table import Table
+from rich.panel import Panel
+from datetime import datetime, timedelta
+import shutil
 
-   
 
+columns, _ = shutil.get_terminal_size()
+import time
 
+console = Console()
+panel_width = int(columns * 0.6)  # 40% of terminal width
+panel_width = max(panel_width, 30)  # Minimum width for safety
 class SimeisError(Exception):
     pass
 
@@ -95,6 +105,7 @@ class Game:
         self.setup_player(username)
 
         # Useful for our game loops
+        self.startTime = datetime.now()
         self.pid = self.player["playerId"]
         self.sid = []
         self.sta = None
@@ -755,46 +766,86 @@ class Game:
 
         
         
-    def display_dashboard(self):
-        os.system('cls' if os.name == 'nt' else 'clear')
-        station = self.get(f'/station/{self.sta}')
-        self.disp_status()
-        print(" DASHBOARD DES VAISSEAUX\n")
-        print(f"=== STATION  ===")
-        print(f"ID        : {station.get('id')}")
-        print(f"Position    : {station.get('position')}")
-        print(f"Cargo       : {station['cargo']['usage']} / {station['cargo']['capacity']}")
+    def build_station_panel(self,station):
+        table = Table.grid()
+        table.add_row("[bold cyan]Station ID[/bold cyan]", str(station['id']))
+        table.add_row("[bold cyan]Position[/bold cyan]", str(station['position']))
+        table.add_row("[bold cyan]Cargo[/bold cyan]", f"{station['cargo']['usage']} / {station['cargo']['capacity']}")
+        table.add_row("[bold cyan]Trader[/bold cyan]", f"{station['crew']}")
+
         for res, amt in station['cargo']['resources'].items():
-            print(f"   {res}: {amt}")
-        print("-" * 40)
-        #self.disp_market()
-            
-        index =1
-        for sid in self.sid:
-            try:
-                ship = self.get(f"/ship/{sid}")
-            except Exception as e:
-                print(f"Erreur récupération du vaisseau {sid}: {e}")
-                continue
-            if index>=3:
-                break
-            print(f"=== SHIP {index} ===")
-            print(f"État        : {ship.get('state')}")
-            print(f"Position    : {ship.get('position')}")
-            print(f"Fuel        : {ship.get('fuel_tank')} / {ship.get('fuel_tank_capacity')}")
-            print(f"Hull        : {ship['hull_decay_capacity'] - ship['hull_decay']} / {ship['hull_decay_capacity']}")
-            print(f"Reactor     : {ship.get('reactor_power')} for {ship["stats"]["speed"]}")
-            print(f"Cargo       : {ship['cargo']['usage']} / {ship['cargo']['capacity']}")
-            for module in ship.get('modules').values():
-                print(f'Module : {module}')
-            print("Crew        :")
-            for member in ship.get('crew', {}).values():
-                print(f" - {member['member_type']} (rank {member['rank']})")
-            print("Ressources  :")
-            for res, amt in ship['cargo']['resources'].items():
-                print(f"   {res}: {amt}")
-            print("-" * 40)
-            index+=1
+            table.add_row(f"  {res}", str(amt))
+        
+        return Panel(table, title="STATION", border_style="cyan",width=panel_width)
+
+
+    def build_ship_panel(self,index, ship):
+        table = Table.grid()
+        table.add_row("[bold magenta]État[/bold magenta]", str(ship.get('state')))
+        table.add_row("Position", str(ship.get('position')))
+        table.add_row("Fuel", f"{ship.get('fuel_tank')} / {ship.get('fuel_tank_capacity')}")
+        table.add_row("Hull", f"{ship['hull_decay_capacity'] - ship['hull_decay']} / {ship['hull_decay_capacity']}")
+        table.add_row("Reactor", f"{ship.get('reactor_power')} for {ship['stats']['speed']}")
+        table.add_row("Cargo", f"{ship['cargo']['usage']} / {ship['cargo']['capacity']}")
+
+        for module in ship.get('modules', {}).values():
+            table.add_row("Module", str(module))
+
+        for member in ship.get('crew', {}).values():
+            table.add_row("Crew", f"{member['member_type']} (rank {member['rank']})")
+
+        for res, amt in ship['cargo']['resources'].items():
+            table.add_row(f"  {res}", str(amt))
+
+        return Panel(table, title=f"SHIP {index}", border_style="red",width=panel_width)
+
+    def build_player_panel(self):
+        status = game.get("/player/" + str(self.pid))
+        money = round(status["money"], 2)
+        tbd =  int(status["money"] / status["costs"])
+        num_ships = len(self.sid)
+        cost_per_sec = round(status["costs"], 2)
+        
+        time_played_fmt = str(datetime.now()-self.startTime).split('.')[0]  # Removes microseconds
+
+
+        table = Table.grid()
+        table.add_row("[bold yellow]Money : [/bold yellow]", f"{money:,.2f} ¤")
+        table.add_row("Time Before Death : ", str(tbd))
+        table.add_row("Number of Ships : ", str(num_ships))
+        table.add_row("Costs per second : ", f"{cost_per_sec:,.2f} ¤/s")
+        table.add_row("Time Played", time_played_fmt)
+
+        return Panel(table, title=f"PLAYER {status["name"]}", border_style="yellow",width=panel_width)
+
+    def display_dashboard(self):
+        with Live(refresh_per_second=3, screen=True) as live:
+            while True:
+                try:
+                    station = self.get(f'/station/{self.sta}')
+                    ships = []
+                    for sid in self.sid[:2]:
+                        try:
+                            ship = self.get(f"/ship/{sid}")
+                            ships.append(ship)
+                        except Exception as e:
+                            ships.append({"state": f"Erreur récupération: {e}"})
+                except Exception as e:
+                    live.update(Panel(f"[bold red]Erreur récupération des données: {e}[/bold red]"))
+                    time.sleep(2)
+                    continue
+
+                panels = [self.build_player_panel(),self.build_station_panel(station)]
+                for index, ship in enumerate(ships, start=1):
+                    panels.append(self.build_ship_panel(index, ship))
+
+                layout = Table.grid(padding=1)
+                for panel in panels:
+                    layout.add_row(panel)
+
+                live.update(layout)
+                time.sleep(0.3)
+
 
     def expand_station_storage_if_needed_by_volume(self, sid, logger):
         ship = self.get(f"/ship/{sid}")

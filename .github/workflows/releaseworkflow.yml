@@ -68,11 +68,13 @@ jobs:
                     mv debbuild.deb target/release/simeis-server-${VERSION}.deb
 
 
-      - name: Build and export Docker image
+      - name: Build Docker image
         run: |
-          cp target/release/simeis-server .
-          docker build -t simeis-server:${VERSION} .
-          docker save simeis-server:${VERSION} -o target/release/simeis-server-docker-${VERSION}.tar
+          docker build -f .github/Dockerfile -t simeis-docker-image .
+
+      - name: Save Docker image to archive
+        run: |
+          docker image save -o simeis-docker-image.tar simeis-docker-image
 
       - name: Release the new binaries
         uses: mini-bomba/create-github-release@v1.1.3
@@ -90,6 +92,6 @@ jobs:
             target/release/simeis-server.exe
             target/release/libsimeis_data.rlib
             target/release/simeis-server-${{ env.VERSION }}.deb
-            target/release/simeis-server-docker-${{ env.VERSION }}.tar
             doc/manual.pdf
+            simeis-docker-image.tar
           clear_attachments: true

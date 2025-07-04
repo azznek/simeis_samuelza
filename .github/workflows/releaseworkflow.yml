@@ -100,9 +100,21 @@ jobs:
         run: |
           docker load -i simeis-docker-image.tar
 
-      - name: Run container and check output
+      - name: Run and test server container
         run: |
-          docker run --rm simeis-docker-image --help
+          docker run -d --name simeis-server-test -p 8080:8080 simeis-docker-image
+
+          sleep 5
+
+          curl --fail http://localhost:8080/ping || {
+            echo "Server failed health check"
+            docker logs simeis-server-test
+            docker rm -f simeis-server-test
+            exit 1
+          }
+            
+          docker rm -f simeis-server-test
+
           
       - name: Release the new binaries
         uses: mini-bomba/create-github-release@v1.1.3

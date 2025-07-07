@@ -182,6 +182,8 @@ jobs:
 
       - name: Download .deb from GitHub Release
         run: |
+          mkdir -p artifact
+
           curl -L -o ./artifact/simeis-server-Samuelza-${{ env.VERSION }}.deb \
             https://github.com/azznek/simeis_samuelza/releases/download/v${{ env.VERSION }}/simeis-server-Samuelza-${{ env.VERSION }}.deb
 

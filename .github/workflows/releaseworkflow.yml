@@ -180,11 +180,11 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
 
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: simeis-server-Samuelza-${{ env.VERSION }}.deb
-          path: ./artifact
+      - name: Download .deb from GitHub Release
+        run: |
+          curl -L -o ./artifact/simeis-server-Samuelza-${{ env.VERSION }}.deb \
+            https://github.com/azznek/simeis_samuelza/releases/download/v${{ env.VERSION }}/simeis-server-Samuelza-${{ env.VERSION }}.deb
+
 
       - name: Copy artifact to VPS
         uses: appleboy/scp-action@v0.1.7

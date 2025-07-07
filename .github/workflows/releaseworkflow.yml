@@ -161,11 +161,54 @@ jobs:
       #     platforms: linux/amd64
       #     push: true
       #     tags: samuelza/simeis
-      
 
 
+
+
+  install_release_on_server:
+    needs: create_release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release-deb
+          path: ./artifact
+
+      - name: Copy artifact to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: student
+          key: ${{ secrets.VPS_KEY }}
+          source: ./artifact/simeis-server-Samuelza-*.deb
+          target: /home/student/Samuelza
         
+      - name: install and launch server on VPS
+        run: |
+          ssh -i ${{secrets.VPS_KEY}} student@${{secrets.VPS_HOST}} 'sudo apt install ./simeis-server_Samuelza-${{ env.VERSION }}.deb'
+
+      - name: Test server release version
+        run: |
+            ssh -i ${{secrets.VPS_KEY}} student@${{secrets.VPS_HOST}} 'simeis-server_Samuelza'
+
+            echo "Waiting for server to be ready..."
+            while true; do
+            if curl -s http://localhost:1818/ping | grep -q "pong"; then
+                echo "Server is up!"
+                break
+            fi
+            echo "Server not ready yet, retrying..."
+            sleep 5
+            done
 
 
-
-        
+            # Run your tests
+            echo "Testing server version..."
+            
+            if curl -s http://localhost:1818/version | grep -q "1.0.5"; then
+                echo "1.0.5 version"
+                break
+            fi
+            echo "Another version"
+            

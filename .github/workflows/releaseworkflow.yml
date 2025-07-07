@@ -80,7 +80,7 @@ jobs:
           EOF
 
                   cat <<EOF > debbuild/DEBIAN/control
-          Package: simeis-server
+          Package: simeis-server-Samuelza
           Version: ${VERSION}
           Section: base
           Priority: optional

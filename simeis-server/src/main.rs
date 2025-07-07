@@ -12,7 +12,7 @@ async fn main() -> std::io::Result<()> {
     std::env::set_var("RUST_LOG", "debug");
 
     #[cfg(not(feature = "testing"))]
-    let port = 845;
+    let port = 1818;
 
     #[cfg(feature = "testing")]
     let port = 9345;

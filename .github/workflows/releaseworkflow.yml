@@ -177,7 +177,7 @@ jobs:
           VERSION="${BRANCH_NAME#release/}"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "TAG=v$VERSION" >> $GITHUB_ENV
-          echo "version=$VERSION" >> 
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
 
       - name: Download .deb from GitHub Release

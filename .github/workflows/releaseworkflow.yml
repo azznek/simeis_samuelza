@@ -56,7 +56,7 @@ jobs:
           mkdir -p debbuild/usr/local/bin
           mkdir -p debbuild/usr/local/man/
 
-          cp target/release/simeis-server debbuild/usr/local/bin/
+          cp target/release/simeis-server debbuild/usr/local/bin/simeis-server-Samuelza
                   
                   cat <<EOF > debbuild/usr/local/man/simeis
 
@@ -80,7 +80,7 @@ jobs:
           EOF
 
                   cat <<EOF > debbuild/DEBIAN/control
-          Package: simeis-server
+          Package: simeis-server-Samuelza
           Version: ${VERSION}
           Section: base
           Priority: optional
@@ -89,7 +89,7 @@ jobs:
           Description: Serveur simeis compilé en Rust
           EOF
                     dpkg-deb --build debbuild
-                    mv debbuild.deb target/release/simeis-server-${VERSION}.deb
+                    mv debbuild.deb target/release/simeis-server-Samuelza-${VERSION}.deb
 
 
       - name: Build Docker image

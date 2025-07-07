@@ -11,8 +11,9 @@ COPY target/release/simeis-server-*.deb /tmp/simeis.deb
 RUN apt-get update && apt-get install -y /tmp/simeis.deb || apt-get -f install -y && \
     rm -rf /var/lib/apt/lists/*
 
-EXPOSE 8080
+EXPOSE 854
 
-CMD ["simeis-server"]
-ENTRYPOINT ["simeis-server"]
+CMD ["simeis-server-Samuelza"]
+ENTRYPOINT ["simeis-server-Samuelza"]
+
 

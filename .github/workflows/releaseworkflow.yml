@@ -210,8 +210,10 @@ jobs:
 
       - name: Test server release version
         run: |
-            ssh -o StrictHostKeyChecking=no -i key student@${{secrets.VPS_HOST}} 'simeis-server-Samuelza'
-
+            ssh -o StrictHostKeyChecking=no -i key student@${{ secrets.VPS_HOST }} << 'EOF'
+                  nohup /home/student/Samuelza/simeis-server-Samuelza > /dev/null 2>&1 < /dev/null &
+                EOF
+                
             echo "Waiting for server to be ready..."
             while true; do
             if curl -s http://${{secrets.VPS_HOST}}:1818/ping | grep -q "pong"; then

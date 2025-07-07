@@ -210,7 +210,7 @@ jobs:
 
       - name: Test server release version
         run: |
-            ssh -o StrictHostKeyChecking=no -i key student@${{secrets.VPS_HOST}} 'simeis-server_Samuelza'
+            ssh -o StrictHostKeyChecking=no -i key student@${{secrets.VPS_HOST}} 'simeis-server-Samuelza'
 
             echo "Waiting for server to be ready..."
             while true; do

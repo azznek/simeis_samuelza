@@ -213,6 +213,7 @@ jobs:
             ssh -o StrictHostKeyChecking=no -i key student@${{ secrets.VPS_HOST }} << 'EOF'
                   nohup /home/student/Samuelza/simeis-server-Samuelza > /dev/null 2>&1 < /dev/null &
                 EOF
+<<<<<<< HEAD
             
             
             ssh -o StrictHostKeyChecking=no -i key student@${{ secrets.VPS_HOST }} << 'EOF'
@@ -220,6 +221,10 @@ jobs:
               sudo apt-get install -y curl
             EOF
             
+=======
+                
+
+>>>>>>> 5b49f80e53e8e5ecd7c8819c0d613988d782249f
             echo "Waiting for server to be ready..."
             while true; do
             if curl -s http://${{secrets.VPS_HOST}}:1818/ping | grep -q "pong"; then

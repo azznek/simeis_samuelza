@@ -167,7 +167,6 @@ jobs:
         
 
 
-
   install_release_on_server:
     needs: create_release
     runs-on: ubuntu-latest
@@ -175,7 +174,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: release-deb
+          name: simeis-server-Samuelza-${{ env.VERSION }}.deb
           path: ./artifact
 
       - name: Copy artifact to VPS
@@ -197,7 +196,7 @@ jobs:
 
             echo "Waiting for server to be ready..."
             while true; do
-            if curl -s http://localhost:1818/ping | grep -q "pong"; then
+            if curl -s http://${{secrets.VPS_HOST}}:1818/ping | grep -q "pong"; then
                 echo "Server is up!"
                 break
             fi
@@ -209,7 +208,7 @@ jobs:
             # Run your tests
             echo "Testing server version..."
             
-            if curl -s http://localhost:1818/version | grep -q "1.0.5"; then
+            if curl -s http://${{secrets.VPS_HOST}}:1818/version | grep -q "1.0.5"; then
                 echo "1.0.5 version"
                 break
             fi

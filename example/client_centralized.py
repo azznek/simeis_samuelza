@@ -1,6 +1,6 @@
 PORT=8080
-#URL=f"http://127.0.0.1:{PORT}"
-URL=f"http://103.45.247.164:{PORT}"
+URL=f"http://127.0.0.1:{PORT}"
+#URL=f"http://103.45.247.164:{PORT}"
 
 import os
 import sys
@@ -74,6 +74,8 @@ class Game:
            {"type": "operator", "min_rank": 3, "threshold_secs": 60},
            {"type": "reactor", "min_power": 4, "threshold_secs": 60},
            {"type": "cargo", "min_capacity": 500, "threshold_secs": 60},
+           {"type": "trader", "min_rank": 2, "threshold_secs": 60},
+
            {"type": "operator", "min_rank": 11, "threshold_secs": 60},
            {"type": "pilot", "min_rank": 2, "threshold_secs": 60},
            {"type": "reactor", "min_power": 6, "threshold_secs": 60},
@@ -86,7 +88,9 @@ class Game:
            {"type": "cargo", "min_capacity": 35000, "threshold_secs": 60},     
            {"type": "operator", "min_rank": 3, "threshold_secs": 60},     
 
-           {"type": "nextmod", "mod_number": 3, "threshold_secs": 60},     
+           {"type": "nextmod", "mod_number": 20 , "threshold_secs": 60},     
+           {"type": "cargo", "min_capacity": 100000, "threshold_secs": 60},     
+
         ]
 
     def get(self, path, **qry):
@@ -309,8 +313,11 @@ class Game:
         
 
         mod_id = self.get(f"/station/{self.sta}/shop/modules/{sid}/buy/{modtype}")["id"]
-
+        logger.info("hihi")
+        logger.info(mod_id)
         op = self.get(f"/station/{self.sta}/crew/hire/operator")["id"]
+        logger.info("hihi")
+        logger.info(op)
         self.get(f"/station/{self.sta}/crew/assign/{op}/{sid}/{mod_id}")
 
 
@@ -461,13 +468,15 @@ class Game:
             logger.info(f'[TEST] {crew}')
             pilot_key, pilot = next(((k, v) for k, v in crew.items() if v.get('member-type') == 'Pilot'), (None, {}))
             operators = {k: v for k, v in crew.items() if v.get('member-type') == 'Operator'}
+            
             modules = self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade')
             module_info = ship.get('modules', {}).get('1', {})
 
             upgraded = False
 
             for i, step in enumerate(self.UPGRADE_PATH):
-                logger.info(step)
+                #logger.info(step)
+                
                 previous_steps = self.UPGRADE_PATH[:i]
                 if not all(self.step_is_satisfied(ship, crew, prev) for prev in previous_steps):
                     logger.info(f"[*{sid}] Waiting for previous steps to complete before '{step['type']}' upgrade.")
@@ -525,16 +534,20 @@ class Game:
                         upgraded = True
                         break
 
-                elif t == "module" and module_info.get("rank", 0) <= step["min_rank"]:
-                    mod_price = modules.get('1', {}).get("price")
-                    if mod_price and player_money > mod_price + step_threshold:
-                        self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade/1')
-                        logger.info(f"[*{sid}] Upgraded module to rank {module_info['rank'] + 1}")
-                        upgraded = True
-                        break
+                elif t == "module":
+                    for module_id, mod_info in ship.get("modules", {}).items():
+                        mod_rank = mod_info.get("rank", 0)
+                        if mod_rank <= step["min_rank"]:
+                            mod_price = modules.get(str(module_id), {}).get("price")
+                            if mod_price and player_money > mod_price + step_threshold:
+                                self.get(f'/station/{self.sta}/shop/modules/{sid}/upgrade/{module_id}')
+                                logger.info(f"[*{sid}] Upgraded module {module_id} to rank {mod_rank + 1}")
+                                upgraded = True
+                                break
 
-                elif t == "nextmod" and step['mod_number']<=len(ship['modules']):
+                elif t == "nextmod" and step['mod_number']>len(ship['modules']):
                     ship = self.get(f'/ship/{sid}')
+                    logger.info('even?????????????')
                     modtype = ship['modules']['1']['modtype']
                     price_mod =  self.get(f"/station/{self.sta}/shop/modules")[modtype]
                     if price_mod and player_money > price_mod + step_threshold:
@@ -570,6 +583,8 @@ class Game:
         elif t == "module":
             return ship["modules"].get("1", {}).get("rank", 0) > step["min_rank"]
         elif t == "nextmod":
+            operators = [v for v in crew.values() if v.get('member-type') == 'Operator']
+            
             return len(operators) >= step["mod_number"]
         return True
 
@@ -592,7 +607,8 @@ class Game:
         for sid in self.sid:
             ship = self.get(f"/ship/{sid}")
             crew = ship['crew']
-            
+
+
             pilot = next((v for v in crew.values() if v.get('member_type') == 'Pilot'), None)
             operator = next((v for v in crew.values() if v.get('member_type') == 'Operator'), None)
 
@@ -637,7 +653,7 @@ class Game:
         return Panel(table, title="STATION", border_style="cyan",width=panel_width)
 
 
-    def build_ship_panel(self,index, ship):
+    def build_ship_panel(self, index, ship):
         table = Table.grid()
         table.add_row("[bold magenta]État[/bold magenta]", str(ship.get('state')))
         table.add_row("Position", str(ship.get('position')))
@@ -646,16 +662,43 @@ class Game:
         table.add_row("Reactor", f"{ship.get('reactor_power')} for {ship['stats']['speed']}")
         table.add_row("Cargo", f"{ship['cargo']['usage']} / {ship['cargo']['capacity']}")
 
-        for module in ship.get('modules', {}).values():
-            table.add_row("Module", str(module))
+        # MODULES
+        modules = ship.get('modules', {})
+        if len(modules) > 3:
+            levels = [mod.get("rank", 0) for mod in modules.values()]
+            avg = sum(levels) / len(levels) if levels else 0
+            table.add_row("Modules", str(len(modules)))
+            table.add_row("Avg Lvl (min-max)", f"{avg:.2f} ({min(levels)}–{max(levels)})")
+        else:
+            for module in modules.values():
+                table.add_row("Module", str(module))
 
-        for member in ship.get('crew', {}).values():
-            table.add_row("Crew", f"{member['member_type']} (rank {member['rank']})")
+        # CREW: grouped by job
+        crew = ship.get('crew', {})
 
+        crew_by_job = {"Operator": [], "Pilot": []}
+        for member in crew.values():
+            job = member.get("member_type")
+            if job in crew_by_job:
+                crew_by_job[job].append(member)
+
+        for job, members in crew_by_job.items():
+            if not members:
+                continue
+            if len(members) > 3:
+                ranks = [m.get("rank", 0) for m in members]
+                avg_rank = sum(ranks) / len(ranks)
+                table.add_row(f"{job}s", f"{len(members)}")
+                table.add_row(f"{job}s Rank (min–max)", f"{avg_rank:.2f} ({min(ranks)}–{max(ranks)})")
+            else:
+                for m in members:
+                    table.add_row(job, f"(rank {m['rank']})")
+                    
+        # RESOURCES
         for res, amt in ship['cargo']['resources'].items():
             table.add_row(f"  {res}", str(amt))
 
-        return Panel(table, title=f"SHIP {index}", border_style="red",width=panel_width)
+        return Panel(table, title=f"SHIP {index}", border_style="red", width=panel_width)
 
     def build_player_panel(self):
         status = game.get("/player/" + str(self.pid))

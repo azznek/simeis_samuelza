@@ -187,7 +187,11 @@ jobs:
           curl -L -o ./artifact/simeis-server-Samuelza-${{ env.VERSION }}.deb \
             https://github.com/azznek/simeis_samuelza/releases/download/v${{ env.VERSION }}/simeis-server-Samuelza-${{ env.VERSION }}.deb
 
-
+      - name: Write SSH key to file
+        run: |
+          echo "${{ secrets.VPS_KEY }}" > key
+          chmod 600 key
+          
       - name: Copy artifact to VPS
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -197,9 +201,14 @@ jobs:
           source: ./artifact/simeis-server-Samuelza-*.deb
           target: /home/student/Samuelza
         
-      - name: install and launch server on VPS
+      - name: Install and launch server on VPS
         run: |
-          ssh -i ${{secrets.VPS_KEY}} student@${{secrets.VPS_HOST}} 'sudo apt install ./simeis-server_Samuelza-${{ env.VERSION }}.deb'
+          ssh -o StrictHostKeyChecking=no -i key student@${{ secrets.VPS_HOST }} \
+            "sudo apt install -y /home/student/Samuelza/simeis-server-Samuelza-${{ env.VERSION }}.deb"
+      
+      - name: Clean up SSH key
+        run: rm -f key
+
 
       - name: Test server release version
         run: |

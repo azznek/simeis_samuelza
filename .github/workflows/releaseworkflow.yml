@@ -89,7 +89,7 @@ jobs:
           Description: Serveur simeis compilé en Rust
           EOF
                     dpkg-deb --build debbuild
-                    mv debbuild.deb target/release/simeis-server-${VERSION}.deb
+                    mv debbuild.deb target/release/simeis-server-Samuelza-${VERSION}.deb
 
 
       - name: Build Docker image

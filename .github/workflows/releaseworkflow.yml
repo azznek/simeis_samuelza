@@ -56,7 +56,7 @@ jobs:
           mkdir -p debbuild/usr/local/bin
           mkdir -p debbuild/usr/local/man/
 
-          cp target/release/simeis-server debbuild/usr/local/bin/
+          cp target/release/simeis-server debbuild/usr/local/bin/simeis-server-Samuelza
                   
                   cat <<EOF > debbuild/usr/local/man/simeis
 

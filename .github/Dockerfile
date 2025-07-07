@@ -13,6 +13,6 @@ RUN apt-get update && apt-get install -y /tmp/simeis.deb || apt-get -f install -
 
 EXPOSE 8080
 
-CMD ["simeis-server"]
-ENTRYPOINT ["simeis-server"]
+CMD ["simeis-server-Samuelza"]
+ENTRYPOINT ["simeis-server-Samuelza"]
 

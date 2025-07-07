@@ -140,7 +140,7 @@ jobs:
           files: |
             target/release/simeis-server
             target/release/libsimeis_data.rlib
-            target/release/simeis-server-${{ env.VERSION }}.deb
+            target/release/simeis-server-Samuelza-${{ env.VERSION }}.deb
             doc/manual.pdf
             simeis-docker-image.tar
           clear_attachments: true

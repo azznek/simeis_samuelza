@@ -206,7 +206,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i key student@${{ secrets.VPS_HOST }} \
             "sudo apt install -y /home/student/Samuelza/simeis-server-Samuelza-${{ env.VERSION }}.deb"
       
-      
 
 
       - name: Test server release version

@@ -3,18 +3,16 @@ FROM debian:bookworm-slim
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        curl \
         ca-certificates \
-        build-essential \
-        gcc \
-        libssl-dev \
-        pkg-config \
-        git \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain 1.85.0
+COPY target/release/simeis-server-*.deb /tmp/simeis.deb
 
-ENV PATH="/root/.cargo/bin:${PATH}"
+RUN apt-get update && apt-get install -y /tmp/simeis.deb || apt-get -f install -y && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN cargo build --release\
-    cargo run --release 
+EXPOSE 8080
+
+CMD ["simeis-server"]
+ENTRYPOINT ["simeis-server"]
+

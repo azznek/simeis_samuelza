@@ -1,8 +1,7 @@
-PORT=8080
-#URL=f"http://127.0.0.1:{PORT}"
-URL=f"http://103.45.247.164:{PORT}"
-
-
+PORT=845
+URL=f"http://127.0.0.1:{PORT}"
+#URL=f"http://103.45.247.164:{PORT}"
+   
 import os
 import sys
 import math
@@ -730,74 +729,4 @@ if __name__ == "__main__":
     name = sys.argv[1]
     game = Game(name)
     game.init_game()
-    launched_ships = set()
-    lock = threading.Lock()
-
-    def continuous_ship_loop(sid,index):
-            playerName = game.get(f"/player/{game.pid}")['name']
-            thread_name = f"{playerName}-Ship-{index}"
-            logger = get_thread_logger(thread_name)
-            
-            while True:
-                try:
-                    game.ship_cycle(sid,logger)
-                    logger.info('Completed a cycle')
-                except Exception as e:
-                    logger.error(f"[Ship {sid}] Error: {e}")
-                time.sleep(0.5)
-
-    def check_and_buy_loop():
-        playerName = game.get(f"/player/{game.pid}")['name']
-        thread_name = f"{playerName}-CheckBuyThread"
-        logger = get_thread_logger(thread_name)
-        while True:
-            try:
-                game.check_for_next_ship(logger)
-                game.buy_new_ship_if_ready(logger)
-                logger.info("Checked and bought ship if ready")
-                current_ships = game.sid
-                with lock:
-                    for index,sid in enumerate(current_ships):
-                        if sid not in launched_ships:
-                            logger.info(f'Lauching new thread for ship {sid}')
-                            t = threading.Thread(target=continuous_ship_loop, args=(sid, index), daemon=True, name=f"ShipThread-{index}")
-                            t.start()
-                            launched_ships.add(sid)
-            except Exception as e:
-                logger.error(f"[Check/Buy] Error: {e}")
-            time.sleep(15)
-
-    
-    def get_thread_logger(thread_name):
-            
-            os.makedirs("logs", exist_ok=True)
-
-
-            logger = logging.getLogger(thread_name)
-            logger.setLevel(logging.INFO)
-            
-            # Avoid adding multiple handlers if logger already has handlers
-            if not logger.hasHandlers():
-                handler = logging.FileHandler(f'logs/{thread_name}.log', mode='a')
-                formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s')
-                handler.setFormatter(formatter)
-                logger.addHandler(handler)
-            return logger
-
-    for index, sid in enumerate(game.sid):
-            t = threading.Thread(target=continuous_ship_loop, args=(sid, index), daemon=True, name=f"ShipThread-{index}")
-            t.start()
-            launched_ships.add(sid)
-
-    print('coucou')    
-    print('Recoucou')
-    print(f"[*] Starting threads for {len(game.sid)} ships")
-
-    
-
-    threading.Thread(target=check_and_buy_loop, daemon=True, name="CheckBuyThread").start()
-
-    while True:
-        time.sleep(10)  # keep main thread alive
-
-
+    print(game.get(f'/ping'))

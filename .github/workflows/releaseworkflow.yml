@@ -169,6 +169,15 @@ jobs:
     needs: create_release
     runs-on: ubuntu-latest
     steps:
+      - name: Extract version from branch name
+        run: |
+          BRANCH_NAME="${{ github.event.pull_request.base.ref }}"
+          VERSION="${BRANCH_NAME#release/}"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "TAG=v$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION" >> $GITHUB_OUTP
+
+          
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:

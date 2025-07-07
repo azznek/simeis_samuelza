@@ -206,13 +206,12 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i key student@${{ secrets.VPS_HOST }} \
             "sudo apt install -y /home/student/Samuelza/simeis-server-Samuelza-${{ env.VERSION }}.deb"
       
-      - name: Clean up SSH key
-        run: rm -f key
+      
 
 
       - name: Test server release version
         run: |
-            ssh -i ${{secrets.VPS_KEY}} student@${{secrets.VPS_HOST}} 'simeis-server_Samuelza'
+            ssh -o StrictHostKeyChecking=no -i key student@${{secrets.VPS_HOST}} 'simeis-server_Samuelza'
 
             echo "Waiting for server to be ready..."
             while true; do
@@ -233,4 +232,7 @@ jobs:
                 break
             fi
             echo "Another version"
+
+      - name: Clean up SSH key
+        run: rm -f key
             

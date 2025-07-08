@@ -1,6 +1,6 @@
-PORT=845
-URL=f"http://127.0.0.1:{PORT}"
-#URL=f"http://103.45.247.164:{PORT}"
+PORT= 1818
+#URL=f"http://127.0.0.1:{PORT}"
+URL=f"http://103.45.247.164:{PORT}"
    
 import os
 import sys
@@ -729,4 +729,4 @@ if __name__ == "__main__":
     name = sys.argv[1]
     game = Game(name)
     game.init_game()
-    print(game.get(f'/ping'))
+    print(game.get(f'/version'))

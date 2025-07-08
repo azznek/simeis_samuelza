@@ -204,25 +204,28 @@ jobs:
       - name: Install and launch server on VPS
         run: |
           ssh -o StrictHostKeyChecking=no -i key student@${{ secrets.VPS_HOST }} \
-            "sudo apt install -y /home/student/Samuelza/artifact/simeis-server-Samuelza-${{ env.VERSION }}.deb"
-      
+            "sudo apt install -y ./home/student/Samuelza/artifact/simeis-server-Samuelza-${{ env.VERSION }}.deb"
+  
+          ssh -o StrictHostKeyChecking=no -i key student@${{ secrets.VPS_HOST }}       "nohup simeis-server-Samuelza >/dev/null 2>&1 &"
 
+        
+          echo "server launched"
+          
+          ssh -o StrictHostKeyChecking=no -i key student@${{ secrets.VPS_HOST }} << 'EOF'
+            sudo apt-get update
+            sudo apt-get install -y curl
+          EOF
+          
 
-      - name: Test server release version
-        run: |
-            ssh -o StrictHostKeyChecking=no -i key student@${{ secrets.VPS_HOST }} "nohup simeis-server-Samuelza >/dev/null 2>&1 &"
+          VERSION_RESPONSE=$(curl -s http://${{ secrets.VPS_HOST }}:1818/version || echo "unreachable")
 
-            ssh -o StrictHostKeyChecking=no -i key student@${{ secrets.VPS_HOST }} << 'EOF'
-              sudo apt-get update
-              sudo apt-get install -y curl
-            EOF
-            
+          if echo "$VERSION_RESPONSE" | grep -q "1.0.5"; then
+            echo "Correct version running: 1.0.5"
+          else
+            echo "Wrong version or server not running"
+            echo "Response: $VERSION_RESPONSE"
+          fi
 
-            if curl -s http://${{secrets.VPS_HOST}}:1818/version | grep -q "1.0.5"; then
-                echo "1.0.5 version"
-                break
-            fi
-            echo "Another version"
 
       - name: Clean up SSH key
         run: rm -f key

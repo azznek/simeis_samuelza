@@ -204,7 +204,7 @@ jobs:
       - name: Install and launch server on VPS
         run: |
           ssh -o StrictHostKeyChecking=no -i key student@${{ secrets.VPS_HOST }} \
-            "sudo apt install -y ./home/student/Samuelza/artifact/simeis-server-Samuelza-${{ env.VERSION }}.deb"
+            "sudo apt install -y /home/student/Samuelza/artifact/simeis-server-Samuelza-${{ env.VERSION }}.deb"
   
           ssh -o StrictHostKeyChecking=no -i key student@${{ secrets.VPS_HOST }}       "nohup simeis-server-Samuelza >/dev/null 2>&1 &"
 

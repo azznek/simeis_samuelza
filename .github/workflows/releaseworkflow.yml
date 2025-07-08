@@ -218,9 +218,9 @@ jobs:
           EOF
           
 
-          VERSION_RESPONSE=$(curl -s http://${{ secrets.VPS_HOST }}:1818/version || echo "unreachable")
+          VERSION_RESPONSE=$(curl -s http://${{ secrets.VPS_HOST }}:1818/ping || echo "unreachable")
 
-          if echo "$VERSION_RESPONSE" | grep -q "1.0.5"; then
+          if echo "$VERSION_RESPONSE" | grep -q "pong"; then
             echo "Correct version running: 1.0.5"
           else
             echo "Wrong version or server not running"

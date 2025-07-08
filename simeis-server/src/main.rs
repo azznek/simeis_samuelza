@@ -12,7 +12,7 @@ async fn main() -> std::io::Result<()> {
     std::env::set_var("RUST_LOG", "debug");
 
     #[cfg(not(feature = "testing"))]
-    let port = 845;
+    let port = 1818;
 
     #[cfg(feature = "testing")]
     let port = 9345;
@@ -36,7 +36,7 @@ async fn main() -> std::io::Result<()> {
             .configure(api::configure)
     })
     .stop_runtime()
-    .bind(("127.0.0.1", port))?
+    .bind(("0.0.0.0", port))?
     .run()
     .await;
 

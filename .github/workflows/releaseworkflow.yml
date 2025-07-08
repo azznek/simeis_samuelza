@@ -226,6 +226,7 @@ jobs:
             echo "Response: $VERSION_RESPONSE"
           fi
 
+
       - name: Clean up SSH key
         run: rm -f key
             
